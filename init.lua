@@ -46,4 +46,4 @@ vim.cmd [[
 require('plugins') -- lua/plugins.lua
 require('tele_scope') -- lua/tele_scope.lua
 require('treesitter') -- lua/treesitter.lua
-
+require('colorscheme') -- lua/colorscheme.lua
