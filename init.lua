@@ -61,3 +61,4 @@ require('tele_scope') -- lua/tele_scope.lua
 require('treesitter') -- lua/treesitter.lua
 require('colorscheme') -- lua/colorscheme.lua
 require('statusline') -- lua/statusline.lua
+require('nvimtree') -- lua/nvimtree.lua
