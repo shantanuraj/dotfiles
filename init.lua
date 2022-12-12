@@ -62,3 +62,4 @@ require('statusline') -- lua/statusline.lua
 require('nvimtree') -- lua/nvimtree.lua
 require('splits') -- lua/splits.lua
 require('commentary') -- lua/comment.lua
+require('completion') -- lua/completion.lua
