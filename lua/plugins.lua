@@ -42,5 +42,9 @@ return require('packer').startup(function(use)
     },
     tag = 'nightly'
   }
+
+  -- Maximizes and restores current window
+  use("szw/vim-maximizer")
+
 end)
 
