@@ -42,6 +42,9 @@ vim.o.wildignore = vim.o.wildignore .. ".DS_Store" -- ignore OS files
 -- clipboard
 vim.o.clipboard = "unnamedplus" -- copy to system clipboard
 
+-- Replace word under cursor
+vim.api.nvim_set_keymap('n', '<Leader>s', ':%s/\\<<C-r><C-w>\\>//', {noremap = true})
+
 -- trim trailing whitespace
 vim.cmd [[
   autocmd BufWritePre * %s/\s\+$//e
