@@ -24,6 +24,7 @@ vim.o.shiftwidth = 2 -- number of space to use for indent
 vim.o.smarttab = true -- insert `shiftwidth` spaces instead of tabs
 vim.o.softtabstop = 2 -- n spaces when using <Tab>
 vim.o.tabstop = 2 -- n spaces when using <Tab>
+vim.o.autoindent = true -- copy indent from current line when starting a new line
 
 -- search and replace
 vim.o.ignorecase = true -- ignore case when searching
@@ -37,6 +38,9 @@ vim.o.wildignore = vim.o.wildignore .. "*.png,*.jpg,*.jpeg,*.gif" -- ignore imag
 vim.o.wildignore = vim.o.wildignore .. "*.pdf,*.dmg" -- ignore binary files
 vim.o.wildignore = vim.o.wildignore .. ".*.sw*,*~" -- ignore editor files
 vim.o.wildignore = vim.o.wildignore .. ".DS_Store" -- ignore OS files
+
+-- clipboard
+vim.o.clipboard = "unnamedplus" -- copy to system clipboard
 
 -- trim trailing whitespace
 vim.cmd [[
