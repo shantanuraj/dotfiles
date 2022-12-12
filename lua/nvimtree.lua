@@ -11,6 +11,10 @@ vim.g.loaded_netrwPlugin = 1
 -- change color for arrows in tree to light blue
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
+-- Keymap
+local keymap = vim.keymap
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
+
 -- configure nvim-tree
 nvimtree.setup({
   -- change folder arrow icons
