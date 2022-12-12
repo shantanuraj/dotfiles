@@ -64,4 +64,5 @@ require('splits') -- lua/splits.lua
 require('commentary') -- lua/comment.lua
 require('completion') -- lua/completion.lua
 require('lsp.mason') -- lua/lsp/mason.lua
+require('lsp.lspsaga') -- lua/lsp/lspsaga.lua
 require('lsp.lspconfig') -- lua/lsp/lspconfig.lua
