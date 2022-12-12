@@ -63,3 +63,5 @@ require('nvimtree') -- lua/nvimtree.lua
 require('splits') -- lua/splits.lua
 require('commentary') -- lua/comment.lua
 require('completion') -- lua/completion.lua
+require('lsp.mason') -- lua/lsp/mason.lua
+require('lsp.lspconfig') -- lua/lsp/lspconfig.lua
