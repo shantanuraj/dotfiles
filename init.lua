@@ -47,9 +47,6 @@ vim.o.clipboard = "unnamedplus" -- copy to system clipboard
 vim.o.splitbelow = true -- put new windows below current
 vim.o.splitright = true -- put new windows right of current
 
--- Replace word under cursor
-vim.api.nvim_set_keymap('n', '<Leader>w', ':%s/\\<<C-r><C-w>\\>//', {noremap = true})
-
 -- trim trailing whitespace
 vim.cmd [[
   autocmd BufWritePre * %s/\s\+$//e
@@ -57,6 +54,7 @@ vim.cmd [[
 
 -- include packer
 require('plugins') -- lua/plugins.lua
+require('keymaps') -- lua/keymaps.lua
 require('tele_scope') -- lua/tele_scope.lua
 require('treesitter') -- lua/treesitter.lua
 require('colorscheme') -- lua/colorscheme.lua
