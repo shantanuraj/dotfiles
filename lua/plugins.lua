@@ -46,5 +46,8 @@ return require('packer').startup(function(use)
   -- Maximizes and restores current window
   use("szw/vim-maximizer")
 
+  -- Add, delete, change surroundings
+  use("tpope/vim-surround")
+
 end)
 
