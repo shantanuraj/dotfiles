@@ -49,5 +49,7 @@ return require('packer').startup(function(use)
   -- Add, delete, change surroundings
   use("tpope/vim-surround")
 
+  -- Commenting with gc
+  use("numToStr/Comment.nvim")
 end)
 
