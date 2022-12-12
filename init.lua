@@ -7,6 +7,7 @@ vim.o.errorbells = false
 vim.o.smartcase = true
 vim.o.showmode = false
 vim.o.number = true
+vim.o.relativenumber = true
 
 -- encoding
 vim.o.encoding = "utf-8"
@@ -42,8 +43,12 @@ vim.o.wildignore = vim.o.wildignore .. ".DS_Store" -- ignore OS files
 -- clipboard
 vim.o.clipboard = "unnamedplus" -- copy to system clipboard
 
+-- Split config
+vim.o.splitbelow = true -- put new windows below current
+vim.o.splitright = true -- put new windows right of current
+
 -- Replace word under cursor
-vim.api.nvim_set_keymap('n', '<Leader>s', ':%s/\\<<C-r><C-w>\\>//', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>w', ':%s/\\<<C-r><C-w>\\>//', {noremap = true})
 
 -- trim trailing whitespace
 vim.cmd [[
