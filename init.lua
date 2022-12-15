@@ -66,3 +66,4 @@ require('completion') -- lua/completion.lua
 require('lsp.mason') -- lua/lsp/mason.lua
 require('lsp.lspsaga') -- lua/lsp/lspsaga.lua
 require('lsp.lspconfig') -- lua/lsp/lspconfig.lua
+require('lsp.null-ls') -- lua/lsp/null-ls.lua
