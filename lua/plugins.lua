@@ -91,4 +91,7 @@ return require("packer").startup(function(use)
 			require("todo-comments").setup({})
 		end,
 	})
+
+	-- Show indent lines
+	use("lukas-reineke/indent-blankline.nvim")
 end)
