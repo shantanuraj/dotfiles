@@ -2,7 +2,7 @@
 
 -- styles
 vim.o.termguicolors = true
-vim.o.syntax = 'on'
+vim.o.syntax = "on"
 vim.o.errorbells = false
 vim.o.smartcase = true
 vim.o.showmode = false
@@ -48,22 +48,22 @@ vim.o.splitbelow = true -- put new windows below current
 vim.o.splitright = true -- put new windows right of current
 
 -- trim trailing whitespace
-vim.cmd [[
+vim.cmd([[
   autocmd BufWritePre * %s/\s\+$//e
-]]
+]])
 
 -- include packer
-require('plugins') -- lua/plugins.lua
-require('keymaps') -- lua/keymaps.lua
-require('tele_scope') -- lua/tele_scope.lua
-require('treesitter') -- lua/treesitter.lua
-require('colorscheme') -- lua/colorscheme.lua
-require('statusline') -- lua/statusline.lua
-require('nvimtree') -- lua/nvimtree.lua
-require('splits') -- lua/splits.lua
-require('commentary') -- lua/comment.lua
-require('completion') -- lua/completion.lua
-require('lsp.mason') -- lua/lsp/mason.lua
-require('lsp.lspsaga') -- lua/lsp/lspsaga.lua
-require('lsp.lspconfig') -- lua/lsp/lspconfig.lua
-require('lsp.null-ls') -- lua/lsp/null-ls.lua
+require("plugins") -- lua/plugins.lua
+require("keymaps") -- lua/keymaps.lua
+require("tele_scope") -- lua/tele_scope.lua
+require("treesitter") -- lua/treesitter.lua
+require("colorscheme") -- lua/colorscheme.lua
+require("statusline") -- lua/statusline.lua
+require("nvimtree") -- lua/nvimtree.lua
+require("splits") -- lua/splits.lua
+require("commentary") -- lua/comment.lua
+require("completion") -- lua/completion.lua
+require("lsp.mason") -- lua/lsp/mason.lua
+require("lsp.lspsaga") -- lua/lsp/lspsaga.lua
+require("lsp.lspconfig") -- lua/lsp/lspconfig.lua
+require("lsp.null-ls") -- lua/lsp/null-ls.lua
