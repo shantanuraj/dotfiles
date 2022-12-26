@@ -73,6 +73,7 @@ lspconfig["emmet_ls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 	filetypes = {
+		"astro",
 		"html",
 		"typescriptreact",
 		"javascriptreact",
