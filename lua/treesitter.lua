@@ -43,4 +43,16 @@ require("nvim-treesitter.configs").setup({
 
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
+
+	-- enable syntax highlighting
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+
+	-- enable indentation
+	indent = { enable = true },
+
+	-- enable autotagging (w/ nvim-ts-autotag plugin)
+	autotag = { enable = true },
 })
