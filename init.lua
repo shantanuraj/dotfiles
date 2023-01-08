@@ -43,9 +43,12 @@ vim.o.wildignore = vim.o.wildignore .. ".DS_Store" -- ignore OS files
 -- clipboard
 vim.o.clipboard = "unnamedplus" -- copy to system clipboard
 
--- Split config
+-- split config
 vim.o.splitbelow = true -- put new windows below current
 vim.o.splitright = true -- put new windows right of current
+
+-- core
+vim.o.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
 
 -- trim trailing whitespace
 vim.cmd([[
@@ -60,7 +63,6 @@ require("treesitter") -- lua/treesitter.lua
 require("colorscheme") -- lua/colorscheme.lua
 require("statusline") -- lua/statusline.lua
 require("nvimtree") -- lua/nvimtree.lua
-require("splits") -- lua/splits.lua
 require("commentary") -- lua/comment.lua
 require("completion") -- lua/completion.lua
 require("lsp.mason") -- lua/lsp/mason.lua
