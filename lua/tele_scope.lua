@@ -1,19 +1,4 @@
 -- Telescope config
-local map = vim.api.nvim_set_keymap
-local silent = { silent = true, noremap = true }
-
-map("n", "<C-p>", [[<cmd>Telescope find_files theme=get_dropdown<cr>]], silent)
-map("n", "<C-f>", [[<cmd>Telescope live_grep theme=get_dropdown<cr>]], silent)
-map(
-	"n",
-	"<C-S-f>",
-	[[<cmd>lua require('telescope.builtin').live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>]],
-	silent
-)
-map("n", "<C-t>", [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], silent)
-
--- map('n', '<C-i>', [[lua require'telescope.builtin'.live_grep({search_dirs={vim.fn.expand("%:p")}})<cr>]], silent)
-
 require("telescope").setup({
 	extensions = {
 		fzf = {
@@ -27,3 +12,18 @@ require("telescope").setup({
 })
 
 require("telescope").load_extension("fzf")
+
+-- Keymaps
+local wk = require("which-key")
+
+wk.register({
+	["<C-p>"] = { "<cmd>Telescope find_files theme=get_dropdown<cr>", "Go to File" },
+	["<C-f>"] = { "<cmd>Telescope live_grep theme=get_dropdown<cr>", "Find in files" },
+	["<C-S-f>"] = {
+		[[<cmd>lua require('telescope.builtin').live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>]],
+		"Find in current file",
+	},
+	["<C-t>"] = { "<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>", "Find tags" },
+})
+
+-- map('n', '<C-i>', [[lua require'telescope.builtin'.live_grep({search_dirs={vim.fn.expand("%:p")}})<cr>]], silent)
