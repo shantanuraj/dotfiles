@@ -1,7 +1,7 @@
-local setup, nvimtree = pcall(require, 'nvim-tree')
+local setup, nvimtree = pcall(require, "nvim-tree")
 if not setup then
-  print('nvim-tree not installed')
-  return
+	print("nvim-tree not installed")
+	return
 end
 
 -- Recommended settings from nvim-tree docs
@@ -12,30 +12,34 @@ vim.g.loaded_netrwPlugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 -- Keymap
-local keymap = vim.keymap
-keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer
+local wk = require("which-key")
+wk.register({
+	["<leader>"] = {
+		["e"] = { "<cmd>NvimTreeFindFileToggle<CR>", "Toggle Sidebar" },
+	},
+})
 
 -- configure nvim-tree
 nvimtree.setup({
-  -- change folder arrow icons
-  renderer = {
-    icons = {
-      glyphs = {
-        folder = {
-          arrow_closed = "", -- arrow when folder is closed
-          arrow_open = "", -- arrow when folder is open
-        },
-      },
-    },
-  },
-  -- disable window_picker for
-  -- explorer to work well with
-  -- window splits
-  actions = {
-    open_file = {
-      window_picker = {
-        enable = false,
-      },
-    },
-  },
+	-- change folder arrow icons
+	renderer = {
+		icons = {
+			glyphs = {
+				folder = {
+					arrow_closed = "", -- arrow when folder is closed
+					arrow_open = "", -- arrow when folder is open
+				},
+			},
+		},
+	},
+	-- disable window_picker for
+	-- explorer to work well with
+	-- window splits
+	actions = {
+		open_file = {
+			window_picker = {
+				enable = false,
+			},
+		},
+	},
 })
