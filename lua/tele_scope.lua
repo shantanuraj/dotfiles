@@ -17,7 +17,7 @@ require("telescope").load_extension("fzf")
 local wk = require("which-key")
 
 wk.register({
-	["<C-p>"] = { "<cmd>Telescope find_files theme=get_dropdown<cr>", "Go to File" },
+	["<leader><space>"] = { "<cmd>Telescope find_files theme=get_dropdown<cr>", "Go to File" },
 	["<C-f>"] = { "<cmd>Telescope live_grep theme=get_dropdown<cr>", "Find in files" },
 	["<C-S-f>"] = {
 		[[<cmd>lua require('telescope.builtin').live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>]],
