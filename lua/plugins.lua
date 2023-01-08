@@ -94,4 +94,7 @@ return require("packer").startup(function(use)
 
 	-- Show indent lines
 	use("lukas-reineke/indent-blankline.nvim")
+
+	-- Which key
+	use("folke/which-key.nvim")
 end)
