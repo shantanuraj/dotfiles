@@ -1,12 +1,17 @@
 -- Telescope config
 require("telescope").setup({
+	defaults = {
+		file_ignore_patterns = {
+			".git/worktrees",
+			".git/COMMIT_EDITMSG",
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true, -- false will only do exact matching
 			override_generic_sorter = true, -- override the generic sorter
 			override_file_sorter = true, -- override the file sorter
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
 		},
 	},
 })
@@ -43,7 +48,7 @@ wk.register({
 			h = { "<cmd>Telescope help_tags theme=get_dropdown<cr>", "Find help" },
 			m = { "<cmd>Telescope marks theme=get_dropdown<cr>", "Go to Mark" },
 			R = { "<cmd>Telescope registers theme=get_dropdown<cr>", "Find registers" },
-			r = { "<cmd>Telescope oldfiles only_cwd=true theme=get_dropdown<cr>", "Find recent files" },
+			r = { "<cmd>Telescope oldfiles only_cwd=true<cr>", "Find recent files" },
 			t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
 			T = { "<cmd>Telescope<cr>", "Telescope" },
 			b = { "<cmd>Telescope buffers<cr>", "Go to Buffer" },
