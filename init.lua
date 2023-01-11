@@ -56,16 +56,16 @@ vim.cmd([[
 ]])
 
 -- include packer
-require("plugins") -- lua/plugins.lua
-require("keymaps") -- lua/keymaps.lua
-require("tele_scope") -- lua/tele_scope.lua
-require("treesitter") -- lua/treesitter.lua
-require("colorscheme") -- lua/colorscheme.lua
-require("statusline") -- lua/statusline.lua
-require("nvimtree") -- lua/nvimtree.lua
-require("commentary") -- lua/comment.lua
-require("completion") -- lua/completion.lua
-require("lsp.mason") -- lua/lsp/mason.lua
-require("lsp.lspsaga") -- lua/lsp/lspsaga.lua
-require("lsp.lspconfig") -- lua/lsp/lspconfig.lua
-require("lsp.null-ls") -- lua/lsp/null-ls.lua
+require("cfg.plugins")
+require("cfg.keymaps")
+require("cfg.tele_scope")
+require("cfg.treesitter")
+require("cfg.colorscheme")
+require("cfg.statusline")
+require("cfg.nvimtree")
+require("cfg.commentary")
+require("cfg.completion")
+require("cfg.lsp.mason")
+require("cfg.lsp.lspsaga")
+require("cfg.lsp.lspconfig")
+require("cfg.lsp.null-ls")
