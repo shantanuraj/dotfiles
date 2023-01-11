@@ -10,6 +10,7 @@ end
 which_key.setup({})
 
 which_key.register({
+	["<c-\\>"] = { "<cmd>ToggleTerm<cr>", "Toggle terminal" },
 	["<leader>"] = {
 		name = "+leader",
 		w = { ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", "Replace word under cursor" },
