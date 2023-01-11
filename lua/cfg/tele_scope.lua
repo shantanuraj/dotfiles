@@ -34,9 +34,14 @@ wk.register({
 			t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
 			T = { "<cmd>Telescope<cr>", "Telescope" },
 			b = { "<cmd>Telescope buffers<cr>", "Go to Buffer" },
-			s = { "<cmd>Telescope git_status<cr>", "Go to Modified files" },
-			l = { "<cmd>Telescope git_commits<cr>", "Go to Commit" },
-			c = { "<cmd>Telescope git_bcommits<cr>", "Go to Commit for file" },
+		},
+		["g"] = {
+			name = "+Git",
+			m = { "<cmd>Telescope git_status<cr>", "Go to Modified files" },
+			C = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+			c = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit [file]" },
+			b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+			s = { "<cmd>Telescope git_stash<cr>", "Pop Stash" },
 		},
 	},
 })
