@@ -13,6 +13,19 @@ require("telescope").setup({
 
 require("telescope").load_extension("fzf")
 
+local M = {}
+
+M.project_files = function()
+	local opts = require("telescope.themes").get_dropdown({})
+	vim.fn.system("git rev-parse --is-inside-work-tree")
+	if vim.v.shell_error == 0 then
+		require("telescope.builtin").git_files(opts)
+	else
+		opts.hidden = true
+		require("telescope.builtin").find_files(opts)
+	end
+end
+
 -- Keymaps
 local wk = require("which-key")
 
@@ -23,7 +36,7 @@ wk.register({
 		"Find in current file",
 	},
 	["<leader>"] = {
-		["<space>"] = { "<cmd>Telescope find_files theme=get_dropdown<cr>", "Go to File" },
+		["<space>"] = { M.project_files, "Go to File" },
 		["f"] = {
 			name = "+Find",
 			C = { "<cmd>Telescope commands theme=get_dropdown<cr>", "Find command" },
