@@ -13,6 +13,7 @@ which_key.register({
 	["<c-\\>"] = { "<cmd>ToggleTerm<cr>", "Toggle terminal" },
 	["<leader>"] = {
 		name = "+leader",
+		R = { "<cmd>source $MYVIMRC<cr>", "Reload config" },
 		w = { ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", "Replace word under cursor" },
 		s = {
 			name = "+split",
