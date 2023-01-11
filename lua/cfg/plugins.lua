@@ -97,4 +97,22 @@ return require("packer").startup(function(use)
 
 	-- Which key
 	use("folke/which-key.nvim")
+
+	-- Floating terminal
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+		config = function()
+			require("toggleterm").setup({
+				open_mapping = [[<c-\>]],
+				hide_numbers = true,
+				shade_filetypes = {},
+				shade_terminals = true,
+				start_in_insert = true,
+				persist_size = true,
+				direction = "float",
+				close_on_exit = true,
+			})
+		end,
+	})
 end)
