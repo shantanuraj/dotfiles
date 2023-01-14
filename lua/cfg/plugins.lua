@@ -1,3 +1,8 @@
+local fzf_make_cmd = "make"
+if vim.loop.os_uname().machine == "arm64" then
+  fzf_make_cmd = " arch -arm64 make"
+end
+
 return require("packer").startup(function(use)
   -- Packer can manage itself
   use("wbthomason/packer.nvim")
@@ -9,7 +14,7 @@ return require("packer").startup(function(use)
   use("github/copilot.vim")
 
   -- Fzf native
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = " arch -arm64 make" })
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = fzf_make_cmd })
 
   -- Telescope
   use({
