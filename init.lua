@@ -1,20 +1,20 @@
 -- Author: Shantanu Raj <s@sraj.me> [https://sraj.me]
 
 -- options
-require("cfg.options")
+require("user.options")
 
 -- include packer
-require("cfg.plugins")
+require("user.plugins")
 
-require("cfg.keymaps")
-require("cfg.telescope")
-require("cfg.treesitter")
-require("cfg.colorscheme")
-require("cfg.statusline")
-require("cfg.nvimtree")
-require("cfg.commentary")
-require("cfg.completion")
-require("cfg.lsp.mason")
-require("cfg.lsp.lspsaga")
-require("cfg.lsp.lspconfig")
-require("cfg.lsp.null-ls")
+require("user.keymaps")
+require("user.telescope")
+require("user.treesitter")
+require("user.colorscheme")
+require("user.statusline")
+require("user.nvimtree")
+require("user.commentary")
+require("user.completion")
+require("user.lsp.mason")
+require("user.lsp.lspsaga")
+require("user.lsp.lspconfig")
+require("user.lsp.null-ls")
