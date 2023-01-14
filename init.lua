@@ -7,7 +7,7 @@ require("cfg.options")
 require("cfg.plugins")
 
 require("cfg.keymaps")
-require("cfg.tele_scope")
+require("cfg.telescope")
 require("cfg.treesitter")
 require("cfg.colorscheme")
 require("cfg.statusline")
