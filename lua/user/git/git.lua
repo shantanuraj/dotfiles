@@ -18,9 +18,10 @@ end
 ---@param sha string
 ---@param remote_url string
 ---@param filepath string|nil
+---@param lines {start: number, end: number}
 ---@return string
-function M.get_blob_url(sha, remote_url, filepath)
-  local blob_path = "/blob/" .. sha .. "/" .. (filepath or "")
+function M.get_blob_url(sha, remote_url, filepath, lines)
+  local blob_path = "/blob/" .. sha .. "/" .. (filepath or "") .. "#L" .. lines.start .. "-L" .. lines["end"]
 
   local domain, path = string.match(remote_url, ".*git%@(.*)%:(.*)%.git")
   if domain and path then
@@ -44,7 +45,8 @@ end
 function M.open_blob_in_browser(sha)
   M.get_remote_url(function(remote_url)
     M.get_relative_filepath(function(filepath)
-      local blob_url = M.get_blob_url(sha, remote_url, filepath)
+      local lines = utils.get_visual_selection()
+      local blob_url = M.get_blob_url(sha, remote_url, filepath, lines)
       utils.launch_url(blob_url)
     end)
   end)

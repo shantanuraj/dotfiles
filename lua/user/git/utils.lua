@@ -73,6 +73,20 @@ function M.get_line_number()
   return vim.api.nvim_win_get_cursor(0)[1]
 end
 
+-- Returns the starting and ending line numbers of the current visual selection
+-- or nil if no visual selection is active.
+-- @return {start: number, end: number}
+function M.get_visual_selection()
+  local mode = vim.api.nvim_get_mode().mode
+  if mode == "v" or mode == "V" then
+    local start_line = vim.fn.getpos("'<")[2]
+    local end_line = vim.fn.getpos("'>")[2]
+    return { start = start_line, ["end"] = end_line }
+  end
+  local line_number = M.get_line_number()
+  return { start = line_number, ["end"] = line_number }
+end
+
 ---Merges map entries of `source` into `target`.
 ---@param source table<any, any>
 ---@param target table<any, any>
