@@ -25,13 +25,13 @@ local on_attach = function(client, bufnr)
 		["g"] = {
 			name = "+Go to",
 			f = { "<cmd>Lspsaga lsp_finder<CR>", "LSP Finder" },
-			D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
+			D = { "<Cmd>Lspsaga goto_definition<CR>", "Declaration" },
 			d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
 			i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Implementation" },
 		},
 		["<leader>"] = {
-			["d"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
-			["D"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
+			["D"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
+			["d"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
 			["o"] = { "<cmd>Lspsaga outline<CR>", "Outline" },
 			["r"] = {
 				name = "+Refactor",
