@@ -1,58 +1,58 @@
 require("nvim-treesitter.configs").setup({
-	-- A list of parser names, or "all"
-	ensure_installed = {
-		"astro",
-		"bash",
-		"c",
-		"cpp",
-		"css",
-		"dockerfile",
-		"gitignore",
-		"go",
-		"gomod",
-		"html",
-		"http",
-		"java",
-		"javascript",
-		"jsdoc",
-		"json",
-		"json5",
-		"jsonc",
-		"kotlin",
-		"latex",
-		"make",
-		"markdown",
-		"markdown_inline",
-		"python",
-		"regex",
-		"ruby",
-		"rust",
-		"sql",
-		"scss",
-		"svelte",
-		"toml",
-		"tsx",
-		"typescript",
-		"vim",
-		"vue",
-		"yaml",
-	},
+  -- A list of parser names, or "all"
+  ensure_installed = {
+    "astro",
+    "bash",
+    "c",
+    "cpp",
+    "css",
+    "dockerfile",
+    "gitignore",
+    "go",
+    "gomod",
+    "html",
+    "http",
+    "java",
+    "javascript",
+    "jsdoc",
+    "json",
+    "json5",
+    "jsonc",
+    "kotlin",
+    "latex",
+    "make",
+    "markdown",
+    "markdown_inline",
+    "python",
+    "regex",
+    "ruby",
+    "rust",
+    "sql",
+    "scss",
+    "svelte",
+    "toml",
+    "tsx",
+    "typescript",
+    "vim",
+    "vue",
+    "yaml",
+  },
 
-	-- Install parsers synchronously (only applied to `ensure_installed`)
-	sync_install = false,
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
 
-	-- Automatically install missing parsers when entering buffer
-	auto_install = true,
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
 
-	-- enable syntax highlighting
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
+  -- enable syntax highlighting
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
 
-	-- enable indentation
-	indent = { enable = true },
+  -- enable indentation
+  indent = { enable = true },
 
-	-- enable autotagging (w/ nvim-ts-autotag plugin)
-	autotag = { enable = true },
+  -- enable autotagging (w/ nvim-ts-autotag plugin)
+  autotag = { enable = true },
 })
