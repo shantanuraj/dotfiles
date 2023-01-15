@@ -33,9 +33,9 @@ M.project_files = function()
 end
 
 -- Keymaps
-local wk = require("which-key")
+local which_key = require("which-key")
 
-wk.register({
+which_key.register({
   ["<C-f>"] = { "<cmd>Telescope live_grep theme=get_dropdown<cr>", "Find in files" },
   ["<C-S-f>"] = {
     [[<cmd>lua require('telescope.builtin').live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>]],

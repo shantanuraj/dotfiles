@@ -12,8 +12,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 -- Keymap
-local wk = require("which-key")
-wk.register({
+local which_key = require("which-key")
+which_key.register({
   ["<leader>"] = {
     ["e"] = { "<cmd>NvimTreeFindFileToggle<CR>", "Toggle Sidebar" },
   },

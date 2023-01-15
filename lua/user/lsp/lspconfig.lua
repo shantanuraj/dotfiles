@@ -16,12 +16,12 @@ if not typescript_setup then
   return
 end
 
-local wk = require("which-key")
+local which_key = require("which-key")
 
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
   -- set keybinds
-  wk.register({
+  which_key.register({
     ["g"] = {
       name = "+Go to",
       f = { "<cmd>Lspsaga lsp_finder<CR>", "LSP Finder" },
@@ -46,7 +46,7 @@ local on_attach = function(client, bufnr)
 
   -- typescript specific keymaps (e.g. rename file and update imports)
   if client.name == "tsserver" then
-    wk.register({
+    which_key.register({
       ["r"] = {
         ["f"] = { ":TypescriptRenameFile<CR>", "Rename File" },
         ["i"] = { ":TypescriptOrganizeImports<CR>", "Organize Imports" },
