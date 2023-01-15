@@ -93,7 +93,7 @@ function M.get_relative_filepath(callback)
     return
   end
   M.get_repo_root(function(repo_root)
-    local relative_filepath = string.gsub(filepath, repo_root .. "/", "")
+    local relative_filepath = utils.gsub(filepath, repo_root .. "/", "")
     callback(relative_filepath)
   end)
 end

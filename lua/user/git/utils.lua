@@ -127,4 +127,16 @@ function M.copy_to_clipboard(text)
   vim.fn.setreg("+", text)
 end
 
+--- Replace pattern with given replacement in text
+--- Handles hyphens and special characters unlike string.gsub
+---@param text string
+---@param pattern string
+---@param replacement string
+---@return string
+function M.gsub(text, pattern, replacement)
+  local escaped_pattern = pattern:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+  local res = text:gsub(escaped_pattern, replacement)
+  return res
+end
+
 return M

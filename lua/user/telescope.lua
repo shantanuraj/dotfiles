@@ -17,7 +17,6 @@ require("telescope").setup({
 })
 
 require("telescope").load_extension("fzf")
-local git_cmd = require("user.git.cmd")
 
 local M = {}
 
@@ -61,7 +60,6 @@ which_key.register({
       c = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit [file]" },
       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
       s = { "<cmd>Telescope git_stash<cr>", "Pop Stash" },
-      r = { git_cmd.open_file_on_remote, "Open file on remote" },
     },
   },
 })

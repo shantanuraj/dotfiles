@@ -1,6 +1,7 @@
 -- set leader key to space
 vim.g.mapleader = " "
 
+local git_cmd = require("user.git.cmd")
 local which_key_status, which_key = pcall(require, "which-key")
 
 if not which_key_status then
@@ -29,6 +30,9 @@ which_key.register({
       x = { "<cmd>tabclose<cr>", "Close current tab" },
       n = { "<cmd>tabn<cr>", "Go to next tab" },
       p = { "<cmd>tabp<cr>", "Go to previous tab" },
+    },
+    g = {
+      r = { git_cmd.open_file_on_remote, "Open file on remote" },
     },
   },
 })
