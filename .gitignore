@@ -1,2 +1,4 @@
+.vscode/settings.json
+*.swp
 .config/nvim/plugin/packer_compiled.lua
 
