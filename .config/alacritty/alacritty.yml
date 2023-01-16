@@ -276,8 +276,6 @@ key_bindings:
   - { key: T, mods: Command|Shift, chars: "\x01\x21" }
   # maximize current pane
   - { key: Return, mods: Command|Shift, chars: "\x01\x6d" }
-  # delete current window
-  - { key: W, mods: Command, chars: "\x01\x77" }
   # split pane vertically
   - { key: D, mods: Command, chars: "\x01\x7c" }
   # split pane horizontally
@@ -286,6 +284,9 @@ key_bindings:
   - { key: Left, mods: Command, chars: "\x01\x70" }
   # go to next window
   - { key: Right, mods: Command, chars: "\x01\x6e" }
+
+  # list windows
+  - { key: W, mods: Command, chars: "\x01\x77" }
   # list sessions
   - { key: L, mods: Command, chars: "\x01\x73" }
 
