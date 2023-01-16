@@ -15,6 +15,10 @@ selection:
 
 mouse:
   hide_when_typing: true
+  hints:
+    launcher:
+      program: open
+    modifiers: Command
 
 mouse_bindings:
   - { mouse: Right, action: ReceiveChar }
