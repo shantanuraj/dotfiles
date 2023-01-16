@@ -265,6 +265,8 @@ key_bindings:
   - { key: T, mods: Command, chars: "\x01\x63" }
   # break current tmux pane out of the tmux window
   - { key: T, mods: Command|Shift, chars: "\x01\x21" }
+  # maximize current pane
+  - { key: Return, mods: Command|Shift, chars: "\x01\x6d" }
   # delete current window
   - { key: W, mods: Command, chars: "\x01\x77" }
   # split pane vertically
