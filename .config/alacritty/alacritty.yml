@@ -289,6 +289,11 @@ key_bindings:
   # list sessions
   - { key: L, mods: Command, chars: "\x01\x73" }
 
+  # Cmd + ] next pane
+  - { key: RBracket, mods: Command, chars: "\x01\x6f" }
+  # Cmd + [ prev pane
+  - { key: LBracket, mods: Command, chars: "\x01\x4f" }
+
   # Map Cmd-1 to Cmd-9 to change windows in tmux
   - { key: Key1, mods: Command, chars: "\x01\x31" }
   - { key: Key2, mods: Command, chars: "\x01\x32" }
