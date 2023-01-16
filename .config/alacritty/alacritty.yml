@@ -258,3 +258,33 @@ key_bindings:
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|" } # Alt + |
   # better tmux integration
   - { key: Q, mods: Control, chars: "\x11" } # prefix (https://github.com/jwilm/alacritty/issues/1359#issue-330521722)
+
+  # tmux bindings
+
+  # create new window
+  - { key: T, mods: Command, chars: "\x01\x63" }
+  # break current tmux pane out of the tmux window
+  - { key: T, mods: Command|Shift, chars: "\x01\x21" }
+  # delete current window
+  - { key: W, mods: Command, chars: "\x01\x77" }
+  # split pane vertically
+  - { key: D, mods: Command, chars: "\x01\x7c" }
+  # split pane horizontally
+  - { key: D, mods: Command|Shift, chars: "\x01\x2d" }
+  # go to previous window
+  - { key: Left, mods: Command, chars: "\x01\x70" }
+  # go to next window
+  - { key: Right, mods: Command, chars: "\x01\x6e" }
+  # list sessions
+  - { key: L, mods: Command, chars: "\x01\x73" }
+
+  # Map Cmd-1 to Cmd-9 to change windows in tmux
+  - { key: Key1, mods: Command, chars: "\x01\x31" }
+  - { key: Key2, mods: Command, chars: "\x01\x32" }
+  - { key: Key3, mods: Command, chars: "\x01\x33" }
+  - { key: Key4, mods: Command, chars: "\x01\x34" }
+  - { key: Key5, mods: Command, chars: "\x01\x35" }
+  - { key: Key6, mods: Command, chars: "\x01\x36" }
+  - { key: Key7, mods: Command, chars: "\x01\x37" }
+  - { key: Key8, mods: Command, chars: "\x01\x38" }
+  - { key: Key9, mods: Command, chars: "\x01\x39" }
