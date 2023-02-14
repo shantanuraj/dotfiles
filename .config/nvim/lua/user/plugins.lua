@@ -3,117 +3,114 @@ if vim.loop.os_uname().machine == "arm64" then
   fzf_make_cmd = " arch -arm64 make"
 end
 
-return require("packer").startup(function(use)
-  -- Packer can manage itself
-  use("wbthomason/packer.nvim")
-
+return require("lazy").setup({
   -- Theme
-  use("folke/tokyonight.nvim")
+  "folke/tokyonight.nvim",
 
   -- GitHub CoPilot
-  use("github/copilot.vim")
+  "github/copilot.vim",
 
   -- Fzf native
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = fzf_make_cmd })
+  { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd },
 
   -- Telescope
-  use({
+  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.0",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
     },
-  })
+  },
 
   -- Telescope orthogonal deps
-  use({
+  {
     "nvim-treesitter/nvim-treesitter",
-    run = function()
+    build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
     end,
-  })
+  },
 
   -- Lualine
-  use({
+  {
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-  })
+    dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+  },
 
   -- Tmux navigator
-  use("christoomey/vim-tmux-navigator")
+  "christoomey/vim-tmux-navigator",
 
   -- File explorer
-  use({
+  {
     "nvim-tree/nvim-tree.lua",
-    requires = {
+    dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
     tag = "nightly",
-  })
+  },
 
   -- Maximizes and restores current window
-  use("szw/vim-maximizer")
+  "szw/vim-maximizer",
 
   -- Add, delete, change surroundings
-  use("tpope/vim-surround")
+  "tpope/vim-surround",
 
   -- Commenting with gc
-  use("numToStr/Comment.nvim")
+  "numToStr/Comment.nvim",
 
   -- Autocompletion
-  use("hrsh7th/nvim-cmp") -- completion plugin
-  use("hrsh7th/cmp-buffer") -- source for text in buffer
-  use("hrsh7th/cmp-path") -- source for file system paths
+  "hrsh7th/nvim-cmp", -- completion plugin
+  "hrsh7th/cmp-buffer", -- source for text in buffer
+  "hrsh7th/cmp-path", -- source for file system paths
 
   -- Snippets
-  use("L3MON4D3/LuaSnip") -- snippet engine
-  use("saadparwaiz1/cmp_luasnip") -- for autocompletion
-  use("rafamadriz/friendly-snippets") -- useful snippets
+  "L3MON4D3/LuaSnip", -- snippet engine
+  "saadparwaiz1/cmp_luasnip", -- for autocompletion
+  "rafamadriz/friendly-snippets", -- useful snippets
 
   -- Managing & installing lsp servers, linters & formatters
-  use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
-  use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
+  "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+  "williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
 
   -- Configuring lsp servers
-  use("neovim/nvim-lspconfig") -- easily configure language servers
-  use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-  use({
-    "glepnir/lspsaga.nvim",
+  "neovim/nvim-lspconfig", -- easily configure language servers
+  "hrsh7th/cmp-nvim-lsp", -- for autocompletion
+  {
+    "glepnir/lspsaga.nvim", -- enhanced lsp uis
     branch = "main",
-    requires = {
+    dependencies = {
       { "nvim-tree/nvim-web-devicons" },
       { "nvim-treesitter/nvim-treesitter" },
     },
-  }) -- enhanced lsp uis
-  use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
-  use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
+  },
+  "jose-elias-alvarez/typescript.nvim", -- additional functionality for typescript server (e.g. rename file & update imports)
+  "onsails/lspkind.nvim", -- vs-code like icons for autocompletion
 
   -- Formatting & linting
-  use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
-  use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
+  "jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+  "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
 
   -- Git blame
-  use("f-person/git-blame.nvim")
+  "f-person/git-blame.nvim",
 
   -- Highlight TODOs
-  use({
+  {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup({})
     end,
-  })
+  },
 
   -- Show indent lines
-  use("lukas-reineke/indent-blankline.nvim")
+  "lukas-reineke/indent-blankline.nvim",
 
   -- Which key
-  use("folke/which-key.nvim")
+  "folke/which-key.nvim",
 
   -- Floating terminal
-  use({
+  {
     "akinsho/toggleterm.nvim",
-    tag = "*",
+    tag = "2.3.0",
     config = function()
       require("toggleterm").setup({
         open_mapping = [[<c-\>]],
@@ -126,5 +123,5 @@ return require("packer").startup(function(use)
         close_on_exit = true,
       })
     end,
-  })
-end)
+  },
+})
