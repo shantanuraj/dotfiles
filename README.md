@@ -2,20 +2,18 @@
 
 ### Setup
 
-```shell
-./setup.sh
+```sh
 ./symlink.sh
 ```
 
 In neovim run
 
 ```
-PackerInstall
 Copilot setup
 ```
 
 For tmux plugins to work run
 
-```shell
+```sh
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
