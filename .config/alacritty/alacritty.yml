@@ -289,6 +289,8 @@ key_bindings:
   - { key: W, mods: Command, chars: "\x01\x77" }
   # list sessions
   - { key: L, mods: Command, chars: "\x01\x73" }
+  # switch to last session
+  - { key: L, mods: Command|Shift, chars: "\x01\x4c" }
 
   # Cmd + ] next pane
   - { key: RBracket, mods: Command, chars: "\x01\x6f" }
