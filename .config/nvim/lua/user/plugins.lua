@@ -107,6 +107,19 @@ return require("lazy").setup({
   -- Which key
   "folke/which-key.nvim",
 
+  -- Zen Mode
+  {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup({
+        plugins = {
+          tmux = { enabled = true },
+          alacritty = { enabled = true, font = "16" },
+        },
+      })
+    end,
+  },
+
   -- Floating terminal
   {
     "akinsho/toggleterm.nvim",
