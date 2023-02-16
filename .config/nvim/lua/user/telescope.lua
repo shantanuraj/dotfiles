@@ -45,6 +45,7 @@ which_key.register({
     ["f"] = {
       name = "+Find",
       C = { "<cmd>Telescope commands theme=get_dropdown<cr>", "Find command" },
+      d = { "<cmd>Telescope diagnostics theme=get_dropdown<cr>", "Go to diagnostic" },
       h = { "<cmd>Telescope help_tags theme=get_dropdown<cr>", "Find help" },
       m = { "<cmd>Telescope marks theme=get_dropdown<cr>", "Go to Mark" },
       R = { "<cmd>Telescope registers theme=get_dropdown<cr>", "Find registers" },
