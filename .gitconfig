@@ -1,0 +1,33 @@
+[user]
+	name = Shantanu Raj
+	email = s@sraj.me
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+[core]
+	excludesfile = ~/.gitignore
+	editor = nvim
+[color]
+  ui = auto
+[init]
+	defaultBranch = main
+[branch]
+	autosetuprebase = always
+	autosetupmerge = always
+[alias]
+  locate = rev-list -n 1 HEAD --
+  revname = name-rev --name-only
+[diff]
+	renames = copies
+	noprefix = true
+	wordRegex = [^[:space:]]
+	compactionHeuristic = true
+	algorithm = patience
+	relative = true
+[merge]
+  tool = nvim -d
+[mergetool]
+  keepBackup = false
+
+
