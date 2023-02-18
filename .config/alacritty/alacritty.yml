@@ -34,13 +34,13 @@ mouse_bindings:
 
 font:
   normal:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
   bold:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
   italic:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
   bold_italic:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
   size: 14
 
 # TokyoNight Alacritty Colors
