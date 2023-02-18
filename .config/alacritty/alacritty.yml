@@ -37,10 +37,13 @@ font:
     family: BerkeleyMono Nerd Font
   bold:
     family: BerkeleyMono Nerd Font
+    style: Bold
   italic:
-    family: BerkeleyMono Nerd Font
+    family: DankMono Nerd Font
+    style: Italic
   bold_italic:
-    family: BerkeleyMono Nerd Font
+    family: DankMono Nerd Font
+    style: Bold Italic
   size: 14
 
 import:
