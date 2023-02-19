@@ -33,6 +33,7 @@ which_key.register({
     },
     g = {
       r = { git_cmd.open_file_on_remote, "Open file on remote" },
+      R = { "<cmd>GitBlameOpenCommitURL<cr>", "Open commit on remote" },
     },
     z = { "<cmd>ZenMode<cr>", "Toggle Zen mode" },
   },
