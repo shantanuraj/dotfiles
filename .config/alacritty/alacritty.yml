@@ -39,10 +39,10 @@ font:
     family: BerkeleyMono Nerd Font
     style: Bold
   italic:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
     style: Italic
   bold_italic:
-    family: DankMono Nerd Font
+    family: BerkeleyMono Nerd Font
     style: Bold Italic
   size: 14
 
