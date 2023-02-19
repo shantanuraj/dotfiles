@@ -15,5 +15,5 @@ Copilot setup
 For tmux plugins to work run
 
 ```sh
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone git@github.com:tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
