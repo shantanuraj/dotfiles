@@ -4,6 +4,9 @@ if vim.loop.os_uname().machine == "arm64" then
 end
 
 return require("lazy").setup({
+  defaults = {
+    lazy = true,
+  },
   -- Theme
   {
     "folke/tokyonight.nvim",
