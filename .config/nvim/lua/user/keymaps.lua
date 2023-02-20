@@ -38,3 +38,8 @@ which_key.register({
     z = { "<cmd>ZenMode<cr>", "Toggle Zen mode" },
   },
 })
+
+which_key.register({
+  ["<"] = { "<gv", "Tab back" },
+  [">"] = { ">gv", "Tab forward" },
+}, { mode = "v" })
