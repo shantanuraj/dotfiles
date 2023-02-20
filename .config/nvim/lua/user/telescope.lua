@@ -22,6 +22,7 @@ local M = {}
 
 M.project_files = function()
   local opts = require("telescope.themes").get_dropdown({})
+  opts.find_command = { "rg", "--files", "--hidden", "--follow", "--glob", "!.git/*" }
   vim.fn.system("git rev-parse --is-inside-work-tree")
   if vim.v.shell_error == 0 then
     require("telescope.builtin").git_files(opts)
