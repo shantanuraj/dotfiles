@@ -52,8 +52,14 @@ which_key.register({
       R = { "<cmd>Telescope registers theme=get_dropdown<cr>", "Find registers" },
       r = { "<cmd>Telescope oldfiles only_cwd=true<cr>", "Find recent files" },
       t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
-      T = { "<cmd>Telescope<cr>", "Telescope" },
+      T = { require("telescope.builtin").builtin, "Telescope" },
       b = { "<cmd>Telescope buffers<cr>", "Go to Buffer" },
+      w = {
+        function()
+          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
+        end,
+        "Find word",
+      },
     },
     ["g"] = {
       name = "+Git",
