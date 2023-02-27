@@ -148,6 +148,9 @@ return require("lazy").setup({
     "folke/zen-mode.nvim",
     config = function()
       require("zen-mode").setup({
+        window = {
+          width = 150,
+        },
         plugins = {
           tmux = { enabled = true },
           alacritty = { enabled = true, font = "16" },
