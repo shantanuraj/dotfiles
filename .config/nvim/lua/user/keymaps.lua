@@ -12,6 +12,8 @@ which_key.setup({})
 
 which_key.register({
   ["<c-\\>"] = { "<cmd>ToggleTerm<cr>", "Toggle terminal" },
+  ["<c-space>"] = "Increment selection",
+  ["<bs>"] = { "Decrement selection", mode = "x" },
   ["<leader>"] = {
     name = "+leader",
     R = { "<cmd>source $MYVIMRC<cr>", "Reload config" },
