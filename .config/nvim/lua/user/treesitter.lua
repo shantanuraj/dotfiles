@@ -40,6 +40,17 @@ require("nvim-treesitter.configs").setup({
     "yaml",
   },
 
+  -- allow incremental selection
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = "<nop>",
+      node_decremental = "<bs>",
+    },
+  },
+
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
