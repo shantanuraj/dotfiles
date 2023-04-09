@@ -1,4 +1,4 @@
-# nvim
+# dotfiles
 
 ### Setup
 
