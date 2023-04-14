@@ -282,5 +282,7 @@ key_bindings:
   - { key: Key8, mods: Command, chars: "\x01\x38" }
   - { key: Key9, mods: Command, chars: "\x01\x39" }
 
-  # Cmd-f enter search mode "prefix + [ + /"
-  - { key: F, mods: Command, chars: "\x01\x5b\x2f" }
+  # Cmd + f enter search mode "prefix + [ + ?"
+  - { key: F, mods: Command, chars: "\x01\x5b\x3f" }
+  # Cmd + shift + f enter search mode "prefix + [ + /"
+  - { key: F, mods: Command|Shift, chars: "\x01\x5b\x2f" }
