@@ -33,6 +33,11 @@ which_key.register({
       n = { "<cmd>tabn<cr>", "Go to next tab" },
       p = { "<cmd>tabp<cr>", "Go to previous tab" },
     },
+    u = {
+      name = "+update",
+      -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
+      u = { "<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>", "Clear search, diff update and redraw" },
+    },
     g = {
       r = { git_cmd.open_file_on_remote, "Open file on remote" },
       R = { "<cmd>GitBlameOpenCommitURL<cr>", "Open commit on remote" },
