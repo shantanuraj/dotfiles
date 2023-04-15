@@ -28,7 +28,7 @@ which_key.register({
     },
     t = {
       name = "+tab",
-      o = { "<cmd>tabnew<cr>", "Open new tab" },
+      t = { "<cmd>tabnew<cr>", "Open new tab" },
       x = { "<cmd>tabclose<cr>", "Close current tab" },
       n = { "<cmd>tabn<cr>", "Go to next tab" },
       p = { "<cmd>tabp<cr>", "Go to previous tab" },
