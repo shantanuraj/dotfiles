@@ -16,9 +16,10 @@ if not lspkind_status then
   return
 end
 
-vim.opt.completeopt = "menu,menuone,noselect"
-
-cmp.setup({
+local M = {
+  completion = {
+    completeopt = "menu,menuone,noselect",
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -47,4 +48,6 @@ cmp.setup({
       ellipsis_char = "...",
     }),
   },
-})
+}
+
+return M

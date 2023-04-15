@@ -160,7 +160,12 @@ return require("lazy").setup({
       "hrsh7th/cmp-buffer", -- source for text in buffer
       "hrsh7th/cmp-path", -- source for file system paths
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
+      "onsails/lspkind.nvim", -- vs-code like icons for autocompletion
     },
+    opts = function()
+      local completion = require("user.completion")
+      return completion
+    end,
   },
 
   -- Snippets
@@ -271,7 +276,6 @@ return require("lazy").setup({
     },
   },
   "jose-elias-alvarez/typescript.nvim", -- additional functionality for typescript server (e.g. rename file & update imports)
-  "onsails/lspkind.nvim", -- vs-code like icons for autocompletion
 
   -- Formatting & linting
   "jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
