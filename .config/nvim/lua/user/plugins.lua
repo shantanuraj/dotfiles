@@ -215,6 +215,7 @@ return require("lazy").setup({
       }
       local a = vim.deepcopy(i)
       for k, v in pairs(a) do
+        ---@diagnostic disable-next-line: param-type-mismatch
         a[k] = v:gsub(" including.*", "")
       end
 
@@ -234,11 +235,16 @@ return require("lazy").setup({
 
   -- Managing & installing lsp servers, linters & formatters
   "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
-  "williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
 
   -- Configuring lsp servers
-  "neovim/nvim-lspconfig", -- easily configure language servers
-  "hrsh7th/cmp-nvim-lsp", -- for autocompletion
+  {
+    "neovim/nvim-lspconfig", -- easily configure language servers
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
+      "hrsh7th/cmp-nvim-lsp", -- for autocompletion
+    },
+  },
   {
     "glepnir/lspsaga.nvim", -- enhanced lsp uis
     branch = "main",
