@@ -46,15 +46,13 @@ return require("lazy").setup({
   -- GitHub CoPilot
   { "github/copilot.vim", event = "InsertEnter" },
 
-  -- Fzf native
-  { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd },
-
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.0",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd }, -- Fzf native
     },
   },
 
