@@ -279,7 +279,20 @@ return require("lazy").setup({
   },
 
   -- Show indent lines
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPre",
+    opts = {
+      use_treesitter = true,
+      -- show_current_context = true,
+      buftype_exclude = { "terminal", "nofile" },
+      filetype_exclude = {
+        "help",
+        "packer",
+        "NvimTree",
+      },
+    },
+  },
 
   -- Which key
   "folke/which-key.nvim",
