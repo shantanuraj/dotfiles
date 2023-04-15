@@ -268,7 +268,11 @@ return require("lazy").setup({
   },
 
   -- Managing & installing lsp servers, linters & formatters
-  "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+  {
+    "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+    event = "VeryLazy",
+    opts = {},
+  },
 
   -- Configuring lsp servers
   {
