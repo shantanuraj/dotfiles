@@ -161,25 +161,23 @@ return require("lazy").setup({
       "hrsh7th/cmp-path", -- source for file system paths
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "onsails/lspkind.nvim", -- vs-code like icons for autocompletion
+      {
+        "L3MON4D3/LuaSnip", -- snippet engine
+        dependencies = {
+          {
+            "rafamadriz/friendly-snippets",
+            config = function()
+              -- load vs-code like snippets from plugins (e.g. friendly-snippets)
+              require("luasnip.loaders.from_vscode").lazy_load()
+            end,
+          }, -- useful snippets
+        },
+      },
     },
     opts = function()
       local completion = require("user.completion")
       return completion
     end,
-  },
-
-  -- Snippets
-  {
-    "L3MON4D3/LuaSnip", -- snippet engine
-    dependencies = {
-      {
-        "rafamadriz/friendly-snippets",
-        config = function()
-          -- load vs-code like snippets from plugins (e.g. friendly-snippets)
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
-      }, -- useful snippets
-    },
   },
 
   -- Better text-objects
