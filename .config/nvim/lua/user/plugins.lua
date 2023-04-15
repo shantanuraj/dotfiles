@@ -267,11 +267,12 @@ return require("lazy").setup({
   "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
 
   -- Git blame
-  "f-person/git-blame.nvim",
+  { "f-person/git-blame.nvim", event = "BufRead" },
 
   -- Highlight TODOs
   {
     "folke/todo-comments.nvim",
+    event = "BufReadPost",
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup({})
