@@ -85,6 +85,12 @@ return require("lazy").setup({
             require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
           end
         end,
+        opts = function()
+          return require("user.treesitter")
+        end,
+        config = function(_, opts)
+          require("nvim-treesitter.configs").setup(opts)
+        end,
       },
     },
   },

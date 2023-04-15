@@ -1,4 +1,4 @@
-require("nvim-treesitter.configs").setup({
+local M = {
   -- A list of parser names, or "all"
   ensure_installed = {
     "astro",
@@ -68,4 +68,6 @@ require("nvim-treesitter.configs").setup({
 
   -- enable autotagging (w/ nvim-ts-autotag plugin)
   autotag = { enable = true },
-})
+}
+
+return M
