@@ -44,7 +44,7 @@ return require("lazy").setup({
   },
 
   -- GitHub CoPilot
-  "github/copilot.vim",
+  { "github/copilot.vim", event = "InsertEnter" },
 
   -- Fzf native
   { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd },
