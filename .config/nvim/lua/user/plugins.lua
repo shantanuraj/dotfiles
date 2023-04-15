@@ -304,8 +304,17 @@ return require("lazy").setup({
   },
 
   -- Formatting & linting
-  "jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
-  "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+  {
+    "jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "mason.nvim",
+      "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+    },
+    config = function()
+      require("user.lsp.null-ls")
+    end,
+  },
 
   -- Git blame
   { "f-person/git-blame.nvim", event = "BufRead" },
