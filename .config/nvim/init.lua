@@ -21,7 +21,6 @@ require("user.plugins")
 
 require("user.keymaps")
 require("user.telescope")
-require("user.statusline")
 require("user.nvimtree")
 require("user.lsp.mason")
 require("user.lsp.lspsaga")

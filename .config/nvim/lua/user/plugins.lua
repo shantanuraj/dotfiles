@@ -98,7 +98,18 @@ return require("lazy").setup({
   -- Lualine
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+    opts = function()
+      return {
+        options = {
+          theme = "auto",
+          globalstatus = true,
+          disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+        },
+        extensions = { "lazy" },
+      }
+    end,
   },
 
   -- Tmux navigator
