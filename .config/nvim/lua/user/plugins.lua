@@ -246,7 +246,8 @@ return require("lazy").setup({
     },
   },
   {
-    "glepnir/lspsaga.nvim", -- enhanced lsp uis
+    "nvimdev/lspsaga.nvim", -- enhanced lsp uis
+    event = "LspAttach",
     branch = "main",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
