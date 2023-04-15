@@ -50,9 +50,28 @@ local on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     which_key.register({
       ["r"] = {
-        ["f"] = { ":TypescriptRenameFile<CR>", "Rename File" },
-        ["i"] = { ":TypescriptOrganizeImports<CR>", "Organize Imports" },
-        ["u"] = { ":TypescriptRemoveUnused<CR>", "Remove Unused" },
+        ["f"] = { "<cmd>TypescriptRenameFile<cr>", "Rename File" },
+        ["i"] = {
+          function()
+            typescript.actions.addMissingImports()
+            typescript.actions.organizeImports()
+          end,
+          "Organize Imports",
+        },
+        ["u"] = {
+          function()
+            typescript.actions.removeUnused()
+          end,
+          "Remove Unused",
+        },
+        ["d"] = {
+          function()
+            typescript.actions.addMissingImports()
+            typescript.actions.organizeImports()
+            typescript.actions.removeUnused()
+          end,
+          "Fix all",
+        },
       },
     }, { buffer = bufnr, prefix = "<leader>" })
   end
