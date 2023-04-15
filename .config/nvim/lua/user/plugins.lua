@@ -105,13 +105,14 @@ return require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
     tag = "nightly",
+    lazy = true,
   },
 
   -- Maximizes and restores current window
-  "szw/vim-maximizer",
+  { "szw/vim-maximizer", event = "VeryLazy" },
 
   -- Add, delete, change surroundings
-  "tpope/vim-surround",
+  { "tpope/vim-surround", event = { "BufReadPost", "BufNewFile" } },
 
   -- Commenting with gc
   {
