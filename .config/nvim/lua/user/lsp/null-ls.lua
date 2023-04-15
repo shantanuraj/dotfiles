@@ -4,6 +4,25 @@ if not setup then
   return
 end
 
+-- import mason-null-ls plugin safely
+local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
+if not mason_null_ls_status then
+  return
+end
+
+mason_null_ls.setup({
+  -- list of formatters & linters for mason to install
+  ensure_installed = {
+    "eslint_d", -- ts/js linter
+    "goimports", -- go formatter
+    "prettier", -- ts/js formatter
+    "rustfmt", -- rust formatter
+    "stylua", -- lua formatter
+  },
+  -- auto-install configured formatters & linters (with null-ls)
+  automatic_installation = true,
+})
+
 -- for conciseness
 local formatting = null_ls.builtins.formatting -- to setup formatters
 local diagnostics = null_ls.builtins.diagnostics -- to setup linters
