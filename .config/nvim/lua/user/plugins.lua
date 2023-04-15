@@ -136,7 +136,6 @@ return require("lazy").setup({
     dependencies = {
       -- context aware commentstring for TypeScript
       "JoosepAlviste/nvim-ts-context-commentstring",
-      event = "VeryLazy",
     },
     config = function()
       local opts = {
