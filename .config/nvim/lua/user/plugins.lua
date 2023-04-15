@@ -164,8 +164,18 @@ return require("lazy").setup({
   },
 
   -- Snippets
-  "L3MON4D3/LuaSnip", -- snippet engine
-  "rafamadriz/friendly-snippets", -- useful snippets
+  {
+    "L3MON4D3/LuaSnip", -- snippet engine
+    dependencies = {
+      {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          -- load vs-code like snippets from plugins (e.g. friendly-snippets)
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      }, -- useful snippets
+    },
+  },
 
   -- Better text-objects
   {
