@@ -300,6 +300,7 @@ return require("lazy").setup({
   -- Zen Mode
   {
     "folke/zen-mode.nvim",
+    event = "VeryLazy",
     config = function()
       require("zen-mode").setup({
         window = {
@@ -317,6 +318,7 @@ return require("lazy").setup({
   {
     "akinsho/toggleterm.nvim",
     tag = "2.3.0",
+    event = "VeryLazy",
     config = function()
       require("toggleterm").setup({
         open_mapping = [[<c-\>]],
