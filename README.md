@@ -3,17 +3,18 @@
 ### Setup
 
 ```sh
+# Just sets up the symlinks
 ./symlink.sh
+```
+
+To setup symlinks, and install tmux and alacritty plugins
+
+```sh
+./setup.sh
 ```
 
 In neovim run
 
 ```
 Copilot setup
-```
-
-For tmux plugins to work run
-
-```sh
-git clone git@github.com:tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
