@@ -47,7 +47,7 @@ font:
   size: 14
 
 import:
-  - ~/.local/share/nvim/lazy/tokyonight.nvim/extras/alacritty/tokyonight_night.yml
+  - ~/.local/share/alacritty/catppuccin/catppuccin-latte.yml
 
 key_bindings:
   - {
