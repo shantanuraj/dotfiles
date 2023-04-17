@@ -79,6 +79,16 @@ return require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
     opts = function()
       return {
+        sections = {
+          lualine_z = {
+            "location",
+            {
+              "searchcount",
+              maxcount = 999,
+              timeout = 500,
+            },
+          },
+        },
         options = {
           theme = "auto",
           globalstatus = true,
