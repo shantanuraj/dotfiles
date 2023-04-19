@@ -23,7 +23,7 @@ return require("lazy").setup({
   },
 
   -- GitHub CoPilot
-  { "github/copilot.vim", event = "InsertEnter" },
+  { "github/copilot.vim" },
 
   -- Telescope
   {
