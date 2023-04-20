@@ -45,7 +45,7 @@ which_key.register({
     ["<space>"] = { M.project_files, "Go to File" },
     ["'"] = {
       function()
-        require("telescope.builtin").resume()
+        require("telescope.builtin").resume({ initial_mode = "normal" })
       end,
       "Resume last search",
     },
