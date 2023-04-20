@@ -43,6 +43,12 @@ which_key.register({
   },
   ["<leader>"] = {
     ["<space>"] = { M.project_files, "Go to File" },
+    ["'"] = {
+      function()
+        require("telescope.builtin").resume()
+      end,
+      "Resume last search",
+    },
     ["f"] = {
       name = "+Find",
       C = { "<cmd>Telescope commands theme=get_dropdown<cr>", "Find command" },
