@@ -115,6 +115,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # NVIM
 export EDITOR='nvim'
 alias vim='nvim'
+alias vi='nvim -u NONE -N' # for large files
 
 # Android
 export ANDROID_HOME="$HOME/Library/Android/sdk"
