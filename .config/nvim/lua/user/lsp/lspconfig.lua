@@ -40,8 +40,6 @@ return function(_, _)
         ["D"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
         ["d"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
         ["o"] = { "<cmd>Lspsaga outline<CR>", "Outline" },
-        ["p"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous Diagnostic" },
-        ["n"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next Diagnostic" },
         ["r"] = {
           name = "+Refactor",
           ["r"] = { "<cmd>Lspsaga rename<CR>", "Rename" },
