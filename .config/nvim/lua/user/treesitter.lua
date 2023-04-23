@@ -68,6 +68,63 @@ local M = {
 
   -- enable autotagging (w/ nvim-ts-autotag plugin)
   autotag = { enable = true },
+
+  textobjects = {
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+        ["]o"] = {
+          query = {
+            "@block.inner",
+            "@conditional.inner",
+            "@loop.inner",
+          },
+        },
+        ["]O"] = {
+          query = {
+            "@block.outer",
+            "@conditional.outer",
+            "@loop.outer",
+          },
+        },
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+        ["[o"] = {
+          query = {
+            "@block.inner",
+            "@conditional.inner",
+            "@loop.inner",
+          },
+        },
+        ["[O"] = {
+          query = {
+            "@block.outer",
+            "@conditional.outer",
+            "@loop.outer",
+          },
+        },
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+      goto_next = {
+        ["]a"] = "@parameter.inner",
+      },
+      goto_previous = {
+        ["[a"] = "@parameter.inner",
+      },
+    },
+  },
 }
 
 return M
