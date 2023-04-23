@@ -53,3 +53,8 @@ vim.o.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in mil
 vim.cmd([[
   autocmd BufWritePre * %s/\s\+$//e
 ]])
+
+-- open PDF files
+vim.cmd([[
+  autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
+]])
