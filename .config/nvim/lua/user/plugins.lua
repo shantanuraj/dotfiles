@@ -58,6 +58,10 @@ return require("lazy").setup({
           which_key.register({
             [";"] = { ts_repeat_move.repeat_last_move_next, "move next" },
             [","] = { ts_repeat_move.repeat_last_move_previous, "move previous" },
+            ["f"] = { ts_repeat_move.builtin_f, "move forward" },
+            ["F"] = { ts_repeat_move.builtin_F, "move backward" },
+            ["t"] = { ts_repeat_move.builtin_t, "move to" },
+            ["T"] = { ts_repeat_move.builtin_T, "move to before" },
           }, { mode = { "n", "o", "x" } })
         end,
       },
