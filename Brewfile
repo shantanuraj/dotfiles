@@ -21,6 +21,7 @@ brew "pkg-config"
 brew "cocoapods"
 brew "colordiff"
 brew "dfu-programmer"
+brew "diffutils"
 brew "docker", link: false
 brew "fastlane"
 brew "fd"
