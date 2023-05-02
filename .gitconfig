@@ -29,8 +29,8 @@
   tool = nvim -d
 [mergetool]
   keepBackup = false
-
-
+[rebase]
+  autosquash = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
