@@ -14,6 +14,13 @@ require("telescope").setup({
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
   },
+  pickers = {
+    live_grep = {
+      additional_args = function()
+        return { "--hidden", "--glob", "!**/.git/*" }
+      end,
+    },
+  },
 })
 
 require("telescope").load_extension("fzf")
