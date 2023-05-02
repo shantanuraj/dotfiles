@@ -19,6 +19,7 @@ require("telescope").setup({
       additional_args = function()
         return { "--hidden", "--glob", "!**/.git/*" }
       end,
+      theme = "ivy",
     },
   },
 })
@@ -43,9 +44,16 @@ end
 local which_key = require("which-key")
 
 which_key.register({
-  ["<C-f>"] = { "<cmd>Telescope live_grep theme=get_dropdown<cr>", "Find in files" },
+  ["<C-f>"] = {
+    function()
+      require("telescope.builtin").live_grep()
+    end,
+    "Find in project",
+  },
   ["<C-S-f>"] = {
-    [[<cmd>lua require('telescope.builtin').live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>]],
+    function()
+      require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })
+    end,
     "Find in current file",
   },
   ["<leader>"] = {
