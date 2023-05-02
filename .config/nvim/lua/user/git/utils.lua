@@ -79,8 +79,10 @@ end
 function M.get_visual_selection()
   local mode = vim.api.nvim_get_mode().mode
   if mode == "v" or mode == "V" then
-    local start_line = vim.fn.getpos("'<")[2]
-    local end_line = vim.fn.getpos("'>")[2]
+    local visual_pos = vim.fn.getpos("v")[2]
+    local cursor_pos = vim.fn.getcurpos()[2]
+    local start_line = math.min(visual_pos, cursor_pos)
+    local end_line = math.max(visual_pos, cursor_pos)
     return { start = start_line, ["end"] = end_line }
   end
   local line_number = M.get_line_number()

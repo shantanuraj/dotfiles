@@ -49,4 +49,5 @@ which_key.register({
 which_key.register({
   ["<"] = { "<gv", "Tab back" },
   [">"] = { ">gv", "Tab forward" },
+  ["go"] = { git_cmd.open_file_on_remote, "Open selection on remote" },
 }, { mode = "v" })
