@@ -13,6 +13,9 @@ require("telescope").setup({
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
+    live_grep_args = {
+      auto_quoting = false,
+    },
   },
   pickers = {
     live_grep = {
@@ -25,6 +28,7 @@ require("telescope").setup({
 })
 
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("live_grep_args")
 
 local M = {}
 
@@ -75,9 +79,25 @@ which_key.register({
       t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
       T = { require("telescope.builtin").builtin, "Telescope" },
       b = { "<cmd>Telescope buffers<cr>", "Go to Buffer" },
+      f = {
+        function()
+          require("telescope").extensions.live_grep_args.live_grep_args()
+        end,
+        "Live grep",
+      },
+      g = {
+        function()
+          require("telescope").extensions.live_grep_args.live_grep_args({
+            default_text = "--glob !{*.json,*.po,.git} ",
+          })
+        end,
+        "Find excluding translations",
+      },
       w = {
         function()
-          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
+          require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({
+            postfix = " -F --hidden --glob !**/.git/* ",
+          })
         end,
         "Find word",
       },

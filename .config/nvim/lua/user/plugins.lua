@@ -32,6 +32,7 @@ return require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd }, -- Fzf native
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
   },
 
