@@ -14,7 +14,7 @@ mason_null_ls.setup({
   -- list of formatters & linters for mason to install
   ensure_installed = {
     "eslint_d", -- ts/js linter
-    "goimports", -- go formatter
+    "gofumpt", -- go formatter
     "prettier", -- ts/js formatter
     "rustfmt", -- rust formatter
     "stylua", -- lua formatter
@@ -39,7 +39,7 @@ null_ls.setup({
     formatting.prettier, -- js/ts formatter
     formatting.rustfmt, -- rust formatter
     formatting.stylua, -- lua formatter
-    formatting.goimports, -- go formatter
+    formatting.gofumpt, -- go formatter
     diagnostics.eslint_d.with({ -- js/ts linter
       -- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
       condition = function(utils)
