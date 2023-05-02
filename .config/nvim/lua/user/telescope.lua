@@ -50,7 +50,7 @@ which_key.register({
     end,
     "Find in project",
   },
-  ["<C-S-f>"] = {
+  ["<M-f>"] = {
     function()
       require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })
     end,
