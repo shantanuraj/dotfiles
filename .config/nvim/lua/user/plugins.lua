@@ -357,7 +357,7 @@ return require("lazy").setup({
   -- Floating terminal
   {
     "akinsho/toggleterm.nvim",
-    tag = "2.3.0",
+    tag = "v2.6.0",
     event = "VeryLazy",
     config = function()
       require("toggleterm").setup({
