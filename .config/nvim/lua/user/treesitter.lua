@@ -138,6 +138,12 @@ local M = {
         ["[a"] = "@parameter.inner",
       },
     },
+    select = {
+      enable = true,
+      keymaps = {
+        ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+      },
+    },
   },
 }
 
