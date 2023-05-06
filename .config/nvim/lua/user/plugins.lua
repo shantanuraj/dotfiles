@@ -43,28 +43,28 @@ return require("lazy").setup({
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
     end,
+    opts = function()
+      return require("user.treesitter")
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+      local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+      local which_key_status, which_key = pcall(require, "which-key")
+      if not which_key_status then
+        return
+      end
+      which_key.register({
+        [";"] = { ts_repeat_move.repeat_last_move_next, "move next" },
+        [","] = { ts_repeat_move.repeat_last_move_previous, "move previous" },
+        ["f"] = { ts_repeat_move.builtin_f, "move forward" },
+        ["F"] = { ts_repeat_move.builtin_F, "move backward" },
+        ["t"] = { ts_repeat_move.builtin_t, "move to" },
+        ["T"] = { ts_repeat_move.builtin_T, "move to before" },
+      }, { mode = { "n", "o", "x" } })
+    end,
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        opts = function()
-          return require("user.treesitter")
-        end,
-        config = function(_, opts)
-          require("nvim-treesitter.configs").setup(opts)
-          local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-          local which_key_status, which_key = pcall(require, "which-key")
-          if not which_key_status then
-            return
-          end
-          which_key.register({
-            [";"] = { ts_repeat_move.repeat_last_move_next, "move next" },
-            [","] = { ts_repeat_move.repeat_last_move_previous, "move previous" },
-            ["f"] = { ts_repeat_move.builtin_f, "move forward" },
-            ["F"] = { ts_repeat_move.builtin_F, "move backward" },
-            ["t"] = { ts_repeat_move.builtin_t, "move to" },
-            ["T"] = { ts_repeat_move.builtin_T, "move to before" },
-          }, { mode = { "n", "o", "x" } })
-        end,
       },
     },
   },
