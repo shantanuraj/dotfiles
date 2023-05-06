@@ -82,6 +82,7 @@ local M = {
             "@conditional.inner",
             "@loop.inner",
           },
+          desc = "Next block, conditional or loop",
         },
         ["]O"] = {
           query = {
@@ -89,6 +90,12 @@ local M = {
             "@conditional.outer",
             "@loop.outer",
           },
+          desc = "Next block, conditional or loop (outer)",
+        },
+        ["]s"] = {
+          query = "@scope",
+          query_group = "locals",
+          desc = "Next scope",
         },
       },
       goto_next_end = {
@@ -104,6 +111,7 @@ local M = {
             "@conditional.inner",
             "@loop.inner",
           },
+          desc = "Previous block, conditional or loop",
         },
         ["[O"] = {
           query = {
@@ -111,6 +119,12 @@ local M = {
             "@conditional.outer",
             "@loop.outer",
           },
+          desc = "Previous block, conditional or loop (outer)",
+        },
+        ["[s"] = {
+          query = "@scope",
+          query_group = "locals",
+          desc = "Previous scope",
         },
       },
       goto_previous_end = {
