@@ -285,3 +285,5 @@ key_bindings:
   - { key: F, mods: Command, chars: "\x01\x5b\x3f" }
   # Cmd + shift + f enter search mode "prefix + [ + /"
   - { key: F, mods: Command|Shift, chars: "\x01\x5b\x2f" }
+  # Cmd + / trigger "gcc"
+  - { key: Slash, mods: Command, chars: "\x67\x63\x63" }
