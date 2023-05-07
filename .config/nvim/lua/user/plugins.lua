@@ -14,6 +14,14 @@ return require("lazy").setup({
     priority = 1000,
     name = "catppuccin",
     opts = {
+      integrations = {
+        illuminate = true,
+        indent_blankline = {
+          enabled = true,
+          colored_indent_levels = false,
+        },
+        markdown = true,
+      },
       flavour = "latte",
     },
     config = function(_, opts)
@@ -87,7 +95,7 @@ return require("lazy").setup({
           },
         },
         options = {
-          theme = "auto",
+          theme = "catppuccin",
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },
