@@ -6,6 +6,7 @@ env:
 window:
   startup_mode: SimpleFullscreen
   decorations: buttonless
+  dynamic_padding: true
 
 shell:
   program: /opt/homebrew/bin/tmux
