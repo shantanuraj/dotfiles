@@ -42,7 +42,7 @@ return function(_, _)
         ["o"] = { "<cmd>Lspsaga outline<CR>", "Outline" },
         ["r"] = {
           name = "+Refactor",
-          ["r"] = { "<cmd>Lspsaga rename<CR>", "Rename" },
+          ["r"] = { "<cmd>Lspsaga rename ++project<CR>", "Rename" },
           ["a"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
         },
       },
