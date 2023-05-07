@@ -53,3 +53,10 @@ which_key.register({
   ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
   ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
 }, { mode = "v" })
+
+which_key.register({
+  ["<leader>"] = {
+    name = "+leader",
+    p = { '"_dP', "Paste without overwriting clipboard" },
+  },
+}, { mode = "x" })
