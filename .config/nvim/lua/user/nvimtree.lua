@@ -15,7 +15,7 @@ vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 local which_key = require("which-key")
 which_key.register({
   ["<leader>"] = {
-    ["e"] = { "<cmd>NvimTreeFindFileToggle<CR>", "Toggle Sidebar" },
+    ["e"] = { vim.cmd.NvimTreeFindFileToggle, "Toggle Sidebar" },
   },
 })
 

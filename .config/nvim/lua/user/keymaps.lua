@@ -11,7 +11,6 @@ end
 which_key.setup({})
 
 which_key.register({
-  ["<c-\\>"] = { "<cmd>ToggleTerm<cr>", "Toggle terminal" },
   ["<c-space>"] = "Increment selection",
   ["<bs>"] = { "Decrement selection", mode = "x" },
   ["<leader>"] = {
@@ -24,25 +23,25 @@ which_key.register({
       h = { "<C-w>s", "Split window horizontally" },
       e = { "<C-w>=", "Make split windows equal width & height" },
       x = { ":close<CR>", "Close current split window" },
-      m = { "<cmd>MaximizerToggle<cr>", "Maximize current split window" },
+      m = { vim.cmd.MaximizerToggle, "Maximize current split window" },
     },
     t = {
       name = "+tab",
-      t = { "<cmd>tabnew<cr>", "Open new tab" },
-      x = { "<cmd>tabclose<cr>", "Close current tab" },
-      n = { "<cmd>tabn<cr>", "Go to next tab" },
-      p = { "<cmd>tabp<cr>", "Go to previous tab" },
+      t = { vim.cmd.tabnew, "Open new tab" },
+      x = { vim.cmd.tabclose, "Close current tab" },
+      n = { vim.cmd.tabn, "Go to next tab" },
+      p = { vim.cmd.tabp, "Go to previous tab" },
     },
     u = {
       name = "+update",
       -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
       u = { "<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>", "Clear search, diff update and redraw" },
     },
-    z = { "<cmd>ZenMode<cr>", "Toggle Zen mode" },
+    z = { vim.cmd.ZenMode, "Toggle Zen mode" },
   },
   g = {
     r = { git_cmd.open_file_on_remote, "Open file on remote" },
-    R = { "<cmd>GitBlameOpenCommitURL<cr>", "Open commit on remote" },
+    R = { vim.cmd.GitBlameOpenCommitURL, "Open commit on remote" },
   },
 })
 

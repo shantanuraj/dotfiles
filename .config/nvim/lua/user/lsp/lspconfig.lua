@@ -34,7 +34,7 @@ return function(_, _)
         f = { "<cmd>Lspsaga lsp_finder<CR>", "LSP Finder" },
         D = { "<Cmd>Lspsaga goto_definition<CR>", "Declaration" },
         d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
-        i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Implementation" },
+        i = { vim.lsp.buf.implementation, "Implementation" },
       },
       ["<leader>"] = {
         ["D"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
@@ -55,7 +55,7 @@ return function(_, _)
     if client.name == "tsserver" then
       which_key.register({
         ["r"] = {
-          ["f"] = { "<cmd>TypescriptRenameFile<cr>", "Rename File" },
+          ["f"] = { vim.cmd.TypescriptRenameFile, "Rename File" },
           ["i"] = {
             function()
               typescript.actions.addMissingImports()
