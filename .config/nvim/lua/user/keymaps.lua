@@ -38,16 +38,16 @@ which_key.register({
       -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
       u = { "<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>", "Clear search, diff update and redraw" },
     },
-    g = {
-      r = { git_cmd.open_file_on_remote, "Open file on remote" },
-      R = { "<cmd>GitBlameOpenCommitURL<cr>", "Open commit on remote" },
-    },
     z = { "<cmd>ZenMode<cr>", "Toggle Zen mode" },
+  },
+  g = {
+    r = { git_cmd.open_file_on_remote, "Open file on remote" },
+    R = { "<cmd>GitBlameOpenCommitURL<cr>", "Open commit on remote" },
   },
 })
 
 which_key.register({
   ["<"] = { "<gv", "Tab back" },
   [">"] = { ">gv", "Tab forward" },
-  ["go"] = { git_cmd.open_file_on_remote, "Open selection on remote" },
+  ["gr"] = { git_cmd.open_file_on_remote, "Open selection on remote" },
 }, { mode = "v" })
