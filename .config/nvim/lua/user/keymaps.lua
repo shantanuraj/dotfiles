@@ -59,3 +59,7 @@ which_key.register({
     p = { '"_dP', "Paste without overwriting clipboard" },
   },
 }, { mode = "x" })
+
+which_key.register({
+  ["<esc>"] = { "<cmd>noh<cr><esc>", "Escape and clear hlsearch" },
+}, { mode = { "n", "i" } })
