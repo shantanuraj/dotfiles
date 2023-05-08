@@ -22,7 +22,7 @@ return require("lazy").setup({
         },
         markdown = true,
       },
-      flavour = "latte",
+      flavour = "mocha",
     },
     config = function(_, opts)
       require("catppuccin").setup(opts)

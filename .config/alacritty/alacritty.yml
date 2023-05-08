@@ -48,7 +48,7 @@ font:
   size: 14
 
 import:
-  - ~/.local/share/alacritty/catppuccin/catppuccin-latte.yml
+  - ~/.local/share/alacritty/catppuccin/catppuccin-mocha.yml
 
 key_bindings:
   - {
