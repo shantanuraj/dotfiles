@@ -24,6 +24,13 @@ nvimtree.setup({
   -- change folder arrow icons
   renderer = {
     icons = {
+      show = {
+        file = false,
+        folder = false,
+        folder_arrow = false,
+        git = false,
+        modified = false,
+      },
       glyphs = {
         folder = {
           arrow_closed = "", -- arrow when folder is closed
