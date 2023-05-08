@@ -373,59 +373,6 @@ return require("lazy").setup({
     },
   },
 
-  -- Harpoon
-  {
-    "ThePrimeagen/harpoon",
-    event = "BufRead",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    keys = {
-      {
-        "<leader>a",
-        function()
-          require("harpoon.mark").add_file()
-        end,
-        "Add location to marks",
-      },
-      {
-        "<C-e>",
-        function()
-          require("harpoon.ui").toggle_quick_menu()
-        end,
-        "Show harpoon marks",
-      },
-      {
-        "<C-z>",
-        function()
-          require("harpoon.ui").nav_file(1)
-        end,
-        "Go to mark 1",
-      },
-      {
-        "<C-x>",
-        function()
-          require("harpoon.ui").nav_file(2)
-        end,
-        "Go to mark 2",
-      },
-      {
-        "<C-c>",
-        function()
-          require("harpoon.ui").nav_file(3)
-        end,
-        "Go to mark 3",
-      },
-      {
-        "<C-v>",
-        function()
-          require("harpoon.ui").nav_file(4)
-        end,
-        "Go to mark 4",
-      },
-    },
-  },
-
   -- Which key
   "folke/which-key.nvim",
 
