@@ -29,6 +29,7 @@ require("telescope").setup({
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
+require("telescope").load_extension("harpoon")
 
 local M = {}
 
@@ -73,7 +74,7 @@ which_key.register({
       C = { "<cmd>Telescope commands theme=get_dropdown<cr>", "Find command" },
       d = { "<cmd>Telescope diagnostics theme=get_dropdown<cr>", "Go to diagnostic" },
       h = { "<cmd>Telescope help_tags theme=get_dropdown<cr>", "Find help" },
-      m = { "<cmd>Telescope marks theme=get_dropdown<cr>", "Go to Mark" },
+      m = { "<cmd>Telescope harpoon marks theme=get_ivy<cr>", "Go to harpon mark" },
       R = { "<cmd>Telescope registers theme=get_dropdown<cr>", "Find registers" },
       r = { "<cmd>Telescope oldfiles only_cwd=true<cr>", "Find recent files" },
       t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
