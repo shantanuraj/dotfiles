@@ -1,9 +1,15 @@
+local trouble = require("trouble.providers.telescope")
+
 -- Telescope config
 require("telescope").setup({
   defaults = {
     file_ignore_patterns = {
       ".git/worktrees",
       ".git/COMMIT_EDITMSG",
+    },
+    mappings = {
+      i = { ["<C-t>"] = trouble.open_with_trouble },
+      n = { ["<C-t>"] = trouble.open_with_trouble },
     },
   },
   extensions = {
