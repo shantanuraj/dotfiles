@@ -31,7 +31,6 @@ return function(_, _)
     which_key.register({
       ["g"] = {
         name = "+Go to",
-        f = { "<cmd>Lspsaga lsp_finder<CR>", "LSP Finder" },
         D = { "<Cmd>Lspsaga goto_definition<CR>", "Declaration" },
         d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
         i = { vim.lsp.buf.implementation, "Implementation" },

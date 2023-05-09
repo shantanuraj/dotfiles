@@ -400,6 +400,7 @@ return require("lazy").setup({
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
+      { "gf", "<cmd>TroubleToggle lsp_references<cr>", desc = "LSP references" },
       { "<leader>xt", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
       { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
