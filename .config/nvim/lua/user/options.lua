@@ -14,6 +14,7 @@ vim.o.fileencoding = "utf-8"
 
 -- cursor
 vim.o.cursorline = true -- highlight current line
+vim.o.cursorlineopt = "number" -- highlight current line number only
 vim.o.scrolloff = 10 -- keep at least 8 lines after the cursor when scrolling
 vim.o.sidescrolloff = 10 -- (same as `scrolloff` about columns during side scrolling)
 vim.o.virtualedit = "block" -- allow the cursor to go in to virtual places
