@@ -134,3 +134,5 @@ export PATH="$HOME/go/bin:$PATH"
 # Git alias extensions
 alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
+# bat theme
+export BAT_THEME="OneHalfDark"
