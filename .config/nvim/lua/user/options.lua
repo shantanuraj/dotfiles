@@ -8,6 +8,16 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
 
+-- Set cmd height to 1 when recording macro
+vim.cmd([[
+  autocmd RecordingEnter *  setlocal cmdheight=1
+]])
+
+-- Set cmd height to 0 when leaving macro recording
+vim.cmd([[
+  autocmd RecordingLeave *  setlocal cmdheight=0
+]])
+
 -- encoding
 vim.o.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
