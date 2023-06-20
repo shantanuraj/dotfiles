@@ -83,8 +83,21 @@ return require("lazy").setup({
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
     opts = function()
+      local function show_macro_recording()
+        local recording_register = vim.fn.reg_recording()
+        if recording_register == "" then
+          return ""
+        else
+          return "Recording @" .. recording_register
+        end
+      end
+
       return {
         sections = {
+          lualine_a = {
+            "mode",
+            { "macro-recording", fmt = show_macro_recording },
+          },
           lualine_z = {
             "location",
             {
@@ -101,6 +114,23 @@ return require("lazy").setup({
         },
         extensions = { "lazy" },
       }
+    end,
+    config = function(_, opts)
+      local lualine = require("lualine")
+      lualine.setup(opts)
+
+      local refresh_statusline = function()
+        lualine.refresh({
+          place = { "statusline" },
+        })
+      end
+
+      vim.api.nvim_create_autocmd("RecordingEnter", {
+        callback = refresh_statusline,
+      })
+      vim.api.nvim_create_autocmd("RecordingLeave", {
+        callback = refresh_statusline,
+      })
     end,
   },
 
