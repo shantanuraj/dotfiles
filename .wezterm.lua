@@ -5,6 +5,9 @@ local act = wezterm.action
 local mux = wezterm.mux
 
 local function basename(s)
+	if (s == "/") then
+		return s
+	end
 	local res = string.gsub(s, "(.*[/\\])(.*)", "%2")
 	return res
 end
