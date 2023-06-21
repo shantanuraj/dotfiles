@@ -49,9 +49,33 @@ wezterm.on("update-right-status", function(window)
 	window:set_right_status(window:active_workspace() .. " ")
 end)
 
+--- trim_prefix returns s with the prefix removed.
+--- @param s string
+--- @param prefix string
+--- @return string
+local function trim_prefix(s, prefix)
+	local len = #s
+	local plen = #prefix
+	if len == 0 or plen == 0 or len < plen then
+		return s
+	elseif s == prefix then
+		return ""
+	elseif string.sub(s, 1, plen) == prefix then
+		-- remove prefix
+		return string.sub(s, plen + 1)
+	end
+
+	return s
+end
+
 wezterm.on("format-tab-title", function(tab)
 	local pane = tab.active_pane
 	local title = basename(pane.current_working_dir)
+
+	if title == "" and pane.domain_name then
+		title = trim_prefix(pane.domain_name, "SSH:") .. ":" .. basename(pane.title)
+	end
+
 	return {
 		{ Text = " " .. title .. " " },
 	}
