@@ -134,6 +134,11 @@ config.keys = {
 	},
 	{
 		key = "f",
+		mods = "SUPER|SHIFT",
+		action = act.QuickSelect,
+	},
+	{
+		key = "f",
 		mods = "SUPER",
 		action = act.Search("CurrentSelectionOrEmptyString"),
 	},
