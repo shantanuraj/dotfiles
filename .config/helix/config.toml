@@ -1,0 +1,21 @@
+theme = "flatwhite"
+
+[editor]
+bufferline = "multiple"
+color-modes = true
+cursorline = true
+line-number = "relative"
+shell = ["zsh", "-c"]
+
+[editor.file-picker]
+hidden = false
+follow-symlinks = false
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control", "file-name"]
+
+[keys.normal.space]
+space = "file_picker"
