@@ -17,9 +17,16 @@ display-messages = true
 [editor.statusline]
 left = ["mode", "spinner", "version-control", "file-name"]
 
+[keys.insert]
+esc = ["collapse_selection", "normal_mode"]
+
 [keys.normal]
+esc = ["collapse_selection", "normal_mode"]
 "*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
 G = "goto_file_end"
+
+[keys.select]
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
 
 [keys.normal.space]
 space = "file_picker"
