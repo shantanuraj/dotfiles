@@ -19,6 +19,7 @@ left = ["mode", "spinner", "version-control", "file-name"]
 
 [keys.normal]
 "*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
+G = "goto_file_end"
 
 [keys.normal.space]
 space = "file_picker"
