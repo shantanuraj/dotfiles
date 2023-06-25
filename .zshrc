@@ -136,3 +136,6 @@ alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
 # bat theme
 export BAT_THEME="OneHalfDark"
+
+# magit
+alias magit="emacsclient -c --eval '(progn (magit-status default-directory))'"
