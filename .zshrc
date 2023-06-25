@@ -131,6 +131,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Go
 export PATH="$HOME/go/bin:$PATH"
 
+# Local bin
+export PATH="$HOME/.local/bin:$PATH"
+
 # Git alias extensions
 alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
