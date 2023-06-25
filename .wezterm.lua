@@ -51,7 +51,7 @@ end)
 wezterm.on("update-status", function(window)
 	local workspace = window:active_workspace()
 	local date = wezterm.strftime("%a %b %-d %H:%M")
-	window:set_right_status(workspace .. " | " .. date .. "")
+	window:set_right_status(workspace .. " | 󰃰 " .. date)
 end)
 
 --- trim_prefix returns s with the prefix removed.
