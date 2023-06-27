@@ -409,7 +409,7 @@ return require("lazy").setup({
   -- Zen Mode
   {
     "folke/zen-mode.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("zen-mode").setup({
         window = {
