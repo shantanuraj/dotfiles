@@ -1,5 +1,5 @@
 local fzf_make_cmd = "make"
-if vim.loop.os_uname().machine == "arm64" then
+if vim.uv.os_uname().machine == "arm64" then
   fzf_make_cmd = " arch -arm64 make"
 end
 
