@@ -1,5 +1,9 @@
 local fzf_make_cmd = "make"
-if vim.uv.os_uname().machine == "arm64" then
+-- Check if we have vim.uv otherwise use vim.loop
+local uv = vim.uv or vim.loop
+
+-- Fzf native build command for Apple Silicon
+if uv.os_uname().machine == "arm64" then
   fzf_make_cmd = " arch -arm64 make"
 end
 
