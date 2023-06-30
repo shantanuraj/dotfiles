@@ -148,10 +148,8 @@ config.keys = {
 	{ key = " ", mods = "ALT", action = wezterm.action.ShowTabNavigator },
 	{ mods = "SUPER", key = "d", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ mods = "SUPER|SHIFT", key = "d", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Left") },
-	{ key = "]", mods = "SUPER", action = act.ActivatePaneDirection("Right") },
-	{ key = "j", mods = "SUPER", action = act.ActivatePaneDirection("Down") },
-	{ key = "k", mods = "SUPER", action = act.ActivatePaneDirection("Up") },
+	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Prev") },
+	{ key = "]", mods = "SUPER", action = act.ActivatePaneDirection("Next") },
 	-- maxmize current pane
 	{
 		key = "Enter",
