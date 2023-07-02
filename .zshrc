@@ -143,3 +143,7 @@ export BAT_THEME="OneHalfDark"
 
 # magit
 alias magit="emacsclient -c --eval '(progn (magit-status default-directory))'"
+
+if [ "$(uname)" = "Linux" ]; then
+  export COLORTERM=truecolor
+fi
