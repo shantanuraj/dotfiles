@@ -50,6 +50,9 @@ vim.o.splitright = true -- put new windows right of current
 -- core
 vim.o.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
 
+-- undo
+vim.o.undofile = true -- save undo history to a file
+
 -- trim trailing whitespace
 vim.cmd([[
   autocmd BufWritePre * %s/\s\+$//e
