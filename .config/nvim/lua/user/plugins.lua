@@ -84,7 +84,7 @@ return require("lazy").setup({
   -- Lualine
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPost" },
     dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
     opts = function()
       local function show_macro_recording()
@@ -320,9 +320,10 @@ return require("lazy").setup({
     },
     config = require("user.lsp.lspconfig"),
   },
+
   {
     "nvimdev/lspsaga.nvim", -- enhanced lsp uis
-    event = "LspAttach",
+    event = { "BufReadPost" },
     branch = "main",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
