@@ -102,6 +102,7 @@ return require("lazy").setup({
             "mode",
             { "macro-recording", fmt = show_macro_recording },
           },
+          lualine_x = {},
           lualine_z = {
             "location",
             {
