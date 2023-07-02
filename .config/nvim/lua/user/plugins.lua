@@ -294,6 +294,13 @@ return require("lazy").setup({
     end,
   },
 
+  -- auto pairs
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
+  },
+
   -- Managing & installing lsp servers, linters & formatters
   {
     "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
