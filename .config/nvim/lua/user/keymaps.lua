@@ -32,11 +32,6 @@ which_key.register({
       n = { vim.cmd.tabn, "Go to next tab" },
       p = { vim.cmd.tabp, "Go to previous tab" },
     },
-    u = {
-      name = "+update",
-      -- Clear search, diff update and redraw taken from runtime/lua/_editor.lua
-      u = { "<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>", "Clear search, diff update and redraw" },
-    },
     z = { vim.cmd.ZenMode, "Toggle Zen mode" },
   },
   g = {

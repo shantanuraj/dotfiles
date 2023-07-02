@@ -484,4 +484,20 @@ return require("lazy").setup({
       })
     end,
   },
+
+  -- Undo tree
+  {
+    "mbbill/undotree",
+    config = function()
+      local which_key_status, which_key = pcall(require, "which-key")
+      if not which_key_status then
+        return
+      end
+      which_key.register({
+        ["<leader>"] = {
+          u = { "<cmd>UndotreeToggle<cr>", "Toggle undotree" },
+        },
+      })
+    end,
+  },
 })
