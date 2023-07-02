@@ -356,8 +356,41 @@ return require("lazy").setup({
     end,
   },
 
-  -- Git blame
-  { "f-person/git-blame.nvim", event = "BufRead" },
+  -- Git blame, gutter
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+      current_line_blame = true,
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+
+      -- stylua: ignore start
+      map("n", "]g", gs.next_hunk, "Next Hunk")
+      map("n", "[g", gs.prev_hunk, "Prev Hunk")
+      map({ "n", "v" }, "<leader>ggs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+      map({ "n", "v" }, "<leader>ggr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+      map("n", "<leader>ggu", gs.undo_stage_hunk, "Undo Stage Hunk")
+      map("n", "<leader>ggp", gs.preview_hunk, "Preview Hunk")
+      map("n", "<leader>ggb", function() gs.blame_line({ full = true }) end, "Blame Line")
+      map("n", "<leader>ggd", gs.diffthis, "Diff This")
+      map("n", "<leader>ggD", function() gs.diffthis("~") end, "Diff This ~")
+      map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+      end,
+    },
+  },
 
   -- Highlight TODOs
   {
