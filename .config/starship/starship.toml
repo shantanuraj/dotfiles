@@ -1,0 +1,53 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$username\
+$hostname\
+$localip\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$terraform\
+$aws\
+$custom\
+$sudo\
+$cmd_duration\
+$time\
+$jobs\
+$line_break\
+$character"""
+
+[character]
+success_symbol = '[\$](bold green)'
+error_symbol = '[\$](bold red)'
+
+[directory]
+style = 'bold yellow'
+truncation_length = 8
+truncate_to_repo = false
+
+[git_branch]
+symbol = ''
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+modified = 'x'
+stashed = ''
+untracked = ''
+
+[hostname]
+ssh_only = false
+ssh_symbol = ''
+style = 'green'
+
+[time]
+disabled = false
+
+[username]
+format = '[$user]($style) @ '

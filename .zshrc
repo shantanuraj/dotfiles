@@ -147,3 +147,9 @@ alias magit="emacsclient -c --eval '(progn (magit-status default-directory))'"
 if [ "$(uname)" = "Linux" ]; then
   export COLORTERM=truecolor
 fi
+
+# starship
+if [ -f /usr/local/bin/starship ]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+  eval "$(starship init zsh)"
+fi
