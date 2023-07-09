@@ -42,13 +42,19 @@ function M.get_blob_url(sha, remote_url, filepath, lines)
 end
 
 ---@param sha string
-function M.open_blob_in_browser(sha)
+---@param custom_filepath string|nil
+function M.open_blob_in_browser(sha, custom_filepath)
   M.get_remote_url(function(remote_url)
-    M.get_relative_filepath(function(filepath)
+    local function open_filepath_at_blob(filepath)
       local lines = utils.get_visual_selection()
       local blob_url = M.get_blob_url(sha, remote_url, filepath, lines)
       utils.launch_url(blob_url)
-    end)
+    end
+    if custom_filepath then
+      open_filepath_at_blob(custom_filepath)
+      return
+    end
+    M.get_relative_filepath(open_filepath_at_blob)
   end)
 end
 
@@ -105,6 +111,21 @@ function M.get_sha(callback)
       callback(data[1])
     end,
   })
+end
+
+---@param callback fun(sha: string, filepath: string)
+function M.get_line_sha(callback)
+  local line = vim.fn.line(".")
+  utils.start_job(
+    "git log -L " .. line .. ",1" .. ":" .. vim.fn.expand("%:p") .. " --pretty=format:'%H' --max-count=1",
+    {
+      on_stdout = function(data)
+        local sha = data[1]
+        local filepath = utils.gsub(data[4], "+++ b/", "")
+        callback(sha, filepath)
+      end,
+    }
+  )
 end
 
 return M

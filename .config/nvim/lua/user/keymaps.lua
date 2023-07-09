@@ -36,7 +36,7 @@ which_key.register({
   },
   g = {
     r = { git_cmd.open_file_on_remote, "Open file on remote" },
-    R = { vim.cmd.GitBlameOpenCommitURL, "Open commit on remote" },
+    R = { git_cmd.open_line_sha_on_remote, "Open commit on remote" },
   },
 })
 
