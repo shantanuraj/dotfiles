@@ -353,6 +353,19 @@ return require("lazy").setup({
     end,
   },
 
+  -- Git custom commands
+  {
+    dir = "./git",
+    event = { "BufReadPost" },
+    config = function()
+      require("user.git.config").setup()
+    end,
+    keys = {
+      { "gr", vim.cmd.GitOpenFileOnRemote, "Open selection on remote" },
+      { "gR", vim.cmd.GitOpenLineOnRemote, "Open commit on remote" },
+    },
+  },
+
   -- Git blame, gutter
   {
     "lewis6991/gitsigns.nvim",

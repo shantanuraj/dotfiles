@@ -1,4 +1,3 @@
-local git_cmd = require("user.git.cmd")
 local which_key_status, which_key = pcall(require, "which-key")
 
 if not which_key_status then
@@ -31,16 +30,12 @@ which_key.register({
     },
     z = { vim.cmd.ZenMode, "Toggle Zen mode" },
   },
-  g = {
-    r = { git_cmd.open_file_on_remote, "Open file on remote" },
-    R = { git_cmd.open_line_sha_on_remote, "Open commit on remote" },
-  },
 })
 
 which_key.register({
   ["<"] = { "<gv", "Tab back" },
   [">"] = { ">gv", "Tab forward" },
-  ["gr"] = { git_cmd.open_file_on_remote, "Open selection on remote" },
+  ["gr"] = { vim.cmd.GitOpenFileOnRemote, "Open selection on remote" },
   ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
   ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
 }, { mode = "v" })
