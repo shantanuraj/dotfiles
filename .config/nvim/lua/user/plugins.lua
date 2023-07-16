@@ -471,7 +471,6 @@ return require("lazy").setup({
   -- Better diagnostics list and others
   {
     "folke/trouble.nvim",
-    enable = false,
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
