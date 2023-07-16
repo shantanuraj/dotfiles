@@ -11,5 +11,5 @@
 git clone git@github.com:tmux-plugins/tpm ~/.tmux/plugins/tpm;
 ~/.tmux/plugins/tpm/bin/install_plugins;
 
-# Clone catppuccin theme for Alacritty
-git clone git@github.com:catppuccin/alacritty.git ~/.local/share/alacritty/catppuccin;
+# Clone theme for Alacritty
+git clone git@github.com:srcery-colors/srcery-terminal.git ~/.local/share/alacritty/srcery-terminal;

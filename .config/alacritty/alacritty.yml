@@ -48,7 +48,7 @@ font:
   size: 14
 
 import:
-  - ~/.local/share/alacritty/catppuccin/catppuccin-mocha.yml
+  - ~/.local/share/alacritty/srcery-terminal/alacritty/srcery_alacritty.yml
 
 key_bindings:
   - {

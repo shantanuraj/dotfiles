@@ -102,7 +102,7 @@ end
 config.initial_cols = 160
 config.initial_rows = 48
 config.default_prog = { "/bin/zsh", "-l" }
-config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "Srcery (Gogh)"
 config.default_workspace = "dev"
 config.font = wezterm.font("Berkeley Mono")
 config.font_size = 14.0

@@ -13,24 +13,28 @@ return require("lazy").setup({
   },
   -- Theme
   {
-    "catppuccin/nvim",
+    "ramojus/mellifluous.nvim",
     lazy = false,
     priority = 1000,
-    name = "catppuccin",
+    name = "mellifluous",
     opts = {
-      integrations = {
-        illuminate = true,
-        indent_blankline = {
+      plugins = {
+        cmp = true,
+        gitsigns = true,
+        indent_blankline = true,
+        nvim_tree = {
           enabled = true,
-          colored_indent_levels = false,
+          show_root = false,
         },
-        markdown = true,
+        telescope = {
+          enabled = true,
+          nvchad_like = true,
+        },
       },
-      flavour = "mocha",
     },
     config = function(_, opts)
-      require("catppuccin").setup(opts)
-      vim.cmd.colorscheme("catppuccin")
+      require("mellifluous").setup(opts)
+      vim.cmd.colorscheme("mellifluous")
     end,
   },
 
