@@ -141,4 +141,16 @@ function M.gsub(text, pattern, replacement)
   return res
 end
 
+--- Return the string separted by space
+--- @param str string
+--- @return table
+--- @usage split("a b c") => {"a", "b", "c"}
+function M.split_space(str)
+  local res = {}
+  for word in str:gmatch("%S+") do
+    table.insert(res, word)
+  end
+  return res
+end
+
 return M

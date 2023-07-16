@@ -43,10 +43,11 @@ end
 
 ---@param sha string
 ---@param custom_filepath string|nil
-function M.open_blob_in_browser(sha, custom_filepath)
+---@param custom_lines {start: number, end: number}|nil
+function M.open_blob_in_browser(sha, custom_filepath, custom_lines)
   M.get_remote_url(function(remote_url)
     local function open_filepath_at_blob(filepath)
-      local lines = utils.get_visual_selection()
+      local lines = custom_lines or utils.get_visual_selection()
       local blob_url = M.get_blob_url(sha, remote_url, filepath, lines)
       utils.launch_url(blob_url)
     end
@@ -113,19 +114,23 @@ function M.get_sha(callback)
   })
 end
 
----@param callback fun(sha: string, filepath: string)
+---@param callback fun(sha: string, filepath: string, lines: {start: number, end: number})
 function M.get_line_sha(callback)
   local line = vim.fn.line(".")
-  utils.start_job(
-    "git log -L " .. line .. ",+1" .. ":" .. vim.fn.expand("%:p") .. " --pretty=format:'%H' --max-count=1",
-    {
-      on_stdout = function(data)
-        local sha = data[1]
-        local filepath = utils.gsub(data[4], "+++ b/", "")
-        callback(sha, filepath)
-      end,
-    }
-  )
+  local cmd = "git blame --line-porcelain -L " .. line .. ",+1 -- " .. vim.fn.expand("%:p")
+  utils.start_job(cmd, {
+    on_stdout = function(data)
+      local commit_line_data = utils.split_space(data[1])
+      local filepath_line = utils.split_space(data[11])
+
+      local sha = commit_line_data[1]
+      local line_start = commit_line_data[2]
+      local filepath = filepath_line[1] == "filename" and filepath_line[2] or filepath_line[3]
+
+      local lines = { start = line_start, ["end"] = line_start }
+      callback(sha, filepath, lines)
+    end,
+  })
 end
 
 return M
