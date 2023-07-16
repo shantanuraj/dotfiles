@@ -9,6 +9,8 @@ which_key.setup({})
 which_key.register({
   ["<c-space>"] = "Increment selection",
   ["<bs>"] = { "Decrement selection", mode = "x" },
+  ["gn"] = { vim.cmd.tabn, "Go to next tab" },
+  ["gp"] = { vim.cmd.tabp, "Go to previous tab" },
   ["<leader>"] = {
     name = "+leader",
     R = { "<cmd>source $MYVIMRC<cr>", "Reload config" },
@@ -25,8 +27,6 @@ which_key.register({
       name = "+tab",
       t = { vim.cmd.tabnew, "Open new tab" },
       x = { vim.cmd.tabclose, "Close current tab" },
-      n = { vim.cmd.tabn, "Go to next tab" },
-      p = { vim.cmd.tabp, "Go to previous tab" },
     },
     z = { vim.cmd.ZenMode, "Toggle Zen mode" },
   },
