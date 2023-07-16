@@ -117,7 +117,7 @@ end
 function M.get_line_sha(callback)
   local line = vim.fn.line(".")
   utils.start_job(
-    "git log -L " .. line .. ",1" .. ":" .. vim.fn.expand("%:p") .. " --pretty=format:'%H' --max-count=1",
+    "git log -L " .. line .. ",+1" .. ":" .. vim.fn.expand("%:p") .. " --pretty=format:'%H' --max-count=1",
     {
       on_stdout = function(data)
         local sha = data[1]
