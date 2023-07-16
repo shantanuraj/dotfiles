@@ -35,17 +35,20 @@ wezterm.on("gui-startup", function()
 
 	dotfiles_tab:activate()
 
-	local app_tab, pane, window = mux.spawn_window({
+	local app_tab, app_pane, work_window = mux.spawn_window({
 		workspace = "REKKI",
 		args = { "/opt/homebrew/bin/nvim" },
 		cwd = wezterm.home_dir .. "/dev/rekki/buyer-app",
 	})
 
-	pane:split({
-		cwd = wezterm.home_dir .. "/dev/rekki/buyer-app",
+	app_pane:split({})
+
+	local _, api_pane, _ = work_window:spawn_tab({
+		args = { "/opt/homebrew/bin/nvim" },
+		cwd = wezterm.home_dir .. "/dev/rekki/go",
 	})
 
-	window:spawn_tab({
+	api_pane:split({
 		cwd = wezterm.home_dir .. "/dev/rekki/go",
 	})
 
