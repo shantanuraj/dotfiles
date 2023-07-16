@@ -13,7 +13,7 @@ local function basename(s)
 end
 
 wezterm.on("gui-startup", function()
-	local _, _, dev_window = mux.spawn_window({
+	local dotfiles_tab, _, dev_window = mux.spawn_window({
 		workspace = "dev",
 		cwd = wezterm.home_dir .. "/.dotfiles",
 		args = { "/opt/homebrew/bin/nvim" },
@@ -33,7 +33,9 @@ wezterm.on("gui-startup", function()
 		cwd = wezterm.home_dir .. "/dev/shantanuraj/sraj.me",
 	})
 
-	local _, pane, window = mux.spawn_window({
+	dotfiles_tab:activate()
+
+	local app_tab, pane, window = mux.spawn_window({
 		workspace = "REKKI",
 		args = { "/opt/homebrew/bin/nvim" },
 		cwd = wezterm.home_dir .. "/dev/rekki/buyer-app",
@@ -46,6 +48,8 @@ wezterm.on("gui-startup", function()
 	window:spawn_tab({
 		cwd = wezterm.home_dir .. "/dev/rekki/go",
 	})
+
+	app_tab:activate()
 end)
 
 wezterm.on("update-status", function(window)
