@@ -16,7 +16,6 @@ mason_null_ls.setup({
     "eslint_d", -- ts/js linter
     "gofumpt", -- go formatter
     "prettier", -- ts/js formatter
-    "rustfmt", -- rust formatter
     "stylua", -- lua formatter
   },
   -- auto-install configured formatters & linters (with null-ls)
