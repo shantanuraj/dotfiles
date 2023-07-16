@@ -511,18 +511,17 @@ return require("lazy").setup({
     "akinsho/toggleterm.nvim",
     tag = "v2.6.0",
     event = "VeryLazy",
-    config = function()
-      require("toggleterm").setup({
-        open_mapping = [[<c-\>]],
-        hide_numbers = true,
-        shade_filetypes = {},
-        shade_terminals = true,
-        start_in_insert = true,
-        persist_size = true,
-        direction = "float",
-        close_on_exit = true,
-      })
-    end,
+    opts = {
+      open_mapping = [[<c-\>]],
+      hide_numbers = true,
+      shade_filetypes = {},
+      shade_terminals = true,
+      start_in_insert = true,
+      persist_size = true,
+      direction = "float",
+      close_on_exit = true,
+      shell = vim.o.shell .. " -l",
+    },
   },
 
   -- Undo tree
