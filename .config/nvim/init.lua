@@ -14,6 +14,9 @@ if not uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- set leader key to space so lazy maps it correctly
+vim.g.mapleader = " "
+
 -- options
 require("user.options")
 

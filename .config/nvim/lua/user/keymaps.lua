@@ -1,6 +1,3 @@
--- set leader key to space
-vim.g.mapleader = " "
-
 local git_cmd = require("user.git.cmd")
 local which_key_status, which_key = pcall(require, "which-key")
 
