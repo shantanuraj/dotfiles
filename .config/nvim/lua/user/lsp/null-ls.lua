@@ -16,6 +16,7 @@ mason_null_ls.setup({
     "eslint_d", -- ts/js linter
     "gofumpt", -- go formatter
     "golines", -- go formatter
+    "gomodifytags", -- go struct tag formatter
     "prettier", -- ts/js formatter
     "stylua", -- lua formatter
   },
@@ -26,6 +27,7 @@ mason_null_ls.setup({
 -- for conciseness
 local formatting = null_ls.builtins.formatting -- to setup formatters
 local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+local codeactions = null_ls.builtins.code_actions -- to setup code actions
 
 -- to setup format on save
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -41,6 +43,7 @@ null_ls.setup({
     formatting.stylua, -- lua formatter
     formatting.gofumpt, -- go formatter
     formatting.golines, -- go formatter
+    codeactions.gomodifytags, -- go struct tag formatter
     diagnostics.eslint_d.with({ -- js/ts linter
       -- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
       condition = function(utils)
