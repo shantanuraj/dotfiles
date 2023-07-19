@@ -39,7 +39,7 @@ symbol = ''
 format = '([$all_status$ahead_behind]($style) )'
 modified = 'x'
 stashed = ''
-untracked = ''
+untracked = 'u'
 
 [hostname]
 ssh_only = false
