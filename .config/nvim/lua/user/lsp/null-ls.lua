@@ -14,7 +14,7 @@ mason_null_ls.setup({
   -- list of formatters & linters for mason to install
   ensure_installed = {
     "eslint_d", -- ts/js linter
-    "gofumpt", -- go formatter
+    "goimports", -- go formatter
     "golines", -- go formatter
     "gomodifytags", -- go struct tag formatter
     "prettier", -- ts/js formatter
@@ -41,7 +41,7 @@ null_ls.setup({
     formatting.prettier, -- js/ts formatter
     formatting.rustfmt, -- rust formatter
     formatting.stylua, -- lua formatter
-    formatting.gofumpt, -- go formatter
+    formatting.goimports, -- go formatter
     formatting.golines, -- go formatter
     codeactions.gomodifytags, -- go struct tag formatter
     diagnostics.eslint_d.with({ -- js/ts linter
