@@ -142,7 +142,7 @@ alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 export BAT_THEME="OneHalfDark"
 
 # magit
-alias magit="emacsclient -c --eval '(progn (magit-status default-directory))'"
+alias magit="emacs -nw --eval '(magit-status)'"
 
 if [ "$(uname)" = "Linux" ]; then
   export COLORTERM=truecolor
