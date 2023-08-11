@@ -17,7 +17,7 @@ mason_null_ls.setup({
     "goimports", -- go formatter
     "golines", -- go formatter
     "gomodifytags", -- go struct tag formatter
-    "prettier", -- ts/js formatter
+    "prettierd", -- ts/js formatter
     "stylua", -- lua formatter
   },
   -- auto-install configured formatters & linters (with null-ls)
@@ -36,7 +36,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
   -- setup formatters & linters
   sources = {
-    formatting.prettier.with({
+    formatting.prettierd.with({
       extra_filetypes = { "astro" }, -- use prettier for astro
     }),
     formatting.rustfmt, -- rust formatter
