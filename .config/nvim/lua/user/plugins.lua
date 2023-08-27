@@ -22,10 +22,6 @@ return require("lazy").setup({
         cmp = true,
         gitsigns = true,
         indent_blankline = true,
-        nvim_tree = {
-          enabled = true,
-          show_root = false,
-        },
         telescope = {
           enabled = true,
           nvchad_like = true,
@@ -99,6 +95,42 @@ return require("lazy").setup({
         end
       end
 
+      local oil = {
+        sections = {
+          lualine_a = {
+            "mode",
+          },
+          lualine_b = {
+            {
+              "path",
+              fmt = function()
+                local cwd = vim.fn.getcwd()
+                local exp = vim.fn.expand("%:p")
+                ---@cast exp string
+                local path = exp:sub(7)
+                -- drop trailing slash
+                path = path:sub(1, #path - 1)
+
+                if path == "" then
+                  return "/"
+                end
+
+                if path == cwd then
+                  return cwd:match("([^/]+)$")
+                end
+
+                -- if path is in cwd, remove cwd from path
+                if path:sub(1, #cwd) == cwd then
+                  path = path:sub(#cwd + 2)
+                end
+                return path
+              end,
+            },
+          },
+        },
+        filetypes = { "oil" },
+      }
+
       return {
         sections = {
           lualine_a = {
@@ -119,7 +151,11 @@ return require("lazy").setup({
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },
-        extensions = { "lazy" },
+        extensions = {
+          "lazy",
+          "toggleterm",
+          oil,
+        },
       }
     end,
     config = function(_, opts)
@@ -146,12 +182,31 @@ return require("lazy").setup({
 
   -- File explorer
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
+    "stevearc/oil.nvim",
+    opts = {
+      prompt_save_on_select_new_entry = false,
+      use_default_keymaps = false,
+      keymaps = {
+        ["?"] = "actions.show_help",
+        ["<CR>"] = "actions.select",
+        ["<C-s>"] = "actions.select_vsplit",
+        ["<C-h>"] = "actions.select_split",
+        ["<C-t>"] = "actions.select_tab",
+        ["<Tab>"] = "actions.preview",
+        ["<C-c>"] = "actions.close",
+        ["<C-l>"] = "actions.refresh",
+        ["-"] = "actions.parent",
+        ["_"] = "actions.open_cwd",
+        ["`"] = "actions.cd",
+        ["~"] = "actions.tcd",
+        ["g."] = "actions.toggle_hidden",
+      },
     },
-    tag = "nightly",
-    lazy = true,
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+    },
   },
 
   -- Maximizes and restores current window
