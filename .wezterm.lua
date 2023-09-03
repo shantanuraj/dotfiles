@@ -22,16 +22,16 @@ end
 --- @param workspace string
 --- @param cwd string
 --- @return string[]
-local function with_editor(workspace, cwd)
+local function set_dir(workspace, cwd)
 	return {
 		workspace = workspace,
-		args = { "zsh", "-l", "-i", "-c", "cd " .. cwd .. "; nvim" },
 		cwd = cwd,
 	}
 end
 
 wezterm.on("gui-startup", function()
-	local dotfiles_tab, _, dev_window = mux.spawn_window(with_editor("dev", wezterm.home_dir .. "/.dotfiles"))
+	local dotfiles_tab, dotfiles_pane, dev_window = mux.spawn_window(set_dir("dev", wezterm.home_dir .. "/.dotfiles"))
+	dotfiles_pane:send_text("nvim\n")
 
 	dev_window:gui_window():toggle_fullscreen()
 
@@ -50,11 +50,13 @@ wezterm.on("gui-startup", function()
 	dotfiles_tab:activate()
 
 	local app_tab, app_pane, work_window =
-		mux.spawn_window(with_editor("REKKI", wezterm.home_dir .. "/dev/rekki/buyer-app"))
+		mux.spawn_window(set_dir("REKKI", wezterm.home_dir .. "/dev/rekki/buyer-app"))
+	app_pane:send_text("nvim\n")
 
 	app_pane:split({})
 
-	local _, api_pane, _ = work_window:spawn_tab(with_editor("REKKI", wezterm.home_dir .. "/dev/rekki/go"))
+	local _, api_pane, _ = work_window:spawn_tab(set_dir("REKKI", wezterm.home_dir .. "/dev/rekki/go"))
+	api_pane:send_text("nvim\n")
 
 	api_pane:split({
 		cwd = wezterm.home_dir .. "/dev/rekki/go",
