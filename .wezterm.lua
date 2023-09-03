@@ -87,6 +87,7 @@ wezterm.on("format-tab-title", function(tab)
 	if title == "" and pane.domain_name then
 		title = trim_prefix(pane.domain_name, "SSH:") .. ":" .. basename(pane.title)
 	end
+	title = trim_prefix(title, "local:")
 
 	return {
 		{ Text = " " .. title .. " " },
@@ -163,6 +164,8 @@ config.keys = {
 		mods = "SUPER|SHIFT",
 		action = wezterm.action.TogglePaneZoomState,
 	},
+	{ key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
+	{ key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
 }
 
 return config
