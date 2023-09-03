@@ -152,8 +152,13 @@ config.keys = {
 		mods = "SUPER",
 		action = act.Search("CurrentSelectionOrEmptyString"),
 	},
-	{ key = "a", mods = "ALT", action = wezterm.action.ShowLauncher },
-	{ key = " ", mods = "ALT", action = wezterm.action.ShowTabNavigator },
+	{
+		key = "g",
+		mods = "SUPER",
+		action = act.ActivateCopyMode,
+	},
+	{ key = "a", mods = "ALT", action = act.ShowLauncher },
+	{ key = " ", mods = "ALT", action = act.ShowTabNavigator },
 	{ mods = "SUPER", key = "d", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ mods = "SUPER|SHIFT", key = "d", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Prev") },
@@ -162,7 +167,7 @@ config.keys = {
 	{
 		key = "Enter",
 		mods = "SUPER|SHIFT",
-		action = wezterm.action.TogglePaneZoomState,
+		action = act.TogglePaneZoomState,
 	},
 	{ key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
 	{ key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
@@ -170,9 +175,70 @@ config.keys = {
 config.mouse_bindings = {
 	{
 		event = { Down = { streak = 3, button = "Left" } },
-		action = wezterm.action.SelectTextAtMouseCursor("SemanticZone"),
+		action = act.SelectTextAtMouseCursor("SemanticZone"),
 		mods = "NONE",
 	},
 }
+
+---@generic T
+---@param dst T[]
+---@param ... T[]
+---@return T[]
+local function list_extend(dst, ...)
+	for _, list in ipairs({ ... }) do
+		for _, v in ipairs(list) do
+			table.insert(dst, v)
+		end
+	end
+	return dst
+end
+
+local accept_pattern = {
+	Multiple = {
+		{ CopyMode = "ClearSelectionMode" },
+		{ CopyMode = "AcceptPattern" },
+	},
+}
+local clear_pattern = {
+	Multiple = {
+		{ CopyMode = "ClearPattern" },
+		{ CopyMode = "ClearSelectionMode" },
+		{ CopyMode = "AcceptPattern" },
+	},
+}
+
+local key_tables = wezterm.gui.default_key_tables()
+
+list_extend(key_tables.copy_mode, {
+	{ key = "/", action = { Search = { CaseInSensitiveString = "" } } },
+	{ key = "n", action = { CopyMode = "NextMatch" } },
+	{ key = "n", mods = "SHIFT", action = { CopyMode = "PriorMatch" } },
+	{ key = "c", mods = "CTRL", action = clear_pattern },
+	{
+		key = "y",
+		action = {
+			Multiple = {
+				{ CopyTo = "PrimarySelection" },
+				{ CopyMode = "Close" },
+			},
+		},
+	},
+	{
+		key = "[",
+		mods = "NONE",
+		action = act.CopyMode("MoveBackwardSemanticZone"),
+	},
+	{
+		key = "]",
+		mods = "NONE",
+		action = act.CopyMode("MoveForwardSemanticZone"),
+	},
+})
+list_extend(key_tables.search_mode, {
+	{ key = "Enter", action = accept_pattern },
+	{ key = "c", mods = "CTRL", action = clear_pattern },
+})
+
+config.key_tables = key_tables
 
 return config
