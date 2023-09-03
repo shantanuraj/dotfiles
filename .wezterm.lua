@@ -4,20 +4,30 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
+--- @param s string
+--- @return string
 local function basename(s)
 	if s == "/" then
 		return s
 	end
-	local res = string.gsub(s, "(.*[/\\])(.*)", "%2")
-	return res
+	local str = string.gsub(s, "file://[^/]*", "")
+	local dirName = string.match(str, "/([^/]+)/?$")
+	return dirName or s
+end
+
+--- @param workspace string
+--- @param cwd string
+--- @return string[]
+local function with_editor(workspace, cwd)
+	return {
+		workspace = workspace,
+		args = { "zsh", "-l", "-i", "-c", "cd " .. cwd .. "; nvim" },
+		cwd = cwd,
+	}
 end
 
 wezterm.on("gui-startup", function()
-	local dotfiles_tab, _, dev_window = mux.spawn_window({
-		workspace = "dev",
-		cwd = wezterm.home_dir .. "/.dotfiles",
-		args = { "/opt/homebrew/bin/nvim" },
-	})
+	local dotfiles_tab, _, dev_window = mux.spawn_window(with_editor("dev", wezterm.home_dir .. "/.dotfiles"))
 
 	dev_window:gui_window():toggle_fullscreen()
 
@@ -35,18 +45,12 @@ wezterm.on("gui-startup", function()
 
 	dotfiles_tab:activate()
 
-	local app_tab, app_pane, work_window = mux.spawn_window({
-		workspace = "REKKI",
-		args = { "/opt/homebrew/bin/nvim" },
-		cwd = wezterm.home_dir .. "/dev/rekki/buyer-app",
-	})
+	local app_tab, app_pane, work_window =
+		mux.spawn_window(with_editor("REKKI", wezterm.home_dir .. "/dev/rekki/buyer-app"))
 
 	app_pane:split({})
 
-	local _, api_pane, _ = work_window:spawn_tab({
-		args = { "/opt/homebrew/bin/nvim" },
-		cwd = wezterm.home_dir .. "/dev/rekki/go",
-	})
+	local _, api_pane, _ = work_window:spawn_tab(with_editor("REKKI", wezterm.home_dir .. "/dev/rekki/go"))
 
 	api_pane:split({
 		cwd = wezterm.home_dir .. "/dev/rekki/go",
@@ -180,10 +184,10 @@ config.mouse_bindings = {
 	},
 }
 
----@generic T
----@param dst T[]
----@param ... T[]
----@return T[]
+--- @generic T
+--- @param dst T[]
+--- @param ... T[]
+--- @return T[]
 local function list_extend(dst, ...)
 	for _, list in ipairs({ ... }) do
 		for _, v in ipairs(list) do
