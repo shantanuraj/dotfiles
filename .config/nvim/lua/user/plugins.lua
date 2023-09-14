@@ -18,6 +18,10 @@ return require("lazy").setup({
     priority = 1000,
     name = "mellifluous",
     opts = {
+      styles = {
+        keywords = { italic = true },
+        conditionals = { italic = true },
+      },
       plugins = {
         cmp = true,
         gitsigns = true,
