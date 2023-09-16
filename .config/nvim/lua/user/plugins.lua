@@ -537,7 +537,7 @@ return require("lazy").setup({
         plugins = {
           tmux = { enabled = true },
           alacritty = { enabled = true, font = "16" },
-          wezterm = { enabled = true, font = "16" },
+          wezterm = { enabled = true, font = "20" },
         },
       })
     end,
