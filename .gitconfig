@@ -1,6 +1,7 @@
 [user]
   name = Shantanu Raj
   email = s@sraj.me
+  signingkey = ~/.ssh/id_git.pub
 [pull]
   rebase = true
 [fetch]
@@ -36,3 +37,11 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+[gpg]
+  format = ssh
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+[gpg "ssh"]
+  allowedSignersFile = ~/.dotfiles/.config/git/authorized_signers
