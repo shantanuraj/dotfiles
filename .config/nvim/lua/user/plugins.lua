@@ -475,22 +475,6 @@ return require("lazy").setup({
     end,
   },
 
-  -- Show indent lines
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
-    opts = {
-      use_treesitter = true,
-      -- show_current_context = true,
-      buftype_exclude = { "terminal", "nofile" },
-      filetype_exclude = {
-        "help",
-        "packer",
-        "NvimTree",
-      },
-    },
-  },
-
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
