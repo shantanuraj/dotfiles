@@ -48,6 +48,7 @@ return function(_, _)
       ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to Previous Diagnostic" },
       ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to Next Diagnostic" },
       ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
+      ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
     }, { buffer = bufnr })
 
     -- typescript specific keymaps (e.g. rename file and update imports)
