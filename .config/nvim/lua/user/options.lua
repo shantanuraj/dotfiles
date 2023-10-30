@@ -8,6 +8,9 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
 
+-- Peristent sign column
+vim.wo.signcolumn = "yes"
+
 -- encoding
 vim.o.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
