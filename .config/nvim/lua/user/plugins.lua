@@ -400,6 +400,9 @@ return require("lazy").setup({
       definition_action_keys = {
         edit = "<CR>",
       },
+      lightbulb = {
+        virtual_text = false,
+      },
     },
   },
 
