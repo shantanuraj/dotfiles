@@ -107,6 +107,15 @@ which_key.register({
         end,
         "Find word",
       },
+      p = {
+        function()
+          require("telescope").extensions.live_grep_args.live_grep_args({
+            prompt_title = "Find in directory",
+            search_dirs = { vim.fn.expand("%:p:h") },
+          })
+        end,
+        "Find in directory",
+      },
     },
     ["g"] = {
       name = "+Git",
