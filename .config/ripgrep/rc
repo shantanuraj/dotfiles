@@ -1,3 +1,5 @@
-
 # Global ignore
 --ignore-file=/Users/shantanu/.config/ripgrep/ignore
+
+# Custom file types
+--type-add=svelte:*.svelte
