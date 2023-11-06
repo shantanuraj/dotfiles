@@ -118,6 +118,9 @@ export EDITOR='nvim'
 alias vim='nvim'
 alias vi='nvim -u NONE -N' # for large files
 
+# Ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rc"
+
 # Android
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH=$ANDROID_HOME/platform-tools:$PATH
