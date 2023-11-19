@@ -45,3 +45,5 @@
   gpgsign = true
 [gpg "ssh"]
   allowedSignersFile = ~/.dotfiles/.config/git/authorized_signers
+[rerere]
+  enabled = true
