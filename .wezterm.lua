@@ -99,6 +99,10 @@ wezterm.on("format-tab-title", function(tab)
 	end
 	title = trim_prefix(title, "local:")
 
+	if pane.is_zoomed then
+		title = title .. " +"
+	end
+
 	return {
 		{ Text = " " .. title .. " " },
 	}
