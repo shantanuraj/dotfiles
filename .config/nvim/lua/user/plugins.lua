@@ -214,6 +214,27 @@ return require("lazy").setup({
     },
   },
 
+  {
+    "echasnovski/mini.files",
+    version = false,
+    config = {
+      mappings = {
+        go_in_plus = "<CR>",
+        go_out_plus = "-",
+      },
+    },
+    keys = {
+      {
+        "<leader>e",
+        function()
+          local MiniFiles = require("mini.files")
+          MiniFiles.open(vim.api.nvim_buf_get_name(0))
+        end,
+        "Toggle file viewer",
+      },
+    },
+  },
+
   -- Maximizes and restores current window
   { "szw/vim-maximizer", event = "VeryLazy" },
 
