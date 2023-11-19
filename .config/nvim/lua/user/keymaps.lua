@@ -10,6 +10,9 @@ vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = tru
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- C-c to change word under cursor
+vim.keymap.set({ "n" }, "<C-c>", "<cmd>normal! ciw<cr>a", { silent = true })
+
 which_key.setup({})
 
 which_key.register({
