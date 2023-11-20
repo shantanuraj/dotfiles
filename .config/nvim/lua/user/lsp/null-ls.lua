@@ -37,7 +37,7 @@ null_ls.setup({
   -- setup formatters & linters
   sources = {
     formatting.prettierd.with({
-      extra_filetypes = { "astro" }, -- use prettier for astro
+      extra_filetypes = { "astro", "svelte" }, -- use prettier for astro, svelte
     }),
     formatting.rustfmt, -- rust formatter
     formatting.stylua, -- lua formatter
