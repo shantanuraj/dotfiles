@@ -160,4 +160,3 @@ fi
 # WezTerm
 source "$HOME/.dotfiles/.config/wezterm/wezterm.sh"
 
-source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
