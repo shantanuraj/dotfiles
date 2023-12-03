@@ -179,6 +179,12 @@ return function(_, _)
     on_attach = on_attach,
   })
 
+  -- configure zls server
+  lspconfig["zls"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+
   -- configure typescript server with plugin
   typescript.setup({
     server = {
