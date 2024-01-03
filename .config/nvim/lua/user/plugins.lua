@@ -51,6 +51,79 @@ return require("lazy").setup({
     },
   },
 
+  -- Harpoon
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      local harpoon = require("harpoon")
+      harpoon:setup()
+    end,
+    keys = {
+      {
+        "<M-j>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():append()
+        end,
+        "Add file to harpoon",
+      },
+      {
+        "<M-k>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        "Toggle harpoon menu",
+      },
+      {
+        "<M-1>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():select(1)
+        end,
+      },
+      {
+        "<M-2>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():select(2)
+        end,
+      },
+      {
+        "<M-3>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():select(3)
+        end,
+      },
+      {
+        "<M-4>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():select(4)
+        end,
+      },
+      {
+        "<M-[>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():prev()
+        end,
+      },
+      {
+        "<M-]>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():next()
+        end,
+      },
+    },
+  },
+
   -- Telescope orthogonal deps
   {
     "nvim-treesitter/nvim-treesitter",
