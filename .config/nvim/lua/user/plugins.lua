@@ -500,6 +500,16 @@ return require("lazy").setup({
       },
     },
   },
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      progress = {
+        ignore = {
+          "null-ls",
+        },
+      },
+    },
+  },
 
   -- Formatting & linting
   {
