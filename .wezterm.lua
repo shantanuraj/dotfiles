@@ -140,7 +140,20 @@ end
 config.initial_cols = 160
 config.initial_rows = 48
 config.default_prog = { "/bin/zsh", "-l" }
-config.color_scheme = "Srcery (Gogh)"
+
+-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_dark.toml
+config.colors = {
+	foreground = "#B4BDC3",
+	background = "#171210",
+	cursor_fg = "#1C1917",
+	cursor_bg = "#C4CACF",
+	cursor_border = "#1C1917",
+	selection_fg = "#B4BDC3",
+	selection_bg = "#3D4042",
+	ansi = { "#1C1917", "#DE6E7C", "#819B69", "#B77E64", "#6099C0", "#B279A7", "#66A5AD", "#B4BDC3" },
+	brights = { "#403833", "#E8838F", "#8BAE68", "#D68C67", "#61ABDA", "#CF86C1", "#65B8C1", "#888F94" },
+}
+
 config.default_workspace = "dev"
 config.font = wezterm.font("Berkeley Mono")
 config.font_size = 14.0

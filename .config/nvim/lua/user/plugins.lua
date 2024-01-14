@@ -13,28 +13,17 @@ return require("lazy").setup({
   },
   -- Theme
   {
-    "ramojus/mellifluous.nvim",
+    "mcchrish/zenbones.nvim",
     lazy = false,
     priority = 1000,
-    name = "mellifluous",
-    opts = {
-      styles = {
-        keywords = { italic = true },
-        conditionals = { italic = true },
-      },
-      plugins = {
-        cmp = true,
-        gitsigns = true,
-        indent_blankline = true,
-        telescope = {
-          enabled = true,
-          nvchad_like = true,
-        },
-      },
+    dependencies = {
+      "rktjmp/lush.nvim",
     },
-    config = function(_, opts)
-      require("mellifluous").setup(opts)
-      vim.cmd.colorscheme("mellifluous")
+    config = function()
+      local opts = { darkness = "stark", colorize_diagnostic_underline_text = true }
+      vim.g.zenbones = opts
+      vim.opt.background = "dark"
+      vim.cmd.colorscheme("zenbones")
     end,
   },
 
