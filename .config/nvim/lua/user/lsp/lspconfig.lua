@@ -99,12 +99,6 @@ return function(_, _)
     on_attach = on_attach,
   })
 
-  -- configure deno server
-  -- lspconfig["denols"].setup({
-  --   capabilities = capabilities,
-  --   on_attach = on_attach,
-  -- })
-
   -- configure emmet language server
   lspconfig["emmet_ls"].setup({
     capabilities = capabilities,
@@ -198,7 +192,6 @@ return function(_, _)
     -- list of servers for mason to install
     ensure_installed = {
       "cssls",
-      -- "denols",
       "emmet_ls",
       "gopls",
       "html",
