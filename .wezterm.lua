@@ -11,7 +11,7 @@ local function basename(s)
 		return s
 	end
 	if string.find(s, "^file://") == nil then
-		local res = string.gsub(s, "(.*[/\\])(.*)", "%2")
+		local res = string.match(s, ".-([^/]+)/$")
 		return res
 	end
 	local str = string.gsub(s, "file://[^/]*", "")
@@ -92,7 +92,12 @@ end
 
 wezterm.on("format-tab-title", function(tab)
 	local pane = tab.active_pane
-	local title = basename(pane.current_working_dir)
+
+	if pane.current_working_dir == nil then
+		return " " .. pane.title .. " "
+	end
+
+	local title = basename(pane.current_working_dir.file_path)
 
 	if title == "" and pane.domain_name then
 		title = trim_prefix(pane.domain_name, "SSH to ") .. ":" .. basename(pane.title)
