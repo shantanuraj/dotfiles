@@ -161,6 +161,7 @@ config.colors = {
 
 config.default_workspace = "dev"
 config.font = wezterm.font("Berkeley Mono")
+config.term = "wezterm"
 config.font_size = 14.0
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
