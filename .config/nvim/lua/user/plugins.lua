@@ -250,6 +250,7 @@ return require("lazy").setup({
   {
     "stevearc/oil.nvim",
     opts = {
+      default_file_explorer = true,
       skip_confirm_for_simple_edits = true,
       prompt_save_on_select_new_entry = false,
       use_default_keymaps = false,
@@ -269,11 +270,19 @@ return require("lazy").setup({
         ["g."] = "actions.toggle_hidden",
       },
     },
+    config = function(_, opts)
+      require("oil").setup(opts)
+      local which_key_status, which_key = pcall(require, "which-key")
+      if not which_key_status then
+        return
+      end
+
+      which_key.register({
+        ["-"] = { "<cmd>Oil<cr>", "Open parent directory" },
+      })
+    end,
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    keys = {
-      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
-    },
   },
 
   {
