@@ -26,8 +26,8 @@ mason_null_ls.setup({
 
 -- for conciseness
 local formatting = null_ls.builtins.formatting -- to setup formatters
-local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 local codeactions = null_ls.builtins.code_actions -- to setup code actions
+local eslint_d = require("none-ls.diagnostics.eslint_d") -- from nvimtools/none-ls-extras.nvim
 
 -- to setup format on save
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -39,12 +39,11 @@ null_ls.setup({
     formatting.prettierd.with({
       extra_filetypes = { "astro", "svelte" }, -- use prettier for astro, svelte
     }),
-    formatting.rustfmt, -- rust formatter
     formatting.stylua, -- lua formatter
     formatting.goimports, -- go formatter
     formatting.golines, -- go formatter
     codeactions.gomodifytags, -- go struct tag formatter
-    diagnostics.eslint_d.with({ -- js/ts linter
+    eslint_d.with({ -- js/ts linter
       -- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
       condition = function(utils)
         return utils.root_has_file(".eslintrc.js") or utils.root_has_file(".eslintrc.json")

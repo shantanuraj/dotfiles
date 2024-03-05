@@ -516,6 +516,7 @@ return require("lazy").setup({
     dependencies = {
       "mason.nvim",
       "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
+      "nvimtools/none-ls-extras.nvim",
     },
     config = function()
       require("user.lsp.null-ls")
