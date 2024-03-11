@@ -478,6 +478,7 @@ return require("lazy").setup({
     "nvimdev/lspsaga.nvim", -- enhanced lsp uis
     event = "LspAttach",
     branch = "main",
+    commit = "17f484f816c40a5b3b9df0f3eb09d4163bf26e9e",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
       { "nvim-treesitter/nvim-treesitter" },
