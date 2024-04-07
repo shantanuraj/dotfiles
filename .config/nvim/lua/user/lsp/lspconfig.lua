@@ -116,6 +116,12 @@ return function(_, _)
     },
   })
 
+  -- configure astro server
+  lspconfig["astro"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+
   -- configure gopls server
   lspconfig["gopls"].setup({
     capabilities = capabilities,
