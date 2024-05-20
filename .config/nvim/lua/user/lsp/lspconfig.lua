@@ -45,8 +45,6 @@ return function(_, _)
           ["a"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
         },
       },
-      ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to Previous Diagnostic" },
-      ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to Next Diagnostic" },
       ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
       ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
     }, { buffer = bufnr })
