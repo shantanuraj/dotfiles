@@ -39,6 +39,12 @@ return function(_, _)
         ["D"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
         ["d"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
         ["o"] = { "<cmd>Lspsaga outline<CR>", "Outline" },
+        ["l"] = {
+          function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end,
+          "Toggle LSP inlay hints",
+        },
         ["r"] = {
           name = "+Refactor",
           ["r"] = { "<cmd>Lspsaga rename ++project<CR>", "Rename" },
