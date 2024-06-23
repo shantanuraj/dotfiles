@@ -508,7 +508,6 @@ return require("lazy").setup({
     dependencies = {
       "williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
       "hrsh7th/cmp-nvim-lsp", -- for autocompletion
-      "jose-elias-alvarez/typescript.nvim", -- additional functionality for typescript server (e.g. rename file & update imports)
     },
     config = require("user.lsp.lspconfig"),
   },

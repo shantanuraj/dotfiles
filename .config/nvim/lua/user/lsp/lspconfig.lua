@@ -1,3 +1,36 @@
+local lsp = {
+  ---@class LspCommand: lsp.ExecuteCommandParams
+  ---@param opts LspCommand
+  execute = function(opts)
+    local params = {
+      command = opts.command,
+      arguments = opts.arguments,
+    }
+    if opts.open then
+      require("trouble").open({
+        mode = "lsp_command",
+        params = params,
+      })
+    else
+      return vim.lsp.buf_request(0, "workspace/executeCommand", params, opts.handler)
+    end
+  end,
+
+  action = setmetatable({}, {
+    __index = function(_, action)
+      return function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { action },
+            diagnostics = {},
+          },
+        })
+      end
+    end,
+  }),
+}
+
 return function(_, _)
   -- import lspconfig plugin safely
   local lspconfig_status, lspconfig = pcall(require, "lspconfig")
@@ -11,12 +44,6 @@ return function(_, _)
     return
   end
 
-  -- import typescript plugin safely
-  local typescript_setup, typescript = pcall(require, "typescript")
-  if not typescript_setup then
-    return
-  end
-
   -- import mason-lspconfig plugin safely
   local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
   if not mason_lspconfig_status then
@@ -26,7 +53,7 @@ return function(_, _)
   local which_key = require("which-key")
 
   -- enable keybinds only for when lsp server available
-  local on_attach = function(client, bufnr)
+  local on_attach = function(_, bufnr)
     -- set keybinds
     which_key.register({
       ["g"] = {
@@ -54,36 +81,39 @@ return function(_, _)
       ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
       ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
     }, { buffer = bufnr })
+  end
 
-    -- typescript specific keymaps (e.g. rename file and update imports)
-    if client.name == "tsserver" then
-      which_key.register({
-        ["r"] = {
-          ["f"] = { vim.cmd.TypescriptRenameFile, "Rename File" },
-          ["i"] = {
-            function()
-              typescript.actions.addMissingImports()
-              typescript.actions.organizeImports()
-            end,
-            "Organize Imports",
-          },
-          ["u"] = {
-            function()
-              typescript.actions.removeUnused()
-            end,
-            "Remove Unused",
-          },
-          ["d"] = {
-            function()
-              typescript.actions.addMissingImports()
-              typescript.actions.organizeImports()
-              typescript.actions.removeUnused()
-            end,
-            "Fix all",
-          },
+  -- typescript specific keymaps (e.g. rename file and update imports)
+  local function on_attach_ts(client, bufnr)
+    on_attach(client, bufnr)
+
+    which_key.register({
+      ["r"] = {
+        ["f"] = { vim.cmd.TypescriptRenameFile, "Rename File" },
+        ["i"] = {
+          function()
+            lsp.action["source.addMissingImports.ts"]()
+            lsp.action["source.organizeImports"]()
+          end,
+          "Organize Imports",
         },
-      }, { buffer = bufnr, prefix = "<leader>" })
-    end
+        ["u"] = {
+          function()
+            lsp.action["source.removeUnused.ts"]()
+          end,
+          "Remove Unused",
+        },
+        ["d"] = {
+          function()
+            lsp.action["source.addMissingImports.ts"]()
+            lsp.action["source.organizeImports"]()
+            lsp.action["source.removeUnused.ts"]()
+            lsp.action["source.fixAll.ts"]()
+          end,
+          "Fix all",
+        },
+      },
+    }, { buffer = bufnr, prefix = "<leader>" })
   end
 
   -- used to enable autocompletion (assign to every lsp server config)
@@ -196,10 +226,36 @@ return function(_, _)
   })
 
   -- configure typescript server with plugin
-  typescript.setup({
+  lspconfig["vtsls"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach_ts,
     server = {
-      capabilities = capabilities,
-      on_attach = on_attach,
+      settings = {
+        complete_function_calls = true,
+        vtsls = {
+          enableMoveToFileCodeAction = true,
+          autoUseWorkspaceTsdk = true,
+          experimental = {
+            completion = {
+              enableServerSideFuzzyMatch = true,
+            },
+          },
+        },
+        typescript = {
+          updateImportsOnFileMove = { enabled = "always" },
+          suggest = {
+            completeFunctionCalls = true,
+          },
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
+          },
+        },
+      },
     },
   })
 
@@ -217,7 +273,7 @@ return function(_, _)
       "lua_ls",
       "tailwindcss",
       "templ",
-      "tsserver",
+      "vtsls",
     },
     -- auto-install configured servers (with lspconfig)
     automatic_installation = true, -- not the same as ensure_installed
