@@ -269,6 +269,11 @@ return require("lazy").setup({
         ["~"] = "actions.tcd",
         ["g."] = "actions.toggle_hidden",
       },
+      view_options = {
+        is_hidden_file = function(name, _)
+          return vim.startswith(name, ".") or vim.endswith(name, "_templ.go")
+        end,
+      },
     },
     config = function(_, opts)
       require("oil").setup(opts)
