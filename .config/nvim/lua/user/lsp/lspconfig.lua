@@ -75,12 +75,18 @@ return function(_, _)
         ["r"] = {
           name = "+Refactor",
           ["r"] = { "<cmd>Lspsaga rename ++project<CR>", "Rename" },
-          ["a"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
         },
       },
       ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
       ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
     }, { buffer = bufnr })
+
+    which_key.register({
+      ["r"] = {
+        name = "+Refactor",
+        ["a"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
+      },
+    }, { buffer = bufnr, mode = { "n", "o", "x" } })
   end
 
   -- typescript specific keymaps (e.g. rename file and update imports)
