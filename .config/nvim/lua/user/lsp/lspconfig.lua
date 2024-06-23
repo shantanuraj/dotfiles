@@ -189,6 +189,12 @@ return function(_, _)
     on_attach = on_attach,
   })
 
+  -- configure templ language server
+  lspconfig["templ"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+
   -- configure typescript server with plugin
   typescript.setup({
     server = {
@@ -210,6 +216,7 @@ return function(_, _)
       "svelte",
       "lua_ls",
       "tailwindcss",
+      "templ",
       "tsserver",
     },
     -- auto-install configured servers (with lspconfig)
