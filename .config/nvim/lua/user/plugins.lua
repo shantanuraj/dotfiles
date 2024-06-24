@@ -30,6 +30,37 @@ return require("lazy").setup({
   -- GitHub CoPilot
   { "github/copilot.vim" },
 
+  -- Codecompanion
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("codecompanion").setup({
+        adapters = {
+          anthropic = require("codecompanion.adapters").use("anthropic", {
+            env = {
+              api_key = "ANTHROPIC_RK_KEY",
+            },
+            schema = {
+              model = {
+                default = "claude-3-5-sonnet-20240620",
+              },
+            },
+          }),
+        },
+        strategies = {
+          chat = "anthropic",
+          inline = "anthropic",
+          tool = "anthropic",
+        },
+      })
+    end,
+  },
+
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
