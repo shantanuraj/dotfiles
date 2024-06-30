@@ -710,9 +710,12 @@ return require("lazy").setup({
   -- Better diagnostics list and others
   {
     "folke/trouble.nvim",
+    opts = {
+      auto_refresh = false,
+    },
     cmd = { "Trouble" },
     keys = {
-      { "gf", "<cmd>Trouble lsp toggle focus=false<cr>", desc = "LSP references" },
+      { "gf", "<cmd>Trouble lsp_references toggle focus=false<cr>", desc = "LSP references" },
       { "<leader>xt", "<cmd>Trouble close<cr>", desc = "Close (Trouble)" },
       { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
