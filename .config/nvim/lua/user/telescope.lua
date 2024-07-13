@@ -53,77 +53,84 @@ end
 -- Keymaps
 local which_key = require("which-key")
 
-which_key.register({
-  ["<C-f>"] = {
+which_key.add({
+  {
+    "<C-f>",
     function()
       require("telescope.builtin").live_grep()
     end,
-    "Find in project",
+    desc = "Find in project",
   },
-  ["<M-f>"] = {
+  {
+    "<M-f>",
     function()
       require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })
     end,
-    "Find in current file",
+    desc = "Find in current file",
   },
-  ["<leader>"] = {
-    ["<space>"] = { M.project_files, "Go to File" },
-    ["'"] = {
+  {
+    { "<leader><space>", M.project_files, desc = "Go to File", group = "leader" },
+    {
+      "<leader>'",
       function()
         require("telescope.builtin").resume({ initial_mode = "normal" })
       end,
-      "Resume last search",
+      desc = "Resume last search",
     },
-    ["f"] = {
-      name = "+Find",
-      C = { "<cmd>Telescope commands theme=get_dropdown<cr>", "Find command" },
-      d = { "<cmd>Telescope diagnostics theme=get_dropdown<cr>", "Go to diagnostic" },
-      h = { "<cmd>Telescope help_tags theme=get_dropdown<cr>", "Find help" },
-      m = { "<cmd>Telescope marks theme=get_dropdown<cr>", "Go to Mark" },
-      R = { "<cmd>Telescope registers theme=get_dropdown<cr>", "Find registers" },
-      r = { "<cmd>Telescope oldfiles only_cwd=true<cr>", "Find recent files" },
-      t = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Go to Symbol in workspace" },
-      T = { require("telescope.builtin").builtin, "Telescope" },
-      b = { "<cmd>Telescope buffers<cr>", "Go to Buffer" },
-      f = {
+    {
+      group = "Find",
+      { "<leader>fC", "<cmd>Telescope commands theme=get_dropdown<cr>", desc = "Find command" },
+      { "<leader>fd", "<cmd>Telescope diagnostics theme=get_dropdown<cr>", desc = "Go to diagnostic" },
+      { "<leader>fh", "<cmd>Telescope help_tags theme=get_dropdown<cr>", desc = "Find help" },
+      { "<leader>fm", "<cmd>Telescope marks theme=get_dropdown<cr>", desc = "Go to Mark" },
+      { "<leader>fR", "<cmd>Telescope registers theme=get_dropdown<cr>", desc = "Find registers" },
+      { "<leader>fr", "<cmd>Telescope oldfiles only_cwd=true<cr>", desc = "Find recent files" },
+      { "<leader>ft", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Go to Symbol in workspace" },
+      { "<leader>fT", require("telescope.builtin").builtin, desc = "Telescope" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Go to Buffer" },
+      {
+        "<leader>ff",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args()
         end,
-        "Live grep",
+        desc = "Live grep",
       },
-      g = {
+      {
+        "<leader>fg",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args({
             default_text = "--glob !{*.json,*.po,.git} ",
           })
         end,
-        "Find excluding translations",
+        desc = "Find excluding translations",
       },
-      w = {
+      {
+        "<leader>fw",
         function()
           require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({
             postfix = " -F --hidden --glob !**/.git/* ",
           })
         end,
-        "Find word",
+        desc = "Find word",
       },
-      p = {
+      {
+        "<leader>fp",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args({
             prompt_title = "Find in directory",
             search_dirs = { vim.fn.expand("%:p:h") },
           })
         end,
-        "Find in directory",
+        desc = "Find in directory",
       },
     },
-    ["g"] = {
-      name = "+Git",
-      m = { "<cmd>Telescope git_status<cr>", "Go to Modified files" },
-      C = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-      c = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit [file]" },
-      b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-      s = { "<cmd>Telescope git_stash<cr>", "Pop Stash" },
+    {
+      group = "Git",
+      { "<leader>gm", "<cmd>Telescope git_status<cr>", desc = "Go to Modified files" },
+      { "<leader>gC", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
+      { "<leader>gc", "<cmd>Telescope git_bcommits<cr>", desc = "Checkout commit [file]" },
+      { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+      { "<leader>gs", "<cmd>Telescope git_stash<cr>", desc = "Pop Stash" },
     },
   },
 })

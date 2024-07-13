@@ -55,71 +55,71 @@ return function(_, _)
   -- enable keybinds only for when lsp server available
   local on_attach = function(_, bufnr)
     -- set keybinds
-    which_key.register({
-      ["g"] = {
-        name = "+Go to",
-        D = { "<Cmd>Lspsaga goto_definition<CR>", "Declaration" },
-        d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
-        i = { vim.lsp.buf.implementation, "Implementation" },
+    which_key.add({
+      buffer = bufnr,
+      {
+        group = "+Go to",
+        { "gD", "<Cmd>Lspsaga goto_definition<CR>", desc = "Declaration" },
+        { "gd", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek Definition" },
+        { "gi", vim.lsp.buf.implementation, desc = "Implementation" },
       },
-      ["<leader>"] = {
-        ["D"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show Diagnostics" },
-        ["d"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
-        ["o"] = { "<cmd>Lspsaga outline<CR>", "Outline" },
-        ["l"] = {
+      {
+        { "<leader>D", "<cmd>Lspsaga show_cursor_diagnostics<CR>", desc = "Show Diagnostics" },
+        { "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show Line Diagnostics" },
+        { "<leader>o", "<cmd>Lspsaga outline<CR>", desc = "Outline" },
+        {
+          "<leader>l",
           function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end,
-          "Toggle LSP inlay hints",
+          desc = "Toggle LSP inlay hints",
         },
-        ["r"] = {
-          name = "+Refactor",
-          ["r"] = { "<cmd>Lspsaga rename ++project<CR>", "Rename" },
+        {
+          group = "Refactor",
+          { "<leader>rr", "<cmd>Lspsaga rename ++project<CR>", desc = "Rename" },
+          { "<leader>ra", "<cmd>Lspsaga code_action<CR>", desc = "Code Action", mode = { "n", "o", "x" } },
         },
       },
-      ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
-      ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
-    }, { buffer = bufnr })
-
-    which_key.register({
-      ["r"] = {
-        name = "+Refactor",
-        ["a"] = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
-      },
-    }, { buffer = bufnr, mode = { "n", "o", "x" } })
+      { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover Doc" },
+      { "<c-k>", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
+    })
   end
 
   -- typescript specific keymaps (e.g. rename file and update imports)
   local function on_attach_ts(client, bufnr)
     on_attach(client, bufnr)
 
-    which_key.register({
-      ["r"] = {
-        ["f"] = { vim.cmd.TypescriptRenameFile, "Rename File" },
-        ["i"] = {
+    which_key.add({
+      buffer = bufnr,
+      {
+        { "<leader>rf", vim.cmd.TypescriptRenameFile, desc = "Rename File" },
+        {
+          "<leader>ri",
           function()
             lsp.action["source.addMissingImports.ts"]()
             lsp.action["source.organizeImports"]()
           end,
-          "Organize Imports",
+          desc = "Organize Imports",
         },
-        ["u"] = {
+        {
+          "<leader>ru",
           function()
             lsp.action["source.removeUnused.ts"]()
           end,
-          "Remove Unused",
+          desc = "Remove Unused",
         },
-        ["d"] = {
+        {
+          "<leader>rd",
           function()
             lsp.action["source.addMissingImports.ts"]()
             lsp.action["source.organizeImports"]()
             lsp.action["source.removeUnused.ts"]()
             lsp.action["source.fixAll.ts"]()
           end,
-          "Fix all",
+          desc = "Fix all",
         },
       },
-    }, { buffer = bufnr, prefix = "<leader>" })
+    })
   end
 
   -- used to enable autocompletion (assign to every lsp server config)

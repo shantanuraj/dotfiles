@@ -89,7 +89,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():append()
         end,
-        "Add file to harpoon",
+        desc = "Add file to harpoon",
       },
       {
         "<M-k>",
@@ -97,7 +97,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon.ui:toggle_quick_menu(harpoon:list())
         end,
-        "Toggle harpoon menu",
+        desc = "Toggle harpoon menu",
       },
       {
         "<M-1>",
@@ -105,6 +105,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():select(1)
         end,
+        desc = "Jump to harpoon location 1",
       },
       {
         "<M-2>",
@@ -112,6 +113,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():select(2)
         end,
+        desc = "Jump to harpoon location 2",
       },
       {
         "<M-3>",
@@ -119,6 +121,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():select(3)
         end,
+        desc = "Jump to harpoon location 3",
       },
       {
         "<M-4>",
@@ -126,6 +129,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():select(4)
         end,
+        desc = "Jump to harpoon location 4",
       },
       {
         "<M-[>",
@@ -133,6 +137,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():prev()
         end,
+        desc = "Previous harpoon location",
       },
       {
         "<M-]>",
@@ -140,6 +145,7 @@ return require("lazy").setup({
           local harpoon = require("harpoon")
           harpoon:list():next()
         end,
+        desc = "Next harpoon location",
       },
     },
   },
@@ -161,14 +167,15 @@ return require("lazy").setup({
       if not which_key_status then
         return
       end
-      which_key.register({
-        [";"] = { ts_repeat_move.repeat_last_move_next, "move next" },
-        [","] = { ts_repeat_move.repeat_last_move_previous, "move previous" },
-        ["f"] = { ts_repeat_move.builtin_f, "move forward" },
-        ["F"] = { ts_repeat_move.builtin_F, "move backward" },
-        ["t"] = { ts_repeat_move.builtin_t, "move to" },
-        ["T"] = { ts_repeat_move.builtin_T, "move to before" },
-      }, { mode = { "n", "o", "x" } })
+      which_key.add({
+        mode = { "n", "o", "x" },
+        { ";", ts_repeat_move.repeat_last_move_next, desc = "move next" },
+        { ",", ts_repeat_move.repeat_last_move_previous, desc = "move previous" },
+        { "f", ts_repeat_move.builtin_f, desc = "move forward" },
+        { "F", ts_repeat_move.builtin_F, desc = "move backward" },
+        { "t", ts_repeat_move.builtin_t, desc = "move to" },
+        { "T", ts_repeat_move.builtin_T, desc = "move to before" },
+      })
     end,
     dependencies = {
       {
@@ -313,8 +320,8 @@ return require("lazy").setup({
         return
       end
 
-      which_key.register({
-        ["-"] = { "<cmd>Oil<cr>", "Open parent directory" },
+      which_key.add({
+        { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
       })
     end,
     -- Optional dependencies
@@ -337,7 +344,7 @@ return require("lazy").setup({
           local MiniFiles = require("mini.files")
           MiniFiles.open(vim.api.nvim_buf_get_name(0))
         end,
-        "Toggle file viewer",
+        desc = "Toggle file viewer",
       },
     },
   },
@@ -481,44 +488,71 @@ return require("lazy").setup({
 
       ---@type table<string, string|table>
       local i = {
-        [" "] = "Whitespace",
-        ['"'] = 'Balanced "',
-        ["'"] = "Balanced '",
-        ["`"] = "Balanced `",
-        ["("] = "Balanced (",
-        [")"] = "Balanced ) including white-space",
-        [">"] = "Balanced > including white-space",
-        ["<lt>"] = "Balanced <",
-        ["]"] = "Balanced ] including white-space",
-        ["["] = "Balanced [",
-        ["}"] = "Balanced } including white-space",
-        ["{"] = "Balanced {",
-        ["?"] = "User Prompt",
-        _ = "Underscore",
-        a = "Argument",
-        b = "Balanced ), ], }",
-        c = "Class",
-        f = "Function",
-        o = "Block, conditional, loop",
-        q = "Quote `, \", '",
-        t = "Tag",
+        { "i ", desc = "Whitespace" },
+        { 'i"', desc = 'Balanced "' },
+        { "i'", desc = "Balanced '" },
+        { "i`", desc = "Balanced `" },
+        { "i(", desc = "Balanced (" },
+        { "i)", desc = "Balanced ) including white-space" },
+        { "i>", desc = "Balanced > including white-space" },
+        { "i<lt>", desc = "Balanced <" },
+        { "i]", desc = "Balanced ] including white-space" },
+        { "i[", desc = "Balanced [" },
+        { "i}", desc = "Balanced } including white-space" },
+        { "i{", desc = "Balanced {" },
+        { "i?", desc = "User Prompt" },
+        { "i_", desc = "Underscore" },
+        { "ia", desc = "Argument" },
+        { "ib", desc = "Balanced ), ], }" },
+        { "ic", desc = "Class" },
+        { "if", desc = "Function" },
+        { "io", desc = "Block, conditional, loop" },
+        { "iq", desc = "Quote `, \", '" },
+        { "it", desc = "Tag" },
       }
-      local a = vim.deepcopy(i)
-      for k, v in pairs(a) do
-        ---@diagnostic disable-next-line: param-type-mismatch
-        a[k] = v:gsub(" including.*", "")
+      local a = {
+        { "a ", desc = "Whitespace" },
+        { 'a"', desc = 'Balanced "' },
+        { "a'", desc = "Balanced '" },
+        { "a`", desc = "Balanced `" },
+        { "a(", desc = "Balanced (" },
+        { "a)", desc = "Balanced )" },
+        { "a>", desc = "Balanced >" },
+        { "a<lt>", desc = "Balanced <" },
+        { "a]", desc = "Balanced ]" },
+        { "a[", desc = "Balanced [" },
+        { "a}", desc = "Balanced }" },
+        { "a{", desc = "Balanced {" },
+        { "a?", desc = "User Prompt" },
+        { "a_", desc = "Underscore" },
+        { "aa", desc = "Argument" },
+        { "ab", desc = "Balanced ), ], }" },
+        { "ac", desc = "Class" },
+        { "af", desc = "Function" },
+        { "ao", desc = "Block, conditional, loop" },
+        { "aq", desc = "Quote `, \", '" },
+        { "at", desc = "Tag" },
+      }
+
+      local function insertPrefixAfterFirstChar(originalTable, prefix)
+        local newTable = {}
+        for _, entry in ipairs(originalTable) do
+          local oldKey = entry[1]
+          local newKey = oldKey:sub(1, 1) .. prefix .. oldKey:sub(2)
+          table.insert(newTable, { newKey, desc = entry.desc })
+        end
+        return newTable
       end
 
-      local ic = vim.deepcopy(i)
-      local ac = vim.deepcopy(a)
-      for key, name in pairs({ n = "Next", l = "Last" }) do
-        i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-        a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-      end
-      which_key.register({
+      local ic = insertPrefixAfterFirstChar(i, "n")
+      local ac = insertPrefixAfterFirstChar(a, "n")
+
+      which_key.add({
         mode = { "o", "x" },
-        i = i,
-        a = a,
+        i,
+        a,
+        ic,
+        ac,
       })
     end,
   },
@@ -604,8 +638,8 @@ return require("lazy").setup({
       require("user.git.config").setup()
     end,
     keys = {
-      { "gr", vim.cmd.GitOpenFileOnRemote, "Open selection on remote" },
-      { "gR", vim.cmd.GitOpenLineOnRemote, "Open commit on remote" },
+      { "gr", vim.cmd.GitOpenFileOnRemote, desc = "Open selection on remote" },
+      { "gR", vim.cmd.GitOpenLineOnRemote, desc = "Open commit on remote" },
     },
   },
 
@@ -687,7 +721,12 @@ return require("lazy").setup({
   },
 
   -- Which key
-  "folke/which-key.nvim",
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "helix",
+    },
+  },
 
   -- Zen Mode
   {

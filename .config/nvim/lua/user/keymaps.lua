@@ -1,9 +1,3 @@
-local which_key_status, which_key = pcall(require, "which-key")
-
-if not which_key_status then
-  return
-end
-
 -- better up/down movement
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -13,49 +7,53 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true,
 -- C-c to change word under cursor
 vim.keymap.set({ "n" }, "<C-c>", "<cmd>normal! ciw<cr>a", { silent = true })
 
-which_key.setup({})
+local which_key_status, which_key = pcall(require, "which-key")
 
-which_key.register({
-  ["<c-space>"] = "Increment selection",
-  ["<bs>"] = { "Decrement selection", mode = "x" },
-  ["gn"] = { vim.cmd.tabn, "Go to next tab" },
-  ["gp"] = { vim.cmd.tabp, "Go to previous tab" },
-  ["<leader>"] = {
-    name = "+leader",
-    R = { "<cmd>source $MYVIMRC<cr>", "Reload config" },
-    w = { ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", "Replace word under cursor" },
-    s = {
-      name = "+split",
-      v = { "<C-w>v", "Split window vertically" },
-      h = { "<C-w>s", "Split window horizontally" },
-      e = { "<C-w>=", "Make split windows equal width & height" },
-      x = { ":close<CR>", "Close current split window" },
-      m = { vim.cmd.MaximizerToggle, "Maximize current split window" },
-    },
-    t = {
-      name = "+tab",
-      t = { vim.cmd.tabnew, "Open new tab" },
-      x = { vim.cmd.tabclose, "Close current tab" },
-    },
-    z = { vim.cmd.ZenMode, "Toggle Zen mode" },
-  },
+if not which_key_status then
+  return
+end
+
+which_key.setup({
+  preset = "helix",
 })
 
-which_key.register({
-  ["<"] = { "<gv", "Tab back" },
-  [">"] = { ">gv", "Tab forward" },
-  ["gr"] = { vim.cmd.GitOpenFileOnRemote, "Open selection on remote" },
-  ["J"] = { ":m '>+1<CR>gv=gv", "Move line down" },
-  ["K"] = { ":m '<-2<CR>gv=gv", "Move line up" },
-}, { mode = "v" })
-
-which_key.register({
-  ["<leader>"] = {
-    name = "+leader",
-    p = { '"_dP', "Paste without overwriting clipboard" },
+which_key.add({
+  { "<c-space>", desc = "Increment selection" },
+  { "<bs>", desc = "Decrement selection", mode = "x" },
+  { "gn", vim.cmd.tabn, desc = "Go to next tab" },
+  { "gp", vim.cmd.tabp, desc = "Go to previous tab" },
+  {
+    group = "leader",
+    { "<leader>R", "<cmd>source $MYVIMRC<cr>", desc = "Reload config" },
+    { "<leader>w", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", desc = "Replace word under cursor" },
+    {
+      group = "split",
+      { "<leader>sv", "<C-w>v", desc = "Split window vertically" },
+      { "<leader>sh", "<C-w>s", desc = "Split window horizontally" },
+      { "<leader>se", "<C-w>=", desc = "Make split windows equal width & height" },
+      { "<leader>sx", ":close<CR>", desc = "Close current split window" },
+      { "<leader>sm", vim.cmd.MaximizerToggle, desc = "Maximize current split window" },
+    },
+    {
+      group = "tab",
+      { "<leader>tt", vim.cmd.tabnew, desc = "Open new tab" },
+      { "<leader>tx", vim.cmd.tabclose, desc = "Close current tab" },
+    },
+    { "<leader>z", vim.cmd.ZenMode, desc = "Toggle Zen mode" },
+    { "<leader>p", '"_dP', desc = "Paste without overwriting clipboard", mode = "x" },
   },
-}, { mode = "x" })
-
-which_key.register({
-  ["<esc>"] = { "<cmd>noh<cr><esc>", "Escape and clear hlsearch" },
-}, { mode = { "n", "i" } })
+  {
+    mode = "v",
+    { "<", "<gv", desc = "Tab back" },
+    { ">", ">gv", desc = "Tab forward" },
+    { "gr", vim.cmd.GitOpenFileOnRemote, desc = "Open selection on remote" },
+    { "J", ":m '>+1<CR>gv=gv", desc = "Move line down" },
+    { "K", ":m '<-2<CR>gv=gv", desc = "Move line up" },
+  },
+  {
+    "<esc>",
+    "<cmd>noh<cr><esc>",
+    desc = "Escape and clear hlsearch",
+    mode = { "n", "i" },
+  },
+})
