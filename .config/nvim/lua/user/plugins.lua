@@ -802,6 +802,10 @@ return require("lazy").setup({
       leap.add_default_mappings(true)
       vim.keymap.del({ "x", "o" }, "x")
       vim.keymap.del({ "x", "o" }, "X")
+      vim.keymap.del({ "n", "x" }, "s")
+      vim.keymap.set("n", "s", function()
+        leap.leap({ target_windows = { vim.api.nvim_get_current_win() } })
+      end)
     end,
   },
 
