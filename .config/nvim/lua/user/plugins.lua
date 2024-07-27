@@ -53,9 +53,15 @@ return require("lazy").setup({
           }),
         },
         strategies = {
-          chat = "anthropic",
-          inline = "anthropic",
-          tool = "anthropic",
+          chat = {
+            adapter = "anthropic",
+          },
+          inline = {
+            adapter = "anthropic",
+          },
+          agent = {
+            adapter = "anthropic",
+          },
         },
       })
     end,
