@@ -63,6 +63,31 @@ return require("lazy").setup({
             adapter = "anthropic",
           },
         },
+        default_prompts = {
+          ["html"] = {
+            strategy = "inline",
+            description = "Generate some boilerplate HTML",
+            opts = {
+              slash_cmd = "html",
+            },
+            prompts = {
+              {
+                role = "system",
+                content = "You are an expert Web developer",
+              },
+              {
+                role = "user",
+                content = "Please generate modern HTML boilerplate with a modern CSS reset using best practices."
+                  .. "\n"
+                  .. "Use the latest HTML5 doctype, a CSS reset, and a viewport meta tag."
+                  .. "\n"
+                  .. "Use css variables for colors and fonts."
+                  .. "\n"
+                  .. "Respond with just the code, no markdown, don't explain yourself.",
+              },
+            },
+          },
+        },
       })
 
       vim.keymap.set({ "n" }, "<leader>rc", "<cmd>CodeCompanionToggle<CR>", { desc = "Toggle CodeCompanion" })
