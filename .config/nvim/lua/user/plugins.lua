@@ -41,7 +41,7 @@ return require("lazy").setup({
     config = function()
       require("codecompanion").setup({
         adapters = {
-          anthropic = require("codecompanion.adapters").use("anthropic", {
+          anthropic = require("codecompanion.adapters").extend("anthropic", {
             env = {
               api_key = "ANTHROPIC_RK_KEY",
             },
