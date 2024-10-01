@@ -38,7 +38,6 @@ return require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       "nvim-telescope/telescope.nvim",
     },
-    commit = "abb1b8c6535e2a792b757ae7fb9253192735f5a8",
     config = function()
       require("codecompanion").setup({
         adapters = {
