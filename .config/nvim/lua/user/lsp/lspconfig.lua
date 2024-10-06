@@ -200,13 +200,20 @@ return function(_, _)
       Lua = {
         -- make the language server recognize "vim" global
         diagnostics = {
-          globals = { "vim" },
+          globals = {
+            "vim",
+            "playdate",
+            "import",
+          },
         },
         workspace = {
           -- make language server aware of runtime files
           library = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
             [vim.fn.stdpath("config") .. "/lua"] = true,
+
+            -- Playdate SDK
+            [vim.fn.expand("$PLAYDATE_SDK") .. "/CoreLibs"] = true,
           },
         },
       },
