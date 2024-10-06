@@ -162,3 +162,7 @@ source "$HOME/.dotfiles/.config/wezterm/wezterm.sh"
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+
+# Playdate SDK
+export PLAYDATE_SDK="$HOME/Developer/PlaydateSDK"
+export PATH="$PLAYDATE_SDK/bin:$PATH"
