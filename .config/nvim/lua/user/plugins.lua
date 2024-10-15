@@ -90,7 +90,7 @@ return require("lazy").setup({
         },
       })
 
-      vim.keymap.set({ "n" }, "<leader>rc", "<cmd>CodeCompanionToggle<CR>", { desc = "Toggle CodeCompanion" })
+      vim.keymap.set({ "n" }, "<leader>rc", "<cmd>CodeCompanionChat toggle<CR>", { desc = "Toggle CodeCompanion" })
     end,
   },
 
