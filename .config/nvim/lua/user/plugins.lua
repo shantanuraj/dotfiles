@@ -724,7 +724,7 @@ return require("lazy").setup({
 
   {
     "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "LspAttach" },
     opts = { delay = 200, modes_denylist = { "i" } },
     config = function(_, opts)
       require("illuminate").configure(opts)
@@ -821,7 +821,6 @@ return require("lazy").setup({
   -- Leap
   {
     "ggandor/leap.nvim",
-    enabled = true,
     keys = {
       { "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
       { "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
