@@ -155,6 +155,9 @@ fi
 if [ -f /usr/local/bin/starship ]; then
   export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
   eval "$(/usr/local/bin/starship init zsh)"
+elif [ -f $HOME/.local/bin/starship ]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+  eval "$($HOME/.local/bin/starship init zsh)"
 fi
 
 # WezTerm
