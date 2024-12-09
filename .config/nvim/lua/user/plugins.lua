@@ -666,6 +666,7 @@ return require("lazy").setup({
   -- Git custom commands
   {
     dir = "./git",
+    virtual = true,
     event = { "BufReadPost" },
     config = function()
       require("user.git.config").setup()
