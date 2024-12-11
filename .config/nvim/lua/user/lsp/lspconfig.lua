@@ -82,6 +82,18 @@ return function(_, _)
       },
       { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover Doc" },
       { "<c-k>", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
+      {
+        "<leader>=",
+        function()
+          vim.lsp.buf.format({
+            filter = function(client)
+              return client.name == "null-ls" or client.name == "rust_analyzer"
+            end,
+            bufnr = bufnr,
+          })
+        end,
+        desc = "Format file LSP",
+      },
     })
   end
 
