@@ -172,3 +172,7 @@ export PATH="$PLAYDATE_SDK/bin:$PATH"
 
 # Mojo
 export PATH="$PATH:$HOME/.modular/bin"
+
+# Plan9
+[ -d "$HOME/dev/9fans/plan9port" ] && export PLAN9="$HOME/dev/9fans/plan9port"
+[ -n "$PLAN9" ] && export PATH="$PATH:$PLAN9/bin"
