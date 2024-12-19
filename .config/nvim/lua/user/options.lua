@@ -65,3 +65,11 @@ vim.cmd([[
 vim.cmd([[
   autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
 ]])
+
+-- set cursor to not blink for neovim 0.11+
+vim.opt.guicursor = {
+  "n-v-c:block", -- Block cursor in normal, visual, and command modes
+  "i-ci-ve:ver25", -- Vertical bar cursor in insert, insert-completion, and visual-select modes
+  "r-cr:hor20", -- Horizontal bar cursor in replace and command-replace modes
+  "o:hor50", -- Horizontal bar cursor in operator-pending mode
+}
