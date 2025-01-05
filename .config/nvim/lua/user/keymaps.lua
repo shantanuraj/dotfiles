@@ -20,20 +20,10 @@ which_key.setup({
 which_key.add({
   { "<c-space>", desc = "Increment selection" },
   { "<bs>", desc = "Decrement selection", mode = "x" },
-  { "gn", vim.cmd.tabn, desc = "Go to next tab" },
-  { "gp", vim.cmd.tabp, desc = "Go to previous tab" },
   {
     group = "leader",
     { "<leader>R", "<cmd>source $MYVIMRC<cr>", desc = "Reload config" },
     { "<leader>w", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>", desc = "Replace word under cursor" },
-    {
-      group = "split",
-      { "<leader>sv", "<C-w>v", desc = "Split window vertically" },
-      { "<leader>sh", "<C-w>s", desc = "Split window horizontally" },
-      { "<leader>se", "<C-w>=", desc = "Make split windows equal width & height" },
-      { "<leader>sx", ":close<CR>", desc = "Close current split window" },
-      { "<leader>sm", vim.cmd.MaximizerToggle, desc = "Maximize current split window" },
-    },
     {
       group = "tab",
       { "<leader>tt", vim.cmd.tabnew, desc = "Open new tab" },
@@ -56,4 +46,5 @@ which_key.add({
     desc = "Escape and clear hlsearch",
     mode = { "n", "i" },
   },
+  { "<c-w>m", vim.cmd.MaximizerToggle, desc = "Maximize current split window" },
 })
