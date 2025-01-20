@@ -339,6 +339,22 @@ return require("lazy").setup({
         ["`"] = "actions.cd",
         ["~"] = "actions.tcd",
         ["g."] = "actions.toggle_hidden",
+        ["gx"] = function()
+          local oil = require("oil")
+          local cwd = oil.get_current_dir()
+          local entry = oil.get_cursor_entry()
+          if cwd and entry then
+            vim.fn.jobstart({ "open", string.format("%s/%s", cwd, entry.name) })
+          end
+        end,
+        ["gD"] = function()
+          local oil = require("oil")
+          local cwd = oil.get_current_dir()
+          local entry = oil.get_cursor_entry()
+          if cwd and entry then
+            vim.fn.jobstart({ "open", "-R", string.format("%s/%s", cwd, entry.name) })
+          end
+        end,
       },
       view_options = {
         is_hidden_file = function(name, _)
