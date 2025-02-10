@@ -24,6 +24,8 @@ esc = ["collapse_selection", "normal_mode"]
 esc = ["collapse_selection", "normal_mode"]
 "*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
 G = "goto_file_end"
+C-k = "signature_help"
+K = "hover"
 
 [keys.select]
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
