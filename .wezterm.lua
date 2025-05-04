@@ -145,20 +145,59 @@ local function get_appearance()
 	return "Dark"
 end
 
-local function color_scheme_for_appearance(appearance)
+local function colors_for_appearance(appearance)
 	if appearance:find("Dark") then
-		return "zenbones_dark"
+		-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_dark.toml
+		return {
+			foreground = "#B4BDC3",
+			background = "#171210",
+			cursor_fg = "#1C1917",
+			cursor_bg = "#C4CACF",
+			cursor_border = "#1C1917",
+			selection_fg = "#B4BDC3",
+			selection_bg = "#3D4042",
+			ansi = { "#1C1917", "#DE6E7C", "#819B69", "#B77E64", "#6099C0", "#B279A7", "#66A5AD", "#B4BDC3" },
+			brights = { "#403833", "#E8838F", "#8BAE68", "#D68C67", "#61ABDA", "#CF86C1", "#65B8C1", "#888F94" },
+		}
 	else
-		return "zenbones"
+		-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_light.toml
+		return {
+			foreground = "#2C363C",
+			background = "#F0EDEC",
+			cursor_fg = "#F0EDEC",
+			cursor_bg = "#2C363C",
+			cursor_border = "#F0EDEC",
+			selection_fg = "#2C363C",
+			selection_bg = "#CBD9E3",
+			ansi = { "#F0EDEC", "#A8334C", "#4F6C31", "#944927", "#286486", "#88507D", "#3B8992", "#2C363C" },
+			brights = { "#CFC1BA", "#94253E", "#3F5A22", "#803D1C", "#1D5573", "#7B3B70", "#2B747C", "#4F5E68" },
+			tab_bar = {
+				background = "#CBD9E3",
+				active_tab = {
+					bg_color = "#BBABA3",
+					fg_color = "#2C363C",
+					intensity = "Bold",
+				},
+				inactive_tab = {
+					bg_color = "#CBD9E3",
+					fg_color = "#2C363C",
+				},
+				inactive_tab_hover = {
+					bg_color = "#CBD9E3",
+					fg_color = "#2C363C",
+					italic = true,
+				},
+			},
+		}
 	end
 end
 
 wezterm.on("window-config-reloaded", function(window)
 	local overrides = window:get_config_overrides() or {}
-	local appearance = "Dark"
-	local color_scheme = color_scheme_for_appearance(appearance)
-	if overrides.color_scheme ~= color_scheme then
-		overrides.color_scheme = color_scheme
+	local appearance = window:get_appearance()
+	local colors = colors_for_appearance(appearance)
+	if overrides.colors ~= colors then
+		overrides.colors = colors
 		window:set_config_overrides(overrides)
 	end
 end)
@@ -173,7 +212,7 @@ config.initial_cols = 160
 config.initial_rows = 48
 config.default_prog = { "/bin/zsh", "-l" }
 
-config.color_scheme = color_scheme_for_appearance(get_appearance())
+config.colors = colors_for_appearance(get_appearance())
 
 config.default_workspace = "dev"
 config.font = wezterm.font("Berkeley Mono")
