@@ -615,7 +615,7 @@ return require("lazy").setup({
 
   -- Managing & installing lsp servers, linters & formatters
   {
-    "williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+    "mason-org/mason.nvim", -- in charge of managing lsp servers, linters & formatters
     event = "VeryLazy",
     opts = {},
   },
@@ -625,7 +625,7 @@ return require("lazy").setup({
     "neovim/nvim-lspconfig", -- easily configure language servers
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
+      "mason-org/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
       "hrsh7th/cmp-nvim-lsp", -- for autocompletion
     },
     config = require("user.lsp.lspconfig"),
