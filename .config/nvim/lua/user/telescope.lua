@@ -62,13 +62,6 @@ which_key.add({
     desc = "Find in project",
   },
   {
-    "<M-f>",
-    function()
-      require("telescope.builtin").live_grep({ search_dirs = { vim.fn.expand("%:p") } })
-    end,
-    desc = "Find in current file",
-  },
-  {
     { "<leader><space>", M.project_files, desc = "Go to File", group = "leader" },
     {
       "<leader>'",
@@ -79,15 +72,7 @@ which_key.add({
     },
     {
       group = "Find",
-      { "<leader>fC", "<cmd>Telescope commands theme=get_dropdown<cr>", desc = "Find command" },
-      { "<leader>fd", "<cmd>Telescope diagnostics theme=get_dropdown<cr>", desc = "Go to diagnostic" },
-      { "<leader>fh", "<cmd>Telescope help_tags theme=get_dropdown<cr>", desc = "Find help" },
-      { "<leader>fm", "<cmd>Telescope marks theme=get_dropdown<cr>", desc = "Go to Mark" },
-      { "<leader>fR", "<cmd>Telescope registers theme=get_dropdown<cr>", desc = "Find registers" },
-      { "<leader>fr", "<cmd>Telescope oldfiles only_cwd=true<cr>", desc = "Find recent files" },
       { "<leader>ft", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Go to Symbol in workspace" },
-      { "<leader>fT", require("telescope.builtin").builtin, desc = "Telescope" },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Go to Buffer" },
       {
         "<leader>ff",
         function()
@@ -123,14 +108,6 @@ which_key.add({
         end,
         desc = "Find in directory",
       },
-    },
-    {
-      group = "Git",
-      { "<leader>gm", "<cmd>Telescope git_status<cr>", desc = "Go to Modified files" },
-      { "<leader>gC", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
-      { "<leader>gc", "<cmd>Telescope git_bcommits<cr>", desc = "Checkout commit [file]" },
-      { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-      { "<leader>gs", "<cmd>Telescope git_stash<cr>", desc = "Pop Stash" },
     },
   },
 })

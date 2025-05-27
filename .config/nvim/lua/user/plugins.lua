@@ -740,33 +740,229 @@ return require("lazy").setup({
   },
 
   {
-    "RRethy/vim-illuminate",
-    event = { "LspAttach" },
-    opts = { delay = 200, modes_denylist = { "i" } },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = {
+        preset = {
+          header = ([[
+██╗   ██╗██╗███╗   ███╗          Z~
+██║   ██║██║████╗ ████║      Z    ~
+██║   ██║██║██╔████╔██║   z       ~
+╚██╗ ██╔╝██║██║╚██╔╝██║ z         ~
+ ╚████╔╝ ██║██║ ╚═╝ ██║           ~
+  ╚═══╝  ╚═╝╚═╝     ╚═╝           ~]]):gsub("~", " "),
+        },
+        keys = {
+          { icon = " ", key = "f", desc = "Find file", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = " ", key = "n", desc = "New file", action = ":ene | startinsert" },
+          { icon = " ", key = "r", desc = "Recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          { icon = " ", key = "g", desc = "Find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          {
+            icon = " ",
+            key = "c",
+            desc = "Config",
+            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+          },
+          { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 1, padding = 1 },
 
-      local function map(key, dir, buffer)
-        vim.keymap.set("n", key, function()
-          require("illuminate")["goto_" .. dir .. "_reference"](false)
-        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
-      end
-
-      map("]]", "next")
-      map("[[", "prev")
-
-      -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function()
-          local buffer = vim.api.nvim_get_current_buf()
-          map("]]", "next", buffer)
-          map("[[", "prev", buffer)
-        end,
-      })
-    end,
+          {
+            pane = 2,
+            icon = " ",
+            desc = "Browse Repo",
+            padding = 1,
+            key = "b",
+            enabled = function()
+              return Snacks.git.get_root() ~= nil
+            end,
+            action = function()
+              Snacks.gitbrowse()
+            end,
+          },
+          {
+            pane = 2,
+            icon = " ",
+            title = "Recent Files",
+            section = "recent_files",
+            cwd = true,
+            indent = 2,
+            padding = 1,
+          },
+          { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          {
+            pane = 2,
+            icon = " ",
+            title = "Git Status",
+            section = "terminal",
+            enabled = function()
+              return Snacks.git.get_root() ~= nil
+            end,
+            cmd = "git status --short --branch --renames",
+            height = 5,
+            padding = 1,
+            ttl = 5 * 60,
+            indent = 3,
+          },
+        },
+      },
+      explorer = { enabled = true },
+      indent = { enabled = false },
+      input = { enabled = true },
+      picker = {
+        layouts = {
+          default = {
+            preset = "ivy",
+            layout = {
+              position = "bottom",
+              height = 0.45,
+              backdrop = false,
+            },
+          },
+        },
+      },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = false },
+      words = { enabled = true },
+      zen = { enabled = true },
+    },
     keys = {
-      { "]]", desc = "Next Reference" },
-      { "[[", desc = "Prev Reference" },
+      {
+        "]]",
+        function()
+          Snacks.words.jump(vim.v.count1)
+        end,
+        desc = "Next Reference",
+        mode = { "n", "t" },
+      },
+      {
+        "[[",
+        function()
+          Snacks.words.jump(-vim.v.count1)
+        end,
+        desc = "Prev Reference",
+        mode = { "n", "t" },
+      },
+      {
+        "<leader>.",
+        function()
+          Snacks.scratch()
+        end,
+        desc = "Toggle Scratch Buffer",
+      },
+
+      -- Pickers
+      {
+        "<leader>`",
+        function()
+          Snacks.picker.actions.focus_list(Snacks.picker.resume())
+        end,
+        desc = "Resume picker",
+      },
+
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Go to Buffer",
+      },
+      {
+        "<leader>fh",
+        function()
+          Snacks.picker.help()
+        end,
+        desc = "Find Help",
+      },
+      {
+        "<leader>fd",
+        function()
+          Snacks.picker.diagnostics({ focus = "list" })
+        end,
+        desc = "Go to diagnostic",
+      },
+      {
+        "<leader>fm",
+        function()
+          Snacks.picker.marks()
+        end,
+        desc = "Go to Mark",
+      },
+      {
+        "<leader>fr",
+        function()
+          Snacks.picker.recent({ filter = { cwd = true } })
+        end,
+        desc = "Find recent files",
+      },
+      {
+        "<leader>fR",
+        function()
+          Snacks.picker.registers()
+        end,
+        desc = "Show registers",
+      },
+      {
+        "<M-f>",
+        function()
+          Snacks.picker.lines()
+        end,
+        desc = "Find in current file",
+      },
+      {
+        "<leader>u",
+        function()
+          Snacks.picker.undo({ focus = "list" })
+        end,
+        desc = "Show undo history",
+      },
+
+      -- Git
+      {
+        "<leader>gm",
+        function()
+          Snacks.picker.git_status()
+        end,
+        desc = "Go to modified files",
+      },
+      {
+        "<leader>gl",
+        function()
+          Snacks.picker.git_log()
+        end,
+        desc = "Checkout commmit",
+      },
+      {
+        "<leader>gc",
+        function()
+          Snacks.picker.git_log_file()
+        end,
+        desc = "Checkout commit [file]",
+      },
+      {
+        "<leader>gb",
+        function()
+          Snacks.picker.git_branches()
+        end,
+        desc = "Checkout branch",
+      },
+      {
+        "<leader>gs",
+        function()
+          Snacks.picker.git_stash()
+        end,
+        desc = "Pop Stash",
+      },
     },
   },
 
@@ -874,63 +1070,5 @@ return require("lazy").setup({
       close_on_exit = true,
       shell = vim.o.shell .. " -l",
     },
-  },
-
-  -- Undo tree
-  {
-    "mbbill/undotree",
-    keys = {
-      { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle undotree" },
-    },
-  },
-
-  {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
-    opts = function()
-      local dashboard = require("alpha.themes.dashboard")
-      local logo = [[
-         ██╗   ██╗██╗███╗   ███╗          Z
-         ██║   ██║██║████╗ ████║      Z
-         ██║   ██║██║██╔████╔██║   z
-         ╚██╗ ██╔╝██║██║╚██╔╝██║ z
-          ╚████╔╝ ██║██║ ╚═╝ ██║
-           ╚═══╝  ╚═╝╚═╝     ╚═╝
-    ]]
-
-      dashboard.section.header.val = vim.split(logo, "\n")
-      dashboard.section.buttons.val = {
-        dashboard.button("f", " " .. " Find file", ":Telescope find_files theme=get_ivy<CR>"),
-        dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles only_cwd=true theme=get_ivy<CR>"),
-        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR> | :cd %:h/../.. <CR>"),
-        dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
-        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
-      }
-      for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "AlphaButtons"
-        button.opts.hl_shortcut = "AlphaShortcut"
-      end
-      dashboard.section.header.opts.hl = "AlphaHeader"
-      dashboard.section.buttons.opts.hl = "AlphaButtons"
-      dashboard.section.footer.opts.hl = "AlphaFooter"
-      dashboard.opts.layout[1].val = 8
-      return dashboard
-    end,
-    config = function(_, dashboard)
-      -- close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "AlphaReady",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      require("alpha").setup(dashboard.opts)
-    end,
   },
 })
