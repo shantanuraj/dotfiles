@@ -286,6 +286,7 @@ return function(_, _)
 
   -- configure mason lspconfig plugin
   mason_lspconfig.setup({
+    automatic_enable = false,
     -- list of servers for mason to install
     ensure_installed = {
       "cssls",
