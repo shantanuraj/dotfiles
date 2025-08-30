@@ -378,7 +378,7 @@ return require("lazy").setup({
   },
 
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     version = false,
     config = {
       mappings = {
@@ -471,7 +471,7 @@ return require("lazy").setup({
 
   -- Better text-objects
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter-textobjects" },
     opts = function()
@@ -608,7 +608,7 @@ return require("lazy").setup({
 
   -- auto pairs
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {},
   },
