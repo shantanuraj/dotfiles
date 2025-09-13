@@ -978,6 +978,15 @@ return require("lazy").setup({
         end,
         desc = "Pop Stash",
       },
+
+      -- LSP
+      {
+        "gf",
+        function()
+          Snacks.picker.lsp_references()
+        end,
+        desc = "LSP references",
+      },
     },
   },
 
@@ -1015,7 +1024,6 @@ return require("lazy").setup({
     },
     cmd = { "Trouble" },
     keys = {
-      { "gf", "<cmd>Trouble lsp_references toggle focus=false<cr>", desc = "LSP references" },
       { "<leader>xt", "<cmd>Trouble close<cr>", desc = "Close (Trouble)" },
       { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
