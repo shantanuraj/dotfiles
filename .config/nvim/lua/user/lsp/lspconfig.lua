@@ -53,14 +53,38 @@ return function(_, _)
       buffer = bufnr,
       {
         group = "+Go to",
-        { "gD", "<Cmd>Lspsaga goto_definition<CR>", desc = "Declaration" },
-        { "gd", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek Definition" },
+        { "gD", vim.lsp.buf.definition, desc = "Go to Definition" },
+        {
+          "gd",
+          function()
+            require("snacks").picker.lsp_definitions()
+          end,
+          desc = "Peek Definition",
+        },
         { "gi", vim.lsp.buf.implementation, desc = "Implementation" },
       },
       {
-        { "<leader>D", "<cmd>Lspsaga show_cursor_diagnostics<CR>", desc = "Show Diagnostics" },
-        { "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show Line Diagnostics" },
-        { "<leader>o", "<cmd>Lspsaga outline<CR>", desc = "Outline" },
+        {
+          "<leader>D",
+          function()
+            vim.diagnostic.open_float({ scope = "cursor" })
+          end,
+          desc = "Show Diagnostics",
+        },
+        {
+          "<leader>d",
+          function()
+            vim.diagnostic.open_float({ scope = "line" })
+          end,
+          desc = "Show Line Diagnostics",
+        },
+        {
+          "<leader>o",
+          function()
+            require("snacks").picker.lsp_symbols({ symbols = vim.bo.filetype == "markdown" and {} or nil })
+          end,
+          desc = "Outline",
+        },
         {
           "<leader>l",
           function()
@@ -70,11 +94,11 @@ return function(_, _)
         },
         {
           group = "Refactor",
-          { "<leader>rr", "<cmd>Lspsaga rename ++project<CR>", desc = "Rename" },
-          { "<leader>ra", "<cmd>Lspsaga code_action<CR>", desc = "Code Action", mode = { "n", "o", "x" } },
+          { "<leader>rr", vim.lsp.buf.rename, desc = "Rename" },
+          { "<leader>ra", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "o", "x" } },
         },
       },
-      { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover Doc" },
+      { "K", vim.lsp.buf.hover, desc = "Hover Doc" },
       { "<c-k>", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
       {
         "<leader>=",
