@@ -32,12 +32,6 @@ local lsp = {
 }
 
 return function(_, _)
-  -- import lspconfig plugin safely
-  local lspconfig_status, lspconfig = pcall(require, "lspconfig")
-  if not lspconfig_status then
-    return
-  end
-
   -- import cmp-nvim-lsp plugin safely
   local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if not cmp_nvim_lsp_status then
@@ -146,13 +140,14 @@ return function(_, _)
   end
 
   -- configure css server
-  lspconfig["cssls"].setup({
+  vim.lsp.config("cssls", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("cssls")
 
   -- configure emmet language server
-  lspconfig["emmet_ls"].setup({
+  vim.lsp.config("emmet_ls", {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
@@ -167,45 +162,52 @@ return function(_, _)
       "svelte",
     },
   })
+  vim.lsp.enable("emmet_ls")
 
   -- configure astro server
-  lspconfig["astro"].setup({
+  vim.lsp.config("astro", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("astro")
 
   -- configure gopls server
-  lspconfig["gopls"].setup({
+  vim.lsp.config("gopls", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("gopls")
 
   -- configure html server
-  lspconfig["html"].setup({
+  vim.lsp.config("html", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("html")
 
   -- configure markdown server
-  lspconfig["marksman"].setup({
+  vim.lsp.config("marksman", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("marksman")
 
   -- configure rust server
-  lspconfig["rust_analyzer"].setup({
+  vim.lsp.config("rust_analyzer", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("rust_analyzer")
 
   -- configure svelte server
-  lspconfig["svelte"].setup({
+  vim.lsp.config("svelte", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("svelte")
 
   -- configure lua server (with special settings)
-  lspconfig["lua_ls"].setup({
+  vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = { -- custom settings for lua
@@ -231,58 +233,61 @@ return function(_, _)
       },
     },
   })
+  vim.lsp.enable("lua_ls")
 
   -- configure tailwindcss server
-  lspconfig["tailwindcss"].setup({
+  vim.lsp.config("tailwindcss", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("tailwindcss")
 
   -- configure zls server
-  lspconfig["zls"].setup({
+  vim.lsp.config("zls", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("zls")
 
   -- configure templ language server
-  lspconfig["templ"].setup({
+  vim.lsp.config("templ", {
     capabilities = capabilities,
     on_attach = on_attach,
   })
+  vim.lsp.enable("templ")
 
   -- configure typescript server with plugin
-  lspconfig["vtsls"].setup({
+  vim.lsp.config("vtsls", {
     capabilities = capabilities,
     on_attach = on_attach_ts,
-    server = {
-      settings = {
-        complete_function_calls = true,
-        vtsls = {
-          enableMoveToFileCodeAction = true,
-          autoUseWorkspaceTsdk = true,
-          experimental = {
-            completion = {
-              enableServerSideFuzzyMatch = true,
-            },
+    settings = {
+      complete_function_calls = true,
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          completion = {
+            enableServerSideFuzzyMatch = true,
           },
         },
-        typescript = {
-          updateImportsOnFileMove = { enabled = "always" },
-          suggest = {
-            completeFunctionCalls = true,
-          },
-          inlayHints = {
-            enumMemberValues = { enabled = true },
-            functionLikeReturnTypes = { enabled = true },
-            parameterNames = { enabled = "literals" },
-            parameterTypes = { enabled = true },
-            propertyDeclarationTypes = { enabled = true },
-            variableTypes = { enabled = false },
-          },
+      },
+      typescript = {
+        updateImportsOnFileMove = { enabled = "always" },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = "literals" },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
         },
       },
     },
   })
+  vim.lsp.enable("vtsls")
 
   -- configure mason lspconfig plugin
   mason_lspconfig.setup({
