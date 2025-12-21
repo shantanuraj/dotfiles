@@ -968,7 +968,7 @@ return require("lazy").setup({
 
   -- Leap
   {
-    "ggandor/leap.nvim",
+    "https://codeberg.org/andyg/leap.nvim",
     keys = {
       { "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
       { "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
