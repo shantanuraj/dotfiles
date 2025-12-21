@@ -184,6 +184,7 @@ return function(_, _)
       "scss",
       "less",
       "svelte",
+      "mdx",
     },
   })
   vim.lsp.enable("emmet_ls")
@@ -213,6 +214,7 @@ return function(_, _)
   vim.lsp.config("marksman", {
     capabilities = capabilities,
     on_attach = on_attach,
+    filetypes = { "markdown", "markdown.mdx", "mdx" },
   })
   vim.lsp.enable("marksman")
 

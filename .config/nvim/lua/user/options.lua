@@ -73,3 +73,13 @@ vim.opt.guicursor = {
   "r-cr:hor20", -- Horizontal bar cursor in replace and command-replace modes
   "o:hor50", -- Horizontal bar cursor in operator-pending mode
 }
+
+-- MDX filetype detection
+vim.filetype.add({
+  extension = {
+    mdx = "mdx",
+  },
+})
+
+-- Use markdown treesitter parser for MDX files
+vim.treesitter.language.register("markdown", "mdx")
