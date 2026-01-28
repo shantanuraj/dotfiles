@@ -208,6 +208,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.macos_fullscreen_extend_behind_notch = true
 config.initial_cols = 160
 config.initial_rows = 48
 config.default_prog = { "/bin/zsh", "-l" }
