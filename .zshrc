@@ -176,3 +176,11 @@ export PATH="$PATH:$HOME/.modular/bin"
 # Plan9
 [ -d "$HOME/dev/9fans/plan9port" ] && export PLAN9="$HOME/dev/9fans/plan9port"
 [ -n "$PLAN9" ] && export PATH="$PATH:$PLAN9/bin"
+
+# pnpm
+export PNPM_HOME="/Users/shantanu/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
