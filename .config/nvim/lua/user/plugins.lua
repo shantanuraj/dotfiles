@@ -43,6 +43,7 @@ return require("lazy").setup({
   -- Telescope orthogonal deps
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     event = { "BufReadPost", "BufNewFile" },
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
@@ -51,8 +52,8 @@ return require("lazy").setup({
       return require("user.treesitter")
     end,
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-      local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+      require("nvim-treesitter.config").setup(opts)
+      local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
       local which_key_status, which_key = pcall(require, "which-key")
       if not which_key_status then
         return
@@ -72,6 +73,17 @@ return require("lazy").setup({
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    init = function()
+      -- Disable entire built-in ftplugin mappings to avoid conflicts.
+      -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+      vim.g.no_plugin_maps = true
+    end,
+    config = function() end,
   },
 
   -- Lualine
