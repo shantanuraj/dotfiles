@@ -44,6 +44,7 @@ return require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
+    lazy = false,
     event = { "BufReadPost", "BufNewFile" },
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
