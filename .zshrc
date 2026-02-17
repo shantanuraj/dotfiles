@@ -116,7 +116,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # NVIM
 export EDITOR='nvim'
 alias vim='nvim'
-alias vi='nvim -u NONE -N' # for large files
+alias vi='NVIM_APPNAME=nvim-zen nvim'
 
 # Ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rc"
