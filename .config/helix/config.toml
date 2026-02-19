@@ -3,9 +3,12 @@ theme = "meliora"
 [editor]
 bufferline = "multiple"
 color-modes = true
+true-color = true
 cursorline = true
 line-number = "relative"
 shell = ["zsh", "-c"]
+gutters = ["diff", "line-numbers", "spacer", "diagnostics",  "spacer"]
+end-of-line-diagnostics = "warning"
 
 [editor.file-picker]
 hidden = false
