@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.netrw_list_hide = "^\\./\\=$"
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.cmd.colorscheme("quiet")
@@ -53,6 +54,18 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set("x", "<leader>p", '"_dP')
 vim.keymap.set("n", "-", "<cmd>Explore %:p:h<cr>")
+
+local saved_layout = nil
+vim.keymap.set("n", "<C-w>m", function()
+	if saved_layout then
+		vim.cmd.wincmd("=")
+		saved_layout = nil
+	else
+		saved_layout = true
+		vim.cmd.wincmd("_")
+		vim.cmd.wincmd("|")
+	end
+end)
 
 local function fzf_pick(cmd, sink)
 	local tempfile = vim.fn.tempname()
