@@ -228,7 +228,7 @@ return require("lazy").setup({
       },
       view_options = {
         is_hidden_file = function(name, _)
-          return (vim.startswith(name, ".") or vim.endswith(name, "_templ.go") or vim.endswith(name, "_templ.txt"))
+          return vim.startswith(name, ".")
         end,
       },
     },

@@ -275,13 +275,6 @@ return function(_, _)
   })
   vim.lsp.enable("zls")
 
-  -- configure templ language server
-  vim.lsp.config("templ", {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-  vim.lsp.enable("templ")
-
   -- configure typescript server with plugin
   vim.lsp.config("vtsls", {
     capabilities = capabilities,
@@ -329,7 +322,6 @@ return function(_, _)
       "svelte",
       "lua_ls",
       "tailwindcss",
-      "templ",
       "vtsls",
     },
     -- auto-install configured servers (with lspconfig)
