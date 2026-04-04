@@ -7,6 +7,19 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true,
 -- C-c to change word under cursor
 vim.keymap.set({ "n" }, "<C-c>", "<cmd>normal! ciw<cr>a", { silent = true })
 
+vim.keymap.set("n", "<C-space>", function()
+  vim.cmd.normal({ "v", bang = true })
+  require("vim.treesitter._select").select_parent(vim.v.count1)
+end)
+
+vim.keymap.set("x", "<C-space>", function()
+  require("vim.treesitter._select").select_parent(vim.v.count1)
+end)
+
+vim.keymap.set("x", "<bs>", function()
+  require("vim.treesitter._select").select_child(vim.v.count1)
+end)
+
 local which_key_status, which_key = pcall(require, "which-key")
 
 if not which_key_status then
@@ -18,8 +31,6 @@ which_key.setup({
 })
 
 which_key.add({
-  { "<c-space>", desc = "Increment selection" },
-  { "<bs>", desc = "Decrement selection", mode = "x" },
   {
     group = "leader",
     { "<leader>R", "<cmd>source $MYVIMRC<cr>", desc = "Reload config" },
