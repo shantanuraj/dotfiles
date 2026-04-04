@@ -63,6 +63,7 @@ return require("lazy").setup({
     end,
     config = function(_, opts)
       require("nvim-treesitter.config").setup(opts)
+      require("nvim-treesitter.install").install(opts.ensure_installed, { skip = { installed = true } })
       local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
       local which_key_status, which_key = pcall(require, "which-key")
       if not which_key_status then
