@@ -20,10 +20,19 @@ return require("lazy").setup({
       "rktjmp/lush.nvim",
     },
     config = function()
-      local opts = { darkness = "stark", colorize_diagnostic_underline_text = true }
-      vim.g.zenbones = opts
-      vim.opt.background = "dark"
+      vim.g.zenbones = { darkness = "stark", colorize_diagnostic_underline_text = true }
+
+      local function sync_background()
+        local dark = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null"):find("Dark") ~= nil
+        vim.opt.background = dark and "dark" or "light"
+      end
+
+      sync_background()
       vim.cmd.colorscheme("zenbones")
+
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = sync_background,
+      })
     end,
   },
 
