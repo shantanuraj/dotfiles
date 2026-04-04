@@ -23,8 +23,9 @@ return require("lazy").setup({
       vim.g.zenbones = { darkness = "stark", colorize_diagnostic_underline_text = true }
 
       local function sync_background()
-        local dark = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null"):find("Dark") ~= nil
-        vim.opt.background = dark and "dark" or "light"
+        local light = vim.fn.executable("defaults") == 1
+          and vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null"):find("Dark") == nil
+        vim.opt.background = light and "light" or "dark"
       end
 
       sync_background()
