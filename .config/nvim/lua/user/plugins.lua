@@ -513,18 +513,67 @@ return require("lazy").setup({
     },
   },
 
-  -- Formatting & linting
+  -- Formatter
   {
-    "nvimtools/none-ls.nvim", -- configure formatters & linters
+    "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "mason.nvim",
-      "jayp0521/mason-null-ls.nvim", -- bridges gap b/w mason & null-ls
-      "nvimtools/none-ls-extras.nvim",
+    opts = {
+      formatters = {
+        biome = {
+          condition = function(_, ctx)
+            return vim.fs.find({ "biome.json", "biome.jsonc" }, {
+              upward = true,
+              path = ctx.dirname,
+            })[1] ~= nil
+          end,
+        },
+      },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        go = { "goimports", "golines" },
+        javascript = { "biome", "prettierd", stop_after_first = true },
+        javascriptreact = { "biome", "prettierd", stop_after_first = true },
+        typescript = { "biome", "prettierd", stop_after_first = true },
+        typescriptreact = { "biome", "prettierd", stop_after_first = true },
+        json = { "biome", "prettierd", stop_after_first = true },
+        jsonc = { "biome", "prettierd", stop_after_first = true },
+        yaml = { "prettierd" },
+        markdown = { "prettierd" },
+        html = { "prettierd" },
+        css = { "prettierd" },
+        scss = { "prettierd" },
+        astro = { "prettierd" },
+        svelte = { "prettierd" },
+      },
+      format_on_save = { timeout_ms = 1500, lsp_format = "never" },
+      default_format_opts = { lsp_format = "never" },
     },
+  },
+
+  -- Code actions bridge (Go struct tag edits)
+  {
+    "nvimtools/none-ls.nvim",
+    ft = "go",
+    dependencies = { "mason.nvim" },
     config = function()
       require("user.lsp.null-ls")
     end,
+  },
+
+  -- Mason tool auto-installer (formatters + linters)
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason.nvim" },
+    event = "VeryLazy",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "prettierd",
+        "goimports",
+        "golines",
+        "gomodifytags",
+      },
+    },
   },
 
   -- Git custom commands

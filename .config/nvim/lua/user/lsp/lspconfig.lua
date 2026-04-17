@@ -86,14 +86,17 @@ return function(_, _)
       {
         "<leader>=",
         function()
-          vim.lsp.buf.format({
-            filter = function(client)
-              return client.name == "null-ls" or client.name == "rust_analyzer"
-            end,
-            bufnr = bufnr,
-          })
+          local conform = require("conform")
+          if #conform.list_formatters(bufnr) > 0 then
+            conform.format({ bufnr = bufnr, lsp_format = "never", async = false })
+          else
+            vim.lsp.buf.format({
+              filter = function(client) return client.name == "rust_analyzer" end,
+              bufnr = bufnr,
+            })
+          end
         end,
-        desc = "Format file LSP",
+        desc = "Format file",
       },
     })
   end
@@ -178,6 +181,20 @@ return function(_, _)
     on_attach = on_attach,
   })
   vim.lsp.enable("astro")
+
+  -- configure biome server (activates when biome.json is present)
+  vim.lsp.config("biome", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+  vim.lsp.enable("biome")
+
+  -- configure eslint server (activates when .eslintrc.* is present)
+  vim.lsp.config("eslint", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+  vim.lsp.enable("eslint")
 
   -- configure gopls server
   vim.lsp.config("gopls", {
@@ -296,8 +313,10 @@ return function(_, _)
     automatic_enable = false,
     -- list of servers for mason to install
     ensure_installed = {
+      "biome",
       "cssls",
       "emmet_ls",
+      "eslint",
       "gopls",
       "html",
       "marksman",
