@@ -1,9 +1,9 @@
 vim.g.mapleader = " "
 vim.g.netrw_list_hide = "^\\./\\=$"
+vim.g.netrw_banner = 0
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.cmd.colorscheme("quiet")
-vim.o.syntax = "on"
 vim.o.errorbells = false
 vim.o.number = true
 vim.o.relativenumber = true
@@ -14,6 +14,7 @@ vim.o.sidescrolloff = 10
 vim.o.virtualedit = "block"
 vim.o.showmode = true
 vim.o.laststatus = 1
+vim.o.signcolumn = "yes"
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
@@ -44,8 +45,12 @@ vim.opt.guicursor = {
 	"o:hor50",
 }
 
+vim.filetype.add({ extension = { mdx = "mdx" } })
+
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<C-c>", "<cmd>normal! ciw<cr>a", { silent = true })
 vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { silent = true })
 vim.keymap.set("v", "<", "<gv")
@@ -67,7 +72,7 @@ vim.keymap.set("n", "<C-w>m", function()
 	end
 end)
 
-local function fzf_pick(cmd, sink)
+local function fzf_pick(cmd, sink, fzf_flags)
 	local tempfile = vim.fn.tempname()
 	local buf = vim.api.nvim_create_buf(false, true)
 	local width = math.floor(vim.o.columns * 0.6)
@@ -82,7 +87,7 @@ local function fzf_pick(cmd, sink)
 		border = "single",
 	})
 	vim.api.nvim_buf_set_keymap(buf, "t", "<esc>", "<C-\\><C-n><cmd>bdelete!<cr>", { silent = true })
-	vim.fn.jobstart(cmd .. " | fzf > " .. tempfile, {
+	vim.fn.jobstart(cmd .. " | fzf " .. (fzf_flags or "") .. " > " .. tempfile, {
 		term = true,
 		on_exit = function()
 			vim.schedule(function()
@@ -90,7 +95,7 @@ local function fzf_pick(cmd, sink)
 				local lines = vim.fn.readfile(tempfile)
 				vim.fn.delete(tempfile)
 				if #lines > 0 and lines[1] ~= "" then
-					sink(lines[1])
+					sink(lines)
 				end
 			end)
 		end,
@@ -99,10 +104,55 @@ local function fzf_pick(cmd, sink)
 end
 
 vim.keymap.set("n", "<leader><space>", function()
-	fzf_pick("fd --type f --hidden --exclude .git", function(file)
-		vim.cmd.edit(file)
+	fzf_pick("fd --type f --hidden --exclude .git", function(lines)
+		vim.cmd.edit(lines[1])
 	end)
 end)
+
+vim.keymap.set("n", "<leader>/", function()
+	local rg = "rg --vimgrep --smart-case --color=always"
+	fzf_pick(":", function(lines)
+		local items = {}
+		for _, line in ipairs(lines) do
+			local l = line:gsub("\27%[[%d;]*m", "")
+			local f, ln, c, t = l:match("([^:]+):(%d+):(%d+):(.*)")
+			if f then
+				items[#items + 1] = { filename = f, lnum = tonumber(ln), col = tonumber(c), text = t }
+			end
+		end
+		if #items == 0 then
+			return
+		end
+		if #items == 1 then
+			vim.cmd.edit(items[1].filename)
+			vim.api.nvim_win_set_cursor(0, { items[1].lnum, items[1].col - 1 })
+		else
+			vim.fn.setqflist(items, "r")
+			vim.cmd.copen()
+		end
+	end, "--ansi --disabled --multi --bind 'change:reload:" .. rg .. " -- {q} || true' --bind 'ctrl-q:select-all+accept'")
+end)
+
+vim.keymap.set("n", "<leader>t", function()
+	fzf_pick("awk -F'\\t' '!/^!/ {print $1}' tags | sort -u", function(lines)
+		vim.cmd.tjump(lines[1])
+	end)
+end)
+
+vim.api.nvim_create_user_command("MakeTags", function()
+	vim.fn.jobstart("gotags -R -exclude=vendor -exclude=.git -exclude=node_modules . > tags", {
+		on_exit = function(_, code)
+			vim.schedule(function()
+				vim.notify(
+					code == 0 and "tags regenerated" or "gotags failed",
+					code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+				)
+			end)
+		end,
+	})
+end, {})
+
+vim.keymap.set("n", "<leader>T", "<cmd>MakeTags<cr>")
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
