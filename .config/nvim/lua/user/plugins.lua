@@ -40,16 +40,6 @@ return require("lazy").setup({
   -- GitHub CoPilot
   { "github/copilot.vim" },
 
-  -- Telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_make_cmd }, -- Fzf native
-      "nvim-telescope/telescope-live-grep-args.nvim",
-    },
-  },
-
   -- Telescope orthogonal deps
   {
     "nvim-treesitter/nvim-treesitter",
@@ -513,6 +503,7 @@ return require("lazy").setup({
   },
   {
     "j-hui/fidget.nvim",
+    event = "LspAttach",
     opts = {
       progress = {
         ignore = {
@@ -701,7 +692,6 @@ return require("lazy").setup({
           },
         },
       },
-      explorer = { enabled = true },
       indent = { enabled = false },
       input = { enabled = true },
       picker = {
@@ -735,11 +725,70 @@ return require("lazy").setup({
 
       -- Pickers
       {
-        "<leader>`",
+        "<leader>'",
         function()
-          Snacks.picker.actions.focus_list(Snacks.picker.resume())
+          local picker = Snacks.picker.resume()
+          if picker then
+            -- Snacks defers show() via the matcher loop; set focus on opts so
+            -- the deferred self:focus() lands on the list instead of the input.
+            picker.opts.focus = "list"
+          end
         end,
         desc = "Resume picker",
+      },
+      {
+        "<leader><space>",
+        function()
+          vim.fn.system("git rev-parse --is-inside-work-tree")
+          if vim.v.shell_error == 0 then
+            Snacks.picker.git_files()
+          else
+            Snacks.picker.files({ hidden = true, follow = true, exclude = { ".git/*" } })
+          end
+        end,
+        desc = "Go to File",
+      },
+      {
+        "<C-f>",
+        function()
+          Snacks.picker.grep({ hidden = true, exclude = { "**/.git/*" } })
+        end,
+        desc = "Find in project",
+      },
+      {
+        "<leader>ft",
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = "Go to Symbol in workspace",
+      },
+      {
+        "<leader>ff",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Live grep",
+      },
+      {
+        "<leader>fg",
+        function()
+          Snacks.picker.grep({ exclude = { "*.json", "*.po", ".git" } })
+        end,
+        desc = "Find excluding translations",
+      },
+      {
+        "<leader>fw",
+        function()
+          Snacks.picker.grep_word({ args = { "-F", "--hidden" }, exclude = { "**/.git/*" } })
+        end,
+        desc = "Find word",
+      },
+      {
+        "<leader>fp",
+        function()
+          Snacks.picker.grep({ cwd = vim.fn.expand("%:p:h") })
+        end,
+        desc = "Find in directory",
       },
 
       {
@@ -852,62 +901,6 @@ return require("lazy").setup({
     "folke/which-key.nvim",
     opts = {
       preset = "helix",
-    },
-  },
-
-  -- Zen Mode
-  {
-    "folke/zen-mode.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("zen-mode").setup({
-        window = {
-          width = 150,
-        },
-        plugins = {
-          tmux = { enabled = true },
-          alacritty = { enabled = true, font = "16" },
-          wezterm = { enabled = true, font = "20" },
-        },
-      })
-    end,
-  },
-
-  -- Better diagnostics list and others
-  {
-    "folke/trouble.nvim",
-    opts = {
-      auto_refresh = false,
-    },
-    cmd = { "Trouble" },
-    keys = {
-      { "<leader>xt", "<cmd>Trouble close<cr>", desc = "Close (Trouble)" },
-      { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
-      { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-      {
-        "[q",
-        function()
-          if require("trouble").is_open() then
-            require("trouble").prev({ skip_groups = true, jump = true })
-          else
-            vim.cmd.cprev()
-          end
-        end,
-        desc = "Previous quickfix item",
-      },
-      {
-        "]q",
-        function()
-          if require("trouble").is_open() then
-            require("trouble").next({ skip_groups = true, jump = true })
-          else
-            vim.cmd.cnext()
-          end
-        end,
-        desc = "Next quickfix item",
-      },
     },
   },
 

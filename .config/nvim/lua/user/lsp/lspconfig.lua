@@ -1,21 +1,4 @@
 local lsp = {
-  ---@class LspCommand: lsp.ExecuteCommandParams
-  ---@param opts LspCommand
-  execute = function(opts)
-    local params = {
-      command = opts.command,
-      arguments = opts.arguments,
-    }
-    if opts.open then
-      require("trouble").open({
-        mode = "lsp_command",
-        params = params,
-      })
-    else
-      return vim.lsp.buf_request(0, "workspace/executeCommand", params, opts.handler)
-    end
-  end,
-
   action = setmetatable({}, {
     __index = function(_, action)
       return function()

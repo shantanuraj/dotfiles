@@ -40,7 +40,7 @@ which_key.add({
       { "<leader>tt", vim.cmd.tabnew, desc = "Open new tab" },
       { "<leader>tx", vim.cmd.tabclose, desc = "Close current tab" },
     },
-    { "<leader>z", vim.cmd.ZenMode, desc = "Toggle Zen mode" },
+    { "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen mode" },
     { "<leader>p", '"_dP', desc = "Paste without overwriting clipboard", mode = "x" },
   },
   {
@@ -58,4 +58,6 @@ which_key.add({
     mode = { "n", "i" },
   },
   { "<c-w>m", vim.cmd.MaximizerToggle, desc = "Maximize current split window" },
+  { "[q", vim.cmd.cprev, desc = "Previous quickfix item" },
+  { "]q", vim.cmd.cnext, desc = "Next quickfix item" },
 })
