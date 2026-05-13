@@ -2,6 +2,7 @@ local M = {
   ensure_installed = {
     "astro",
     "bash",
+    "comment",
     "css",
     "diff",
     "git_config",
@@ -14,6 +15,9 @@ local M = {
     "javascript",
     "jsdoc",
     "json",
+    "printf",
+    "python",
+    "regex",
     "rust",
     "svelte",
     "swift",
