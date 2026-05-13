@@ -3,6 +3,7 @@ local M = {
     "astro",
     "bash",
     "css",
+    "diff",
     "git_config",
     "git_rebase",
     "gitcommit",
