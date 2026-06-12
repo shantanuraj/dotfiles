@@ -140,7 +140,7 @@ export PATH="$HOME/.local/bin:$PATH"
 alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
 # bat theme
-export BAT_THEME="OneHalfDark"
+export BAT_THEME="ansi"
 
 # magit
 alias magit="emacs -nw --eval '(magit-status)'"
