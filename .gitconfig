@@ -4,6 +4,8 @@
   signingkey = ~/.ssh/id_git.pub
 [pull]
   rebase = true
+[push]
+  autoSetupRemote = true
 [fetch]
   prune = true
 [core]
@@ -26,8 +28,10 @@
   compactionHeuristic = true
   algorithm = patience
   relative = true
+  colorMoved = default
 [merge]
-  tool = nvim -d
+  tool = nvimdiff
+  conflictstyle = zdiff3
 [mergetool]
   keepBackup = false
 [rebase]
