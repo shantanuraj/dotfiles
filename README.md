@@ -7,7 +7,7 @@
 ./symlink.sh
 ```
 
-To setup symlinks, and install tmux and alacritty plugins
+To setup symlinks, and install tmux plugins
 
 ```sh
 ./setup.sh
