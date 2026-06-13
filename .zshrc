@@ -1,115 +1,45 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# vi mode
+bindkey -v
+export KEYTIMEOUT=10
+bindkey -M viins '^?' backward-delete-char
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Prefix history search on arrows
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+for m in viins vicmd; do
+  bindkey -M $m '^[[A' up-line-or-beginning-search
+  bindkey -M $m '^[OA' up-line-or-beginning-search
+  bindkey -M $m '^[[B' down-line-or-beginning-search
+  bindkey -M $m '^[OB' down-line-or-beginning-search
+done
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="ys"
+# History
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt share_history hist_ignore_dups hist_ignore_space
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Completions
+FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
+autoload -Uz compinit && compinit
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Git aliases (vendored from oh-my-zsh git plugin)
+source "$HOME/.dotfiles/.config/zsh/git.plugin.zsh"
+alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
 # mise
 eval "$(~/.local/bin/mise activate zsh)"
 
-# Autojump
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
+# zoxide
+eval "$(zoxide init zsh --cmd j)"
 
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files'
+eval "$(fzf --zsh)"
+
+# atuin
+eval "$(atuin init zsh --disable-up-arrow)"
 
 # NVIM
 export EDITOR='nvim'
@@ -121,12 +51,10 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rc"
 
 # Android
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+export PATH="$ANDROID_HOME/platform-tools:$PATH"
 
 # bun
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
@@ -135,9 +63,6 @@ export PATH="$HOME/go/bin:$PATH"
 
 # Local bin
 export PATH="$HOME/.local/bin:$PATH"
-
-# Git alias extensions
-alias grb!='GIT_SEQUENCE_EDITOR=true git rebase -i'
 
 # bat theme
 export BAT_THEME="ansi"
@@ -150,19 +75,14 @@ if [ "$(uname)" = "Linux" ]; then
 fi
 
 # starship
-if [ -f /usr/local/bin/starship ]; then
-  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-  eval "$(/usr/local/bin/starship init zsh)"
-elif [ -f $HOME/.local/bin/starship ]; then
-  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-  eval "$($HOME/.local/bin/starship init zsh)"
-fi
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # WezTerm
 source "$HOME/.dotfiles/.config/wezterm/wezterm.sh"
 
 # rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
 
 # Playdate SDK
 export PLAYDATE_SDK="$HOME/Developer/PlaydateSDK"
@@ -176,9 +96,8 @@ export PATH="$PATH:$HOME/.modular/bin"
 [ -n "$PLAN9" ] && export PATH="$PATH:$PLAN9/bin"
 
 # pnpm
-export PNPM_HOME="/Users/shantanu/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
