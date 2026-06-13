@@ -82,9 +82,23 @@ if [ "$(uname)" = "Linux" ]; then
   export COLORTERM=truecolor
 fi
 
-# starship
+# Prompt: starship if present, otherwise a clean built-in fallback
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-command -v starship >/dev/null && eval "$(starship init zsh)"
+if command -v starship >/dev/null; then
+  eval "$(starship init zsh)"
+else
+  autoload -Uz vcs_info add-zsh-hook
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git:*' unstagedstr ' %F{yellow}x%f'
+  zstyle ':vcs_info:git:*' stagedstr ' %F{green}+%f'
+  zstyle ':vcs_info:git:*' formats       ' %F{magenta}%b%f%u%c'
+  zstyle ':vcs_info:git:*' actionformats ' %F{magenta}%b%f %F{red}%a%f%u%c'
+  add-zsh-hook precmd vcs_info
+  setopt prompt_subst
+  PROMPT='%F{green}%n%f @ %F{green}%m%f %F{yellow}%~%f${vcs_info_msg_0_}
+%(?.%F{green}.%F{red})$%f '
+fi
 
 # WezTerm
 source "$HOME/.dotfiles/.config/wezterm/wezterm.sh"
