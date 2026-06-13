@@ -14,6 +14,14 @@ for m in viins vicmd; do
   bindkey -M $m '^[OB' down-line-or-beginning-search
 done
 
+# Directory navigation (from oh-my-zsh lib/directories.zsh)
+setopt auto_cd auto_pushd pushd_ignore_dups pushdminus
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -- -='cd -'
+
 # History
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -92,7 +100,7 @@ export PATH="$PLAYDATE_SDK/bin:$PATH"
 export PATH="$PATH:$HOME/.modular/bin"
 
 # Plan9
-[ -d "$HOME/dev/9fans/plan9port" ] && export PLAN9="$HOME/dev/9fans/plan9port"
+[ -d /usr/local/plan9 ] && export PLAN9=/usr/local/plan9
 [ -n "$PLAN9" ] && export PATH="$PATH:$PLAN9/bin"
 
 # pnpm
