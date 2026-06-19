@@ -15,6 +15,7 @@ local M = {
     "javascript",
     "jsdoc",
     "json",
+    "luadoc",
     "printf",
     "python",
     "regex",
