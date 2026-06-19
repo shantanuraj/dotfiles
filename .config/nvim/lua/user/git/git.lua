@@ -1,6 +1,15 @@
 local utils = require("user.git.utils")
 local M = {}
 
+local function current_file_dir()
+  local filepath = utils.get_filepath()
+  if not filepath then
+    return nil
+  end
+
+  return vim.fn.fnamemodify(filepath, ":h")
+end
+
 ---@param callback fun(is_ignored: boolean)
 function M.check_is_ignored(callback)
   local filepath = vim.api.nvim_buf_get_name(0)
@@ -8,9 +17,10 @@ function M.check_is_ignored(callback)
     return true
   end
 
-  utils.start_job("git check-ignore " .. vim.fn.shellescape(filepath), {
-    on_exit = function(data)
-      callback(data ~= 1)
+  utils.start_job({ "git", "check-ignore", filepath }, {
+    cwd = current_file_dir(),
+    on_exit = function(code)
+      callback(code == 0)
     end,
   })
 end
@@ -61,14 +71,13 @@ end
 
 ---@param callback fun(url: string)
 function M.get_remote_url(callback)
-  if not utils.get_filepath() then
+  local cwd = current_file_dir()
+  if not cwd then
     return
   end
-  local remote_url_command = "cd "
-    .. vim.fn.shellescape(vim.fn.expand("%:p:h"))
-    .. " && git config --get remote.origin.url"
 
-  utils.start_job(remote_url_command, {
+  utils.start_job({ "git", "config", "--get", "remote.origin.url" }, {
+    cwd = cwd,
     on_stdout = function(url)
       if url and url[1] then
         callback(url[1])
@@ -81,12 +90,13 @@ end
 
 ---@param callback fun(repo_root: string)
 function M.get_repo_root(callback)
-  if not utils.get_filepath() then
+  local cwd = current_file_dir()
+  if not cwd then
     return
   end
-  local command = "cd " .. vim.fn.shellescape(vim.fn.expand("%:p:h")) .. " && git rev-parse --show-toplevel"
 
-  utils.start_job(command, {
+  utils.start_job({ "git", "rev-parse", "--show-toplevel" }, {
+    cwd = cwd,
     on_stdout = function(data)
       callback(data[1])
     end,
@@ -107,7 +117,13 @@ end
 
 ---@param callback fun(sha: string)
 function M.get_sha(callback)
-  utils.start_job("git rev-parse HEAD", {
+  local cwd = current_file_dir()
+  if not cwd then
+    return
+  end
+
+  utils.start_job({ "git", "rev-parse", "HEAD" }, {
+    cwd = cwd,
     on_stdout = function(data)
       callback(data[1])
     end,
@@ -116,19 +132,35 @@ end
 
 ---@param callback fun(sha: string, filepath: string, lines: {start: number, end: number})
 function M.get_line_sha(callback)
-  local line = vim.fn.line(".")
-  local cmd = "git blame --line-porcelain -L " .. line .. ",+1 -- " .. vim.fn.expand("%:p")
-  utils.start_job(cmd, {
+  local filepath = utils.get_filepath()
+  local cwd = current_file_dir()
+  if not filepath or not cwd then
+    return
+  end
+
+  local line = tostring(vim.fn.line("."))
+  utils.start_job({ "git", "blame", "--line-porcelain", "-L", line .. ",+1", "--", filepath }, {
+    cwd = cwd,
     on_stdout = function(data)
-      local commit_line_data = utils.split_space(data[1])
-      local filepath_line = utils.split_space(data[11])
+      local sha, line_start = data[1]:match("^(%S+)%s+(%d+)")
+      if not sha or not line_start then
+        return
+      end
 
-      local sha = commit_line_data[1]
-      local line_start = commit_line_data[2]
-      local filepath = filepath_line[1] == "filename" and filepath_line[2] or filepath_line[3]
+      local blamed_filepath
+      for _, output_line in ipairs(data) do
+        blamed_filepath = output_line:match("^filename%s+(.+)$")
+        if blamed_filepath then
+          break
+        end
+      end
 
-      local lines = { start = line_start, ["end"] = line_start }
-      callback(sha, filepath, lines)
+      if not blamed_filepath then
+        return
+      end
+
+      local lines = { start = tonumber(line_start), ["end"] = tonumber(line_start) }
+      callback(sha, blamed_filepath, lines)
     end,
   })
 end

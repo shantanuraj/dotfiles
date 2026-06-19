@@ -29,21 +29,28 @@ function M.log(text)
   print(string.format("[%s][%s-%s] %s", os.clock(), __FUNC__(), __LINE__(), dump(text)))
 end
 
----@param cmd string
----@param opts table
+---@param cmd string|string[]
+---@param opts table|nil
 ---@return number | 'the job id'
 function M.start_job(cmd, opts)
   opts = opts or {}
   local id = vim.fn.jobstart(cmd, {
+    cwd = opts.cwd,
     stdout_buffered = true,
+    stderr_buffered = true,
     on_stdout = function(_, data, _)
       if data and opts.on_stdout then
         opts.on_stdout(data)
       end
     end,
-    on_exit = function(_, data, _)
+    on_stderr = function(_, data, _)
+      if data and opts.on_stderr then
+        opts.on_stderr(data)
+      end
+    end,
+    on_exit = function(_, code, _)
       if opts.on_exit then
-        opts.on_exit(data)
+        opts.on_exit(code)
       end
     end,
   })
@@ -101,27 +108,19 @@ end
 ---Keeping it outside the function improves performance by not
 ---finding the OS every time.
 local open_cmd
----Attempts to open a given URL in the system default browser, regardless of the OS.
----Source: https://stackoverflow.com/a/18864453/9714875
+---Attempts to open a given URL in the system default browser.
 ---@param url string
 function M.launch_url(url)
-  if not open_cmd then
-    if package.config:sub(1, 1) == "\\" then
-      open_cmd = function(_url)
-        M.start_job(string.format('rundll32 url.dll,FileProtocolHandler "%s"', _url), {})
-      end
-    elseif (io.popen("uname -s"):read("*a")):match("Darwin") then
-      open_cmd = function(_url)
-        M.start_job(string.format('open "%s"', _url), {})
-      end
-    else
-      open_cmd = function(_url)
-        M.start_job(string.format('xdg-open "%s"', _url), {})
-      end
-    end
+  if vim.ui and vim.ui.open then
+    vim.ui.open(url)
+    return
   end
 
-  open_cmd(url)
+  if not open_cmd then
+    open_cmd = vim.fn.has("macunix") == 1 and "open" or "xdg-open"
+  end
+
+  M.start_job({ open_cmd, url }, {})
 end
 
 ---@param text string
