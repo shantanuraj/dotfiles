@@ -6,6 +6,8 @@ color-modes = true
 true-color = true
 cursorline = true
 line-number = "relative"
+scrolloff = 8
+popup-border = "all"
 shell = ["zsh", "-c"]
 gutters = ["diff", "line-numbers", "spacer", "diagnostics",  "spacer"]
 end-of-line-diagnostics = "warning"
@@ -18,14 +20,31 @@ follow-symlinks = false
 display-messages = true
 
 [editor.statusline]
-left = ["mode", "spinner", "version-control", "file-name"]
+left = ["mode", "spinner", "version-control"]
+right = ["file-name", "diagnostics", "selections", "position"]
+
+[editor.cursor-shape]
+select = "underline"
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.soft-wrap]
+enable = true
 
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]
+C-n = "completion"
 
 [keys.normal]
 esc = ["collapse_selection", "normal_mode"]
 "*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
+"0" = "goto_line_start"
+"_" = "goto_first_nonwhitespace"
 G = "goto_file_end"
 C-k = "signature_help"
 K = "hover"
