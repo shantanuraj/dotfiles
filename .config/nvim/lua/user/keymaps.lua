@@ -26,10 +26,6 @@ if not which_key_status then
   return
 end
 
-which_key.setup({
-  preset = "helix",
-})
-
 which_key.add({
   {
     group = "leader",
