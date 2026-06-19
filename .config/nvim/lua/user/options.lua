@@ -7,8 +7,8 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
 
--- Peristent sign column
-vim.wo.signcolumn = "yes"
+-- Persistent sign column
+vim.opt.signcolumn = "yes"
 
 -- encoding
 vim.o.encoding = "utf-8"
@@ -51,19 +51,45 @@ vim.o.splitright = true -- put new windows right of current
 
 -- core
 vim.o.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.updatetime = 200
+vim.opt.jumpoptions = "view"
 
 -- undo
 vim.o.undofile = true -- save undo history to a file
 
+local options_group = vim.api.nvim_create_augroup("user_options", { clear = true })
+
 -- trim trailing whitespace
-vim.cmd([[
-  autocmd BufWritePre * %s/\s\+$//e
-]])
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = options_group,
+  pattern = "*",
+  callback = function(args)
+    if vim.bo[args.buf].buftype ~= "" or not vim.bo[args.buf].modifiable or vim.bo[args.buf].readonly then
+      return
+    end
+
+    local view = vim.fn.winsaveview()
+    vim.api.nvim_buf_call(args.buf, function()
+      vim.cmd([[keeppatterns %s/\s\+$//e]])
+    end)
+    vim.fn.winrestview(view)
+  end,
+})
 
 -- open PDF files
-vim.cmd([[
-  autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
-]])
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = options_group,
+  pattern = "*.pdf",
+  callback = function(args)
+    if vim.fn.executable("pdftotext") == 0 then
+      return
+    end
+
+    vim.api.nvim_buf_call(args.buf, function()
+      vim.cmd([[silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78]])
+    end)
+  end,
+})
 
 -- set cursor to not blink for neovim 0.11+
 vim.opt.guicursor = {
