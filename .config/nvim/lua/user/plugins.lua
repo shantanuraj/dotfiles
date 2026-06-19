@@ -22,7 +22,9 @@ return require("lazy").setup({
       sync_background()
       vim.cmd.colorscheme("zenbones")
 
+      local zenbones_group = vim.api.nvim_create_augroup("user_zenbones", { clear = true })
       vim.api.nvim_create_autocmd("FocusGained", {
+        group = zenbones_group,
         callback = sync_background,
       })
     end,
@@ -31,7 +33,7 @@ return require("lazy").setup({
   -- GitHub CoPilot
   { "github/copilot.vim" },
 
-  -- Telescope orthogonal deps
+  -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
@@ -530,14 +532,15 @@ return require("lazy").setup({
         jsonc = { "biome", "prettierd", stop_after_first = true },
         yaml = { "prettierd" },
         markdown = { "prettierd" },
+        mdx = { "prettierd" },
         html = { "prettierd" },
         css = { "prettierd" },
         scss = { "prettierd" },
         astro = { "prettierd" },
         svelte = { "prettierd" },
       },
-      format_on_save = { timeout_ms = 1500, lsp_format = "never" },
-      default_format_opts = { lsp_format = "never" },
+      format_on_save = { timeout_ms = 1500, lsp_format = "fallback" },
+      default_format_opts = { lsp_format = "fallback" },
     },
   },
 
