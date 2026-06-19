@@ -272,13 +272,6 @@ return function(_, _)
   })
   vim.lsp.enable("tailwindcss")
 
-  -- configure zls server
-  vim.lsp.config("zls", {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-  vim.lsp.enable("zls")
-
   -- configure typescript server with plugin
   vim.lsp.config("vtsls", {
     capabilities = capabilities,
@@ -317,6 +310,7 @@ return function(_, _)
     automatic_enable = false,
     -- list of servers for mason to install
     ensure_installed = {
+      "astro",
       "biome",
       "cssls",
       "emmet_ls",
