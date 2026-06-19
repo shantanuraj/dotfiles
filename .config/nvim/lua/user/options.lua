@@ -35,12 +35,12 @@ vim.o.smartcase = true -- smarter search case
 vim.o.wildignorecase = true -- ignore case in file completion
 vim.o.wildignore = "" -- remove default ignores
 vim.o.wildignore = vim.o.wildignore .. "*.o,*.obj,*.so,*.a,*.dylib,*.pyc,*.hi" -- ignore compiled files
-vim.o.wildignore = vim.o.wildignore .. "*.zip,*.gz,*.xz,*.tar,*.rar" -- ignore compressed files
-vim.o.wildignore = vim.o.wildignore .. "*/.git/*,*/.hg/*,*/.svn/*" -- ignore SCM files
-vim.o.wildignore = vim.o.wildignore .. "*.png,*.jpg,*.jpeg,*.gif" -- ignore image files
-vim.o.wildignore = vim.o.wildignore .. "*.pdf,*.dmg" -- ignore binary files
-vim.o.wildignore = vim.o.wildignore .. ".*.sw*,*~" -- ignore editor files
-vim.o.wildignore = vim.o.wildignore .. ".DS_Store" -- ignore OS files
+vim.o.wildignore = vim.o.wildignore .. ",*.zip,*.gz,*.xz,*.tar,*.rar" -- ignore compressed files
+vim.o.wildignore = vim.o.wildignore .. ",*/.git/*,*/.hg/*,*/.svn/*" -- ignore SCM files
+vim.o.wildignore = vim.o.wildignore .. ",*.png,*.jpg,*.jpeg,*.gif" -- ignore image files
+vim.o.wildignore = vim.o.wildignore .. ",*.pdf,*.dmg" -- ignore binary files
+vim.o.wildignore = vim.o.wildignore .. ",.*.sw*,*~" -- ignore editor files
+vim.o.wildignore = vim.o.wildignore .. ",.DS_Store" -- ignore OS files
 
 -- clipboard
 vim.o.clipboard = "unnamedplus" -- copy to system clipboard
