@@ -4,73 +4,130 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
---- @param s string
+--- @param path string
 --- @return string
-local function basename(s)
-	if s == "/" then
-		return s
+local function basename(path)
+	if path == nil or path == "" then
+		return ""
 	end
-	if string.find(s, "^file://") == nil then
-		local res = string.match(s, ".-([^/]+)/$")
-		if res then
-			return res
-		end
+
+	path = tostring(path):gsub("^%a[%w+.-]*://[^/]*", ""):gsub("/$", "")
+
+	if path == "" then
+		return "/"
 	end
-	local str = string.gsub(s, "file://[^/]*", "")
-	local dirName = string.match(str, "/([^/]+)/?$")
-	return dirName or s
+
+	return path:match("([^/]+)$") or path
 end
 
---- @param workspace string
---- @param cwd string
---- @return string[]
-local function set_dir(workspace, cwd)
-	return {
-		workspace = workspace,
-		cwd = cwd,
-	}
+local startup_windows = {
+	{
+		workspace = "dev",
+		fullscreen = true,
+		tabs = {
+			{ cwd = wezterm.home_dir .. "/.dotfiles", send_text = "nvim\n", activate = true },
+			{ cwd = wezterm.home_dir .. "/dev/watercooler-labs/toggl-cli" },
+			{ cwd = wezterm.home_dir .. "/dev/shantanuraj/podcst-web" },
+			{ cwd = wezterm.home_dir .. "/dev/shantanuraj/sraj.me" },
+		},
+	},
+	{
+		workspace = "REKKI",
+		tabs = {
+			{
+				cwd = wezterm.home_dir .. "/dev/rekki/buyer-app",
+				send_text = "nvim\n",
+				splits = { {} },
+				activate = true,
+			},
+			{
+				cwd = wezterm.home_dir .. "/dev/rekki/go",
+				send_text = "nvim\n",
+				splits = {
+					{ cwd = wezterm.home_dir .. "/dev/rekki/go" },
+				},
+			},
+		},
+	},
+}
+
+local function spawn_startup_window(spec)
+	local first_tab = spec.tabs[1]
+	local tab, pane, window = mux.spawn_window({
+		workspace = spec.workspace,
+		cwd = first_tab.cwd,
+	})
+	local active_tab = first_tab.activate and tab or nil
+
+	local function configure_tab(tab_spec, current_tab, current_pane)
+		if tab_spec.send_text then
+			current_pane:send_text(tab_spec.send_text)
+		end
+
+		for _, split in ipairs(tab_spec.splits or {}) do
+			current_pane:split(split)
+		end
+
+		if tab_spec.activate then
+			active_tab = current_tab
+		end
+	end
+
+	configure_tab(first_tab, tab, pane)
+
+	if spec.fullscreen then
+		window:gui_window():toggle_fullscreen()
+	end
+
+	for i = 2, #spec.tabs do
+		local tab_spec = spec.tabs[i]
+		local next_tab, next_pane = window:spawn_tab({
+			workspace = spec.workspace,
+			cwd = tab_spec.cwd,
+		})
+		configure_tab(tab_spec, next_tab, next_pane)
+	end
+
+	if active_tab then
+		active_tab:activate()
+	end
 end
 
 wezterm.on("gui-startup", function()
-	local dotfiles_tab, dotfiles_pane, dev_window = mux.spawn_window(set_dir("dev", wezterm.home_dir .. "/.dotfiles"))
-	dotfiles_pane:send_text("nvim\n")
-
-	dev_window:gui_window():toggle_fullscreen()
-
-	dev_window:spawn_tab({
-		cwd = wezterm.home_dir .. "/dev/watercooler-labs/toggl-cli",
-	})
-
-	dev_window:spawn_tab({
-		cwd = wezterm.home_dir .. "/dev/shantanuraj/podcst-web",
-	})
-
-	dev_window:spawn_tab({
-		cwd = wezterm.home_dir .. "/dev/shantanuraj/sraj.me",
-	})
-
-	dotfiles_tab:activate()
-
-	local app_tab, app_pane, work_window =
-		mux.spawn_window(set_dir("REKKI", wezterm.home_dir .. "/dev/rekki/buyer-app"))
-	app_pane:send_text("nvim\n")
-
-	app_pane:split({})
-
-	local _, api_pane, _ = work_window:spawn_tab(set_dir("REKKI", wezterm.home_dir .. "/dev/rekki/go"))
-	api_pane:send_text("nvim\n")
-
-	api_pane:split({
-		cwd = wezterm.home_dir .. "/dev/rekki/go",
-	})
-
-	app_tab:activate()
+	for _, spec in ipairs(startup_windows) do
+		spawn_startup_window(spec)
+	end
 end)
+
+local function status_colors_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return {
+			workspace = "#819B69",
+			separator = "#888F94",
+			date = "#B279A7",
+		}
+	end
+
+	return {
+		workspace = "#4F6C31",
+		separator = "#4F5E68",
+		date = "#88507D",
+	}
+end
 
 wezterm.on("update-status", function(window)
 	local workspace = window:active_workspace()
 	local date = wezterm.strftime("%a %b %-d %H:%M")
-	window:set_right_status(workspace .. " | 󰃰 " .. date)
+	local colors = status_colors_for_appearance(window:get_appearance())
+
+	window:set_right_status(wezterm.format({
+		{ Foreground = { Color = colors.workspace } },
+		{ Text = workspace },
+		{ Foreground = { Color = colors.separator } },
+		{ Text = " | " },
+		{ Foreground = { Color = colors.date } },
+		{ Text = date .. " " },
+	}))
 end)
 
 --- trim_prefix returns s with the prefix removed.
@@ -92,19 +149,61 @@ local function trim_prefix(s, prefix)
 	return s
 end
 
+local local_hostname = wezterm.hostname()
+
+local function clean_host(host)
+	if host == nil or host == "" then
+		return nil
+	end
+
+	host = trim_prefix(host, "SSH to ")
+	host = trim_prefix(host, "ssh://")
+	host = host:gsub("/.*$", ""):gsub("^.*@", "")
+
+	if host == "" or host == "local" or host == "local:" or host == "localhost" then
+		return nil
+	end
+
+	return host
+end
+
+local function host_stem(host)
+	if host == nil then
+		return nil
+	end
+
+	return host:lower():match("^[^.]+") or host:lower()
+end
+
+local function is_local_host(host)
+	local candidate = host_stem(host)
+	local local_candidate = host_stem(local_hostname)
+	return candidate ~= nil and local_candidate ~= nil and candidate == local_candidate
+end
+
+local function pane_host(pane)
+	local cwd_host = pane.current_working_dir and clean_host(pane.current_working_dir.host)
+	if cwd_host and not is_local_host(cwd_host) then
+		return cwd_host
+	end
+
+	return clean_host(pane.domain_name)
+end
+
 wezterm.on("format-tab-title", function(tab)
 	local pane = tab.active_pane
+	local title = basename(pane.current_working_dir and pane.current_working_dir.file_path or pane.title)
+	local host = pane_host(pane)
 
-	if pane.current_working_dir == nil then
-		return " " .. pane.title .. " "
+	if title == "" then
+		title = basename(pane.title)
 	end
 
-	local title = basename(pane.current_working_dir.file_path) or ""
-
-	if title == "" and pane.domain_name then
-		title = trim_prefix(pane.domain_name, "SSH to ") .. ":" .. basename(pane.title)
+	if host then
+		title = host .. ":" .. title
+	else
+		title = trim_prefix(title, "local:")
 	end
-	title = trim_prefix(title, "local:")
 
 	if pane.is_zoomed then
 		title = title .. " +"
@@ -158,6 +257,23 @@ local function colors_for_appearance(appearance)
 			selection_bg = "#3D4042",
 			ansi = { "#1C1917", "#DE6E7C", "#819B69", "#B77E64", "#6099C0", "#B279A7", "#66A5AD", "#B4BDC3" },
 			brights = { "#403833", "#E8838F", "#8BAE68", "#D68C67", "#61ABDA", "#CF86C1", "#65B8C1", "#888F94" },
+			tab_bar = {
+				background = "#1C1917",
+				active_tab = {
+					bg_color = "#403833",
+					fg_color = "#C4CACF",
+					intensity = "Bold",
+				},
+				inactive_tab = {
+					bg_color = "#1C1917",
+					fg_color = "#888F94",
+				},
+				inactive_tab_hover = {
+					bg_color = "#3D4042",
+					fg_color = "#B4BDC3",
+					italic = true,
+				},
+			},
 		}
 	else
 		-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_light.toml
@@ -236,7 +352,7 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
-config.bold_brightens_ansi_colors = true
+config.bold_brightens_ansi_colors = false
 config.keys = {
 	{
 		key = "w",
