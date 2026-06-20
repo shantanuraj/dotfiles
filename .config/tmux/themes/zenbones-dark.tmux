@@ -8,7 +8,7 @@ set -g status-left-length 40
 set -g status-right-length 120
 set -g status-style "fg=#B4BDC3,bg=#1C1917"
 set -g status-left "#[fg=#819B69,bold] #S #[default]"
-set -g status-right "#{?client_prefix,#[fg=#1C1917,bg=#B279A7,bold] prefix #[default] ,}#[fg=#888F94]%a %b %e %H:%M "
+set -g status-right "#{?client_prefix,#[fg=#1C1917#,bg=#B279A7#,bold] prefix #[default] ,}#[fg=#888F94]%a %b %e %H:%M "
 
 set -g window-status-separator ""
 set -g window-status-style "fg=#888F94,bg=#1C1917"
