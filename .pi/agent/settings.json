@@ -1,0 +1,21 @@
+{
+  "packages": [
+    "git:github.com/supabitapp/supaterm-skills",
+    "npm:pi-subagents",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-markdown-preview",
+    "npm:pi-btw"
+  ],
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "all",
+  "treeFilterMode": "default",
+  "defaultThinkingLevel": "xhigh",
+  "theme": "zenbones",
+  "editorPaddingX": 2,
+  "compaction": {
+    "enabled": false
+  },
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.5"
+}

@@ -1,0 +1,11 @@
+# Pi runtime/private state; keep these out of dotfiles.
+auth.json
+trust.json
+run-history.jsonl
+sessions/
+npm/
+git/
+
+# Local logs/caches.
+*.log
+.cache/
