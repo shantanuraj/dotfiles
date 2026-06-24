@@ -76,6 +76,8 @@ export PATH="$HOME/.local/bin:$PATH"
 # bat theme
 export BAT_THEME="ansi"
 
+source "$HOME/.dotfiles/.config/zsh/ls-colors.zsh"
+
 # magit
 alias magit="emacs -nw --eval '(magit-status)'"
 
