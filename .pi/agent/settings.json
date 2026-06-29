@@ -16,6 +16,6 @@
   "compaction": {
     "enabled": false
   },
-  "defaultProvider": "openai",
+  "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5"
 }
