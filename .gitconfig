@@ -25,7 +25,6 @@
   renames = copies
   noprefix = true
   wordRegex = [^[:space:]]
-  compactionHeuristic = true
   algorithm = patience
   relative = true
   colorMoved = default
