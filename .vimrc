@@ -5,14 +5,12 @@ syntax enable
 filetype plugin indent on
 
 " core
-set nocompatible
 set autoread
 set hidden
 set noerrorbells
 set belloff=all
 set backspace=indent,eol,start
 set encoding=utf-8
-set fileencoding=utf-8
 set re=0
 set mouse=a
 set undofile
@@ -85,7 +83,6 @@ endtry
 " leader
 nnoremap <Space> <Nop>
 let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
 
 " movement
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
