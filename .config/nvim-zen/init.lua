@@ -4,7 +4,6 @@ vim.g.netrw_banner = 0
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.cmd.colorscheme("quiet")
-vim.o.errorbells = false
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
@@ -12,16 +11,13 @@ vim.o.cursorlineopt = "number"
 vim.o.scrolloff = 10
 vim.o.sidescrolloff = 10
 vim.o.virtualedit = "block"
-vim.o.showmode = true
 vim.o.laststatus = 1
 vim.o.signcolumn = "yes"
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
-vim.o.smarttab = true
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
-vim.o.autoindent = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -34,9 +30,6 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.undofile = true
 vim.o.timeoutlen = 500
-
-vim.o.encoding = "utf-8"
-vim.o.fileencoding = "utf-8"
 
 vim.opt.guicursor = {
 	"n-v-c:block",
@@ -86,12 +79,11 @@ local function fzf_pick(cmd, sink, fzf_flags)
 		style = "minimal",
 		border = "single",
 	})
-	vim.api.nvim_buf_set_keymap(buf, "t", "<esc>", "<C-\\><C-n><cmd>bdelete!<cr>", { silent = true })
 	vim.fn.jobstart(cmd .. " | fzf " .. (fzf_flags or "") .. " > " .. tempfile, {
 		term = true,
 		on_exit = function()
 			vim.schedule(function()
-				vim.cmd.bdelete({ bang = true })
+				vim.api.nvim_buf_delete(buf, { force = true })
 				local lines = vim.fn.readfile(tempfile)
 				vim.fn.delete(tempfile)
 				if #lines > 0 and lines[1] ~= "" then
