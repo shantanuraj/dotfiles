@@ -106,9 +106,6 @@ fi
 # WezTerm
 source "$HOME/.dotfiles/.config/wezterm/wezterm.sh"
 
-# rbenv
-command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
-
 # Playdate SDK
 export PLAYDATE_SDK="$HOME/Developer/PlaydateSDK"
 export PATH="$PLAYDATE_SDK/bin:$PATH"
