@@ -38,16 +38,17 @@ return require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     lazy = false,
-    event = { "BufReadPost", "BufNewFile" },
-    build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
-    end,
-    opts = function()
-      return require("user.treesitter")
-    end,
-    config = function(_, opts)
-      require("nvim-treesitter.config").setup(opts)
-      require("nvim-treesitter.install").install(opts.ensure_installed, { skip = { installed = true } })
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.install").install(require("user.treesitter"), { skip = { installed = true } })
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+        callback = function(ev)
+          if pcall(vim.treesitter.start, ev.buf) then
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
       local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
       local which_key_status, which_key = pcall(require, "which-key")
       if not which_key_status then
@@ -78,7 +79,49 @@ return require("lazy").setup({
       -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
       vim.g.no_plugin_maps = true
     end,
-    config = function() end,
+    config = function()
+      local move = require("nvim-treesitter-textobjects.move")
+      local moves = {
+        ["]m"] = { "goto_next_start", "@function.outer" },
+        ["]o"] = {
+          "goto_next_start",
+          { "@block.inner", "@conditional.inner", "@loop.inner" },
+          desc = "Next block, conditional or loop",
+        },
+        ["]O"] = {
+          "goto_next_start",
+          { "@block.outer", "@conditional.outer", "@loop.outer" },
+          desc = "Next block, conditional or loop (outer)",
+        },
+        ["]s"] = { "goto_next_start", "@scope", group = "locals", desc = "Next scope" },
+        ["]M"] = { "goto_next_end", "@function.outer" },
+        ["]["] = { "goto_next_end", "@class.outer" },
+        ["[m"] = { "goto_previous_start", "@function.outer" },
+        ["[o"] = {
+          "goto_previous_start",
+          { "@block.inner", "@conditional.inner", "@loop.inner" },
+          desc = "Previous block, conditional or loop",
+        },
+        ["[O"] = {
+          "goto_previous_start",
+          { "@block.outer", "@conditional.outer", "@loop.outer" },
+          desc = "Previous block, conditional or loop (outer)",
+        },
+        ["[s"] = { "goto_previous_start", "@scope", group = "locals", desc = "Previous scope" },
+        ["[M"] = { "goto_previous_end", "@function.outer" },
+        ["[]"] = { "goto_previous_end", "@class.outer" },
+        ["]a"] = { "goto_next", "@parameter.inner" },
+        ["[a"] = { "goto_previous", "@parameter.inner" },
+      }
+      for lhs, spec in pairs(moves) do
+        vim.keymap.set({ "n", "x", "o" }, lhs, function()
+          move[spec[1]](spec[2], spec.group)
+        end, { desc = spec.desc })
+      end
+      vim.keymap.set({ "x", "o" }, "as", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@scope", "locals")
+      end, { desc = "Select language scope" })
+    end,
   },
 
   -- Lualine
