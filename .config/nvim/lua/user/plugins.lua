@@ -31,7 +31,15 @@ return require("lazy").setup({
   },
 
   -- GitHub CoPilot
-  { "github/copilot.vim" },
+  {
+    "github/copilot.vim",
+    lazy = false,
+    init = function()
+      vim.g.copilot_filetypes = vim.tbl_extend("force", vim.g.copilot_filetypes or {}, {
+        gitcommit = true,
+      })
+    end,
+  },
 
   -- Treesitter
   {
