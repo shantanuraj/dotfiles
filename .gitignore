@@ -13,5 +13,8 @@ CLAUDE.md
 # Cursor
 .cursor/
 
+# PI Subagents
+.pi-subagents/
+
 # Helix recent files
 **/.helix/recent-files.txt
