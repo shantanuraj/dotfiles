@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 vim.g.netrw_list_hide = "^\\./\\=$"
 vim.g.netrw_banner = 0
 vim.o.termguicolors = true
-vim.o.background = "dark"
-vim.cmd.colorscheme("quiet")
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
