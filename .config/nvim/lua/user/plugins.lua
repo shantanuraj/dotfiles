@@ -850,6 +850,27 @@ return require("lazy").setup({
         desc = "Find in project",
       },
       {
+        "<leader>fx",
+        function()
+          Snacks.picker.grep({
+            hidden = true,
+            exclude = {
+              "**/.git/*",
+              "**/test/**",
+              "**/tests/**",
+              "**/__tests__/**",
+              "**/testdata/**",
+              "*_test.*",
+              "*.test.*",
+              "*.spec.*",
+              "**/docs/**",
+              "*.md",
+            },
+          })
+        end,
+        desc = "Find in project (no tests/docs)",
+      },
+      {
         "<leader>ft",
         function()
           Snacks.picker.lsp_workspace_symbols()
