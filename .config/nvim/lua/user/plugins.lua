@@ -1022,23 +1022,10 @@ return require("lazy").setup({
   -- Leap
   {
     "https://codeberg.org/andyg/leap.nvim",
-    keys = {
-      { "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
-      { "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
-      { "gs", mode = { "n", "x", "o" }, desc = "Leap from Windows" },
-    },
-    config = function(_, opts)
-      local leap = require("leap")
-      for k, v in pairs(opts) do
-        leap.opts[k] = v
-      end
-      leap.add_default_mappings(true)
-      vim.keymap.del({ "x", "o" }, "x")
-      vim.keymap.del({ "x", "o" }, "X")
-      vim.keymap.del({ "n", "x" }, "s")
-      vim.keymap.set("n", "s", function()
-        leap.leap({ target_windows = { vim.api.nvim_get_current_win() } })
-      end)
+    lazy = false,
+    config = function()
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)", { desc = "Leap" })
+      vim.keymap.set("n", "S", "<Plug>(leap-from-window)", { desc = "Leap from window" })
     end,
   },
 
