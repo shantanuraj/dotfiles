@@ -3,7 +3,6 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "osx-cross/arm"
 tap "osx-cross/avr"
-tap "phrase/brewed"
 tap "pkgxdev/made"
 tap "qmk/qmk"
 tap "watercooler-labs/pkg", "git@github.com:watercooler-labs/homebrew-pkg.git"
@@ -178,8 +177,6 @@ brew "odin"
 brew "openslide"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
-# Tool to interact with the Phrase API
-brew "phrase-cli"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Interpreted, interactive, object-oriented programming language
