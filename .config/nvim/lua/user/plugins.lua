@@ -185,7 +185,11 @@ return require("lazy").setup({
             "mode",
             { "macro-recording", fmt = show_macro_recording },
           },
-          lualine_x = {},
+          lualine_x = {
+            function()
+              return require("dreja").statusline()
+            end,
+          },
           lualine_z = {
             "location",
             {
@@ -193,6 +197,14 @@ return require("lazy").setup({
               maxcount = 999,
               timeout = 500,
             },
+          },
+        },
+        inactive_sections = {
+          lualine_x = {
+            function()
+              return require("dreja").statusline()
+            end,
+            "location",
           },
         },
         options = {
