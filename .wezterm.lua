@@ -99,26 +99,10 @@ wezterm.on("gui-startup", function()
 	end
 end)
 
-local function status_colors_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return {
-			workspace = "#819B69",
-			separator = "#888F94",
-			date = "#B279A7",
-		}
-	end
-
-	return {
-		workspace = "#4F6C31",
-		separator = "#4F5E68",
-		date = "#88507D",
-	}
-end
-
 wezterm.on("update-status", function(window)
 	local workspace = window:active_workspace()
 	local date = wezterm.strftime("%a %b %-d %H:%M")
-	local colors = status_colors_for_appearance(window:get_appearance())
+	local colors = { workspace = "#EABC75", separator = "#665031", date = "#9B8055" }
 
 	window:set_right_status(wezterm.format({
 		{ Foreground = { Color = colors.workspace } },
@@ -237,83 +221,36 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	window:set_config_overrides(overrides)
 end)
 
-local function get_appearance()
-	if wezterm.gui then
-		return wezterm.gui.get_appearance()
-	end
-	return "Dark"
-end
+-- Amberglass stays dark regardless of macOS appearance.
+-- Keep ANSI slots in sync with .config/nvim/lua/user/amberglass.lua.
+local amberglass = {
+	foreground = "#D9AA63",
+	background = "#15120D",
+	cursor_fg = "#15120D",
+	cursor_bg = "#FFD393",
+	cursor_border = "#FFD393",
+	selection_fg = "#D9AA63",
+	selection_bg = "#49351D",
+	split = "#665031",
+	scrollbar_thumb = "#665031",
+	ansi = { "#211B12", "#D98267", "#A7AD79", "#E8B461", "#A3A699", "#B49A79", "#9FA889", "#D9AA63" },
+	brights = { "#9B8055", "#E99A7D", "#BCC28C", "#FFD393", "#BDC0B1", "#CBB18D", "#B7C09E", "#EABC75" },
+	tab_bar = {
+		background = "#100E0A",
+		active_tab = { bg_color = "#2C2316", fg_color = "#EABC75", intensity = "Bold" },
+		inactive_tab = { bg_color = "#100E0A", fg_color = "#9B8055" },
+		inactive_tab_hover = { bg_color = "#211B12", fg_color = "#D9AA63" },
+		new_tab = { bg_color = "#100E0A", fg_color = "#9B8055" },
+		new_tab_hover = { bg_color = "#211B12", fg_color = "#EABC75" },
+	},
+}
 
-local function colors_for_appearance(appearance)
-	if appearance:find("Dark") then
-		-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_dark.toml
-		return {
-			foreground = "#B4BDC3",
-			background = "#171210",
-			cursor_fg = "#1C1917",
-			cursor_bg = "#C4CACF",
-			cursor_border = "#1C1917",
-			selection_fg = "#B4BDC3",
-			selection_bg = "#3D4042",
-			ansi = { "#1C1917", "#DE6E7C", "#819B69", "#B77E64", "#6099C0", "#B279A7", "#66A5AD", "#B4BDC3" },
-			brights = { "#403833", "#E8838F", "#8BAE68", "#D68C67", "#61ABDA", "#CF86C1", "#65B8C1", "#888F94" },
-			tab_bar = {
-				background = "#1C1917",
-				active_tab = {
-					bg_color = "#403833",
-					fg_color = "#C4CACF",
-					intensity = "Bold",
-				},
-				inactive_tab = {
-					bg_color = "#1C1917",
-					fg_color = "#888F94",
-				},
-				inactive_tab_hover = {
-					bg_color = "#3D4042",
-					fg_color = "#B4BDC3",
-					italic = true,
-				},
-			},
-		}
-	else
-		-- Adapted from https://github.com/mcchrish/zenbones.nvim/blob/main/extras/wezterm/Zenbones_light.toml
-		return {
-			foreground = "#2C363C",
-			background = "#F0EDEC",
-			cursor_fg = "#F0EDEC",
-			cursor_bg = "#2C363C",
-			cursor_border = "#F0EDEC",
-			selection_fg = "#2C363C",
-			selection_bg = "#CBD9E3",
-			ansi = { "#F0EDEC", "#A8334C", "#4F6C31", "#944927", "#286486", "#88507D", "#3B8992", "#2C363C" },
-			brights = { "#CFC1BA", "#94253E", "#3F5A22", "#803D1C", "#1D5573", "#7B3B70", "#2B747C", "#4F5E68" },
-			tab_bar = {
-				background = "#CBD9E3",
-				active_tab = {
-					bg_color = "#BBABA3",
-					fg_color = "#2C363C",
-					intensity = "Bold",
-				},
-				inactive_tab = {
-					bg_color = "#CBD9E3",
-					fg_color = "#2C363C",
-				},
-				inactive_tab_hover = {
-					bg_color = "#CBD9E3",
-					fg_color = "#2C363C",
-					italic = true,
-				},
-			},
-		}
-	end
-end
-
+-- Clear colors left by the old appearance handler when hot-reloading.
+-- Preserve unrelated overrides (e.g. zen mode), and avoid a reload loop.
 wezterm.on("window-config-reloaded", function(window)
 	local overrides = window:get_config_overrides() or {}
-	local appearance = window:get_appearance()
-	local colors = colors_for_appearance(appearance)
-	if overrides.colors ~= colors then
-		overrides.colors = colors
+	if overrides.colors ~= nil then
+		overrides.colors = nil
 		window:set_config_overrides(overrides)
 	end
 end)
@@ -330,7 +267,11 @@ config.initial_cols = 160
 config.initial_rows = 48
 config.default_prog = { "/bin/zsh", "-l" }
 
-config.colors = colors_for_appearance(get_appearance())
+config.colors = amberglass
+config.default_cursor_style = "SteadyBlock"
+config.window_background_opacity = 1.0
+config.text_background_opacity = 1.0
+config.inactive_pane_hsb = { saturation = 1.0, brightness = 0.9 }
 
 config.default_workspace = "dev"
 config.font = wezterm.font("Berkeley Mono")
@@ -343,8 +284,8 @@ config.show_tab_index_in_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 config.window_frame = {
 	font_size = 14.0,
-	-- active_titlebar_bg = "#12131d",
-	-- inactive_titlebar_bg = "#1e2030",
+	active_titlebar_bg = "#100E0A",
+	inactive_titlebar_bg = "#100E0A",
 }
 config.window_padding = {
 	left = 0,

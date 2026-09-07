@@ -11,22 +11,7 @@ return require("lazy").setup({
       "rktjmp/lush.nvim",
     },
     config = function()
-      vim.g.zenbones = { darkness = "stark", colorize_diagnostic_underline_text = true }
-
-      local function sync_background()
-        local light = vim.fn.executable("defaults") == 1
-          and vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null"):find("Dark") == nil
-        vim.opt.background = light and "light" or "dark"
-      end
-
-      sync_background()
-      vim.cmd.colorscheme("zenbones")
-
-      local zenbones_group = vim.api.nvim_create_augroup("user_zenbones", { clear = true })
-      vim.api.nvim_create_autocmd("FocusGained", {
-        group = zenbones_group,
-        callback = sync_background,
-      })
+      vim.cmd.colorscheme("amberglass")
     end,
   },
 
@@ -200,6 +185,9 @@ return require("lazy").setup({
           },
         },
         options = {
+          theme = require("user.amberglass").lualine(),
+          component_separators = "",
+          section_separators = "",
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },
@@ -1038,7 +1026,7 @@ return require("lazy").setup({
       open_mapping = [[<c-\>]],
       hide_numbers = true,
       shade_filetypes = {},
-      shade_terminals = true,
+      shade_terminals = false,
       start_in_insert = true,
       persist_size = true,
       direction = "float",
