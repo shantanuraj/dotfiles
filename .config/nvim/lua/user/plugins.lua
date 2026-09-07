@@ -1,6 +1,17 @@
+local dreja_dir = vim.fn.expand("~/dev/shantanuraj/dreja")
+if vim.fn.isdirectory(dreja_dir) == 0 then
+  dreja_dir = vim.fn.expand("~/src/shantanuraj/dreja")
+end
+
 return require("lazy").setup({
   defaults = {
     lazy = true,
+  },
+  {
+    dir = dreja_dir,
+    name = "dreja",
+    lazy = false,
+    opts = {},
   },
   -- Theme
   {
