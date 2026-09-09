@@ -1,0 +1,8 @@
+{
+  "providers": {
+    "openai-codex": {
+      "baseUrl": "https://codex-balancer.exe.xyz/v1",
+      "apiKey": "$CODEX_BALANCER_API_KEY"
+    }
+  }
+}
