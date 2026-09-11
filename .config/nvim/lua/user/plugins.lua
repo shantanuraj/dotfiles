@@ -11,7 +11,12 @@ return require("lazy").setup({
     dir = dreja_dir,
     name = "dreja",
     lazy = false,
-    opts = {},
+    opts = {
+      layout = {
+        prompt_position = "right",
+        prompt_size = 0.2,
+      },
+    },
   },
   -- Theme
   {
