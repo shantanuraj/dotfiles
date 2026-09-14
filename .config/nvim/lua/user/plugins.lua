@@ -11,6 +11,9 @@ return require("lazy").setup({
     dir = dreja_dir,
     name = "dreja",
     lazy = false,
+    keys = {
+      { "<leader>a", "<cmd>Dreja<cr>", desc = "Dreja actions" },
+    },
     opts = {
       layout = {
         prompt_position = "right",
