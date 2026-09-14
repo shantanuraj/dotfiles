@@ -1,7 +1,7 @@
 {
   "providers": {
     "openai-codex": {
-      "baseUrl": "https://codex-balancer.exe.xyz/v1",
+      "baseUrl": "http://127.0.0.1:8317/v1",
       "apiKey": "$CODEX_BALANCER_API_KEY"
     }
   }
