@@ -91,7 +91,9 @@ return function(_, _)
             conform.format({ bufnr = bufnr, lsp_format = "never", async = false })
           else
             vim.lsp.buf.format({
-              filter = function(client) return client.name == "rust_analyzer" end,
+              filter = function(client)
+                return client.name == "rust_analyzer"
+              end,
               bufnr = bufnr,
             })
           end
@@ -248,6 +250,7 @@ return function(_, _)
             "vim",
             "playdate",
             "import",
+            "Snacks",
           },
         },
         workspace = {
