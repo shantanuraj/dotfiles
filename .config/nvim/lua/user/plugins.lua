@@ -1,3 +1,6 @@
+-- Built-in SSH sessions use a separate app name but share this configuration.
+local is_remote = vim.env.NVIM_APPNAME == "nvim-remote"
+
 local dreja_dir = vim.fn.expand("~/dev/shantanuraj/dreja")
 if vim.fn.isdirectory(dreja_dir) == 0 then
   dreja_dir = vim.fn.expand("~/src/shantanuraj/dreja")
@@ -30,7 +33,7 @@ return require("lazy").setup({
       "rktjmp/lush.nvim",
     },
     config = function()
-      vim.cmd.colorscheme("amberglass")
+      vim.cmd.colorscheme(is_remote and "nordbones" or "amberglass")
     end,
   },
 
@@ -216,7 +219,7 @@ return require("lazy").setup({
           },
         },
         options = {
-          theme = require("user.amberglass").lualine(),
+          theme = is_remote and "nordbones" or require("user.amberglass").lualine(),
           component_separators = "",
           section_separators = "",
           globalstatus = true,
