@@ -22,6 +22,11 @@ done
 	symlink "$dir"
 done
 
+# Reuse the primary Neovim config for SSH sessions unless a remote config exists.
+if [ ! -e "$HOME/.config/nvim-remote" ] && [ ! -L "$HOME/.config/nvim-remote" ]; then
+	ln -sv "$HOME/.config/nvim" "$HOME/.config/nvim-remote"
+fi
+
 # Pi keeps secrets, sessions, package caches, and other runtime state under ~/.pi/agent.
 if [ -d .pi/agent ]; then
 	/usr/bin/find .pi/agent -mindepth 1 -maxdepth 1 -type f \
