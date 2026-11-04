@@ -201,6 +201,7 @@ return require("lazy").setup({
               return require("dreja").statusline()
             end,
           },
+          lualine_y = is_remote and { "hostname", "progress" } or { "progress" },
           lualine_z = {
             "location",
             {
