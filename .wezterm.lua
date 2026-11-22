@@ -308,6 +308,11 @@ config.keys = {
 		action = act.SwitchWorkspaceRelative(1),
 	},
 	{
+		key = "a",
+		mods = "SUPER|SHIFT",
+		action = act.SwitchWorkspaceRelative(1),
+	},
+	{
 		key = "r",
 		mods = "SUPER|SHIFT",
 		action = act.RotatePanes("Clockwise"),
@@ -333,7 +338,10 @@ config.keys = {
 	{ mods = "SUPER|SHIFT", key = "d", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "[", mods = "SUPER", action = act.ActivatePaneDirection("Prev") },
 	{ key = "]", mods = "SUPER", action = act.ActivatePaneDirection("Next") },
-	-- maxmize current pane
+	{ key = "e", mods = "SUPER", action = act.ActivatePaneDirection("Next") },
+	{ key = "e", mods = "SUPER|SHIFT", action = act.ActivatePaneDirection("Prev") },
+	-- Maximize current pane
+	{ key = "z", mods = "SUPER", action = act.TogglePaneZoomState },
 	{
 		key = "Enter",
 		mods = "SUPER|SHIFT",
